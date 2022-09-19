@@ -1,0 +1,2890 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_search"
+basePath: "/API/search"
+paths:
+  /v1/discovery/default/:
+    put:
+      summary: "Update default discovery view"
+      description: "\nRequired roles:\n - can_write_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/DiscoveryViewSettingsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns updated default discovery view"
+          schema:
+            $ref: "#/definitions/DiscoveryViewSettingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/discovery/default/entities/:
+    get:
+      summary: "Returns the discovery entities that are used to build the discovery\
+        \ view."
+      description: "\nRequired roles:\n - can_read_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns the configured discovery entities"
+          schema:
+            $ref: "#/definitions/DiscoveryEntitiesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Adds a new discovery entity."
+      description: "<br/>This creates an entry for the discovery view to show collections\
+        \ and saved searches.<br/>Object Type should be one of COLLECTION, SAVED_SEARCH,\
+        \ ASSET, RECOMMENDATION or TRENDING<br/>Object ID is only needed in the case\
+        \ of COLLECTION, SAVED_SEARCH or ASSET<br/>metadata is for user defined extra\
+        \ data.<br/>\nRequired roles:\n - can_write_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/DiscoveryEntitySchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns the configured discovery entities"
+          schema:
+            $ref: "#/definitions/DiscoveryEntitySchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/discovery/default/entities/admin/:
+    get:
+      summary: "Returns the discovery entities that are used to build the discovery\
+        \ view."
+      description: "\nRequired roles:\n - can_write_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns the configured discovery entities"
+          schema:
+            $ref: "#/definitions/DiscoveryEntitiesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/discovery/default/entities/{entity_id}/:
+    get:
+      summary: "Returns discovery entity"
+      description: "\nRequired roles:\n - can_read_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "entity_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "EntityId"
+      responses:
+        "200":
+          description: "Returns Discovery entity"
+          schema:
+            $ref: "#/definitions/DiscoveryEntitySchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    put:
+      summary: "Update a discovery entity by id"
+      description: "\nRequired roles:\n - can_write_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "entity_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "EntityId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/DiscoveryEntitySchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns new entity"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Search History does not exist"
+    delete:
+      summary: "Delete a discovery entity by id"
+      description: "\nRequired roles:\n - can_delete_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "entity_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "EntityId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Search History does not exist"
+    patch:
+      summary: "Update a discovery entity by id"
+      description: "\nRequired roles:\n - can_write_discovery_entities"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "entity_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "EntityId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/DiscoveryEntitySchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns new entity"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Search History does not exist"
+  /v1/search/:
+    post:
+      summary: "Search"
+      description: "\nRequired roles:\n - can_search"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of documents for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "scroll"
+        in: "query"
+        description: "If true passed then uses scroll pagination instead of default\
+          \ one"
+        required: false
+        type: "boolean"
+        x-exportParamName: "Scroll"
+        x-optionalDataType: "Bool"
+      - name: "scroll_id"
+        in: "query"
+        description: "In order to get next batch of results using scroll pagination\
+          \ the scroll_id is required"
+        required: false
+        type: "string"
+        x-exportParamName: "ScrollId"
+        x-optionalDataType: "String"
+      - name: "generate_signed_url"
+        in: "query"
+        description: "Set to false if you don't need a URL, will speed things up"
+        required: false
+        type: "boolean"
+        default: true
+        x-exportParamName: "GenerateSignedUrl"
+        x-optionalDataType: "Bool"
+      - name: "generate_signed_download_url"
+        in: "query"
+        description: "Set to true if you also want the file download URLs generated"
+        required: false
+        type: "boolean"
+        default: false
+        x-exportParamName: "GenerateSignedDownloadUrl"
+        x-optionalDataType: "Bool"
+      - name: "save_search_history"
+        in: "query"
+        description: "Set to false if you don't want to save the search to the history"
+        required: false
+        type: "boolean"
+        default: true
+        x-exportParamName: "SaveSearchHistory"
+        x-optionalDataType: "Bool"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SearchCriteriaSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the result of search"
+          schema:
+            $ref: "#/definitions/SearchDocumentsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/search/history/:
+    get:
+      summary: "Returns the current search history"
+      description: "\nRequired roles:\n - can_read_search_history"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns list of last 25 searches"
+          schema:
+            $ref: "#/definitions/SearchHistoryListSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/search/history/{search_history_id}/:
+    get:
+      summary: "Returns results of search history"
+      description: "\nRequired roles:\n - can_read_search_history"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "search_history_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchHistoryId"
+      responses:
+        "200":
+          description: "Returns results of search history"
+          schema:
+            $ref: "#/definitions/SearchDocumentsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    delete:
+      summary: "Delete a search from history by its id"
+      description: "\nRequired roles:\n - can_delete_search_history"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "search_history_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchHistoryId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Search History does not exist"
+  /v1/search/saved/:
+    get:
+      summary: "Returns list of saved searches"
+      description: "\nRequired roles:\n - can_read_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - name,asc;group_id,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "group_id"
+        in: "query"
+        description: "Group ID"
+        required: false
+        type: "string"
+        x-exportParamName: "GroupId"
+        x-optionalDataType: "String"
+      - name: "ids"
+        in: "query"
+        description: "Filter list of id:s (comma separated)"
+        required: false
+        type: "string"
+        x-exportParamName: "Ids"
+        x-optionalDataType: "String"
+      - name: "query"
+        in: "query"
+        description: "Search using query"
+        required: false
+        type: "string"
+        x-exportParamName: "Query"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns results of saved search"
+          schema:
+            $ref: "#/definitions/SavedSearchesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Page does not exist"
+    post:
+      summary: "Search, save and return result of this search"
+      description: "\nRequired roles:\n - can_write_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SavedSearchSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns the result of search"
+          schema:
+            $ref: "#/definitions/SavedSearchSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/search/saved/content/bulk_acls/: {}
+  /v1/search/saved/content/bulk_analyze/: {}
+  /v1/search/saved/content/bulk_delete/: {}
+  /v1/search/saved/content/bulk_metadata/: {}
+  /v1/search/saved/content/bulk_transcode/: {}
+  /v1/search/saved/content/bulk_transcribe/: {}
+  /v1/search/saved/content/bulk_transfer/: {}
+  /v1/search/saved/group/:
+    post:
+      summary: "Create and return saved search group data"
+      description: "\nRequired roles:\n - can_write_saved_search_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SavedSearchGroupSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns the result of creation of search group instance"
+          schema:
+            $ref: "#/definitions/SavedSearchGroupSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/search/saved/group/{group_id}/:
+    get:
+      summary: "Returns saved search group data"
+      description: "\nRequired roles:\n - can_read_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "200":
+          description: "Returns saved search group info"
+          schema:
+            $ref: "#/definitions/SavedSearchGroupSchema"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search does not exist"
+    put:
+      summary: "Update and return saved search group data"
+      description: "\nRequired roles:\n - can_write_saved_search_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SavedSearchGroupSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the result of updating group"
+          schema:
+            $ref: "#/definitions/SavedSearchGroupSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search group does not exist"
+    delete:
+      summary: "Delete a saved search group by it's id"
+      description: "\nRequired roles:\n - can_delete_saved_search_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "204":
+          description: "Without body"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search does not exist"
+    patch:
+      summary: "Update and return saved search group data"
+      description: "\nRequired roles:\n - can_write_saved_search_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SavedSearchGroupSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the result of updating group"
+          schema:
+            $ref: "#/definitions/SavedSearchGroupSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search group does not exist"
+  /v1/search/saved/group/{group_id}/search/{search_id}/:
+    post:
+      summary: "Adds saved search to group"
+      description: "\nRequired roles:\n - can_write_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "search_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchId"
+      responses:
+        "200":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search does not exist"
+    delete:
+      summary: "Delete saved search from search group"
+      description: "\nRequired roles:\n - can_write_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "search_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchId"
+      responses:
+        "200":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search does not exist"
+  /v1/search/saved/groups/:
+    get:
+      summary: "Returns paginated list of search groups"
+      description: "\nRequired roles:\n - can_read_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "ids"
+        in: "query"
+        description: "A comma separated list of IDs. for example - 3c2db7d8-1f39-46e3-8c77-992101e5e616,683a2c63-63a0-42b0-aed8-5b62dedba840"
+        required: false
+        type: "string"
+        x-exportParamName: "Ids"
+        x-optionalDataType: "String"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of groups info"
+          schema:
+            $ref: "#/definitions/SavedSearchGroupsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Page number does not exist"
+  /v1/search/saved/groups/{group_id}/reindex/:
+    post:
+      summary: "Reindex a particular saved search group by id"
+      description: "\nRequired roles:\n - can_reindex_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "200":
+          description: "Returns a job info"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group does not exist"
+  /v1/search/saved/{search_id}/:
+    get:
+      summary: "Returns results of saved search"
+      description: "\nRequired roles:\n - can_read_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "search_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchId"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "include_results"
+        in: "query"
+        description: "Set to false if you only want the search definition"
+        required: false
+        type: "boolean"
+        default: true
+        x-exportParamName: "IncludeResults"
+        x-optionalDataType: "Bool"
+      responses:
+        "200":
+          description: "Returns results of saved search"
+          schema:
+            $ref: "#/definitions/SavedSearchResultsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search does not exist"
+    put:
+      summary: "Search and save this search"
+      description: "\nRequired roles:\n - can_write_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "search_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SavedSearchSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the result of search"
+          schema:
+            $ref: "#/definitions/SearchDocumentsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search does not exist"
+    delete:
+      summary: "Delete a saved search by its id"
+      description: "\nRequired roles:\n - can_delete_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "search_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Saved search does not exist"
+  /v1/search/saved/{search_id}/reindex/:
+    post:
+      summary: "Reindex a particular saved search by id"
+      description: "\nRequired roles:\n - can_reindex_saved_searches"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "search_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SearchId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ReindexSavedSearchSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns a job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+  /v1/search/suggest/:
+    post:
+      summary: "Returns search suggestions for a particular query."
+      description: "\nRequired roles:\n - can_search"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of documents for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "filter"
+        in: "query"
+        description: "A comma separated list of fieldnames with order For example\
+          \ - first_name,eq,Vlad;last_name,eq,Gudkov"
+        required: false
+        type: "string"
+        x-exportParamName: "Filter"
+        x-optionalDataType: "String"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/SearchSuggestSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns search suggestions for a particular query."
+          schema:
+            $ref: "#/definitions/SearchSuggestsResponseSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+definitions:
+  BulkSavedSearchActionSchema:
+    type: "object"
+    required:
+    - "job_id"
+    - "search_ids"
+    properties:
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  BulkSavedSearchMetadataUpdateSchema:
+    type: "object"
+    required:
+    - "include_assets"
+    - "include_collections"
+    - "job_id"
+    - "search_ids"
+    properties:
+      include_assets:
+        type: "boolean"
+      include_collections:
+        type: "boolean"
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  BulkSavedSearchObjectsACLUpdateSchema:
+    type: "object"
+    required:
+    - "include_assets"
+    - "include_collections"
+    - "job_id"
+    - "search_ids"
+    properties:
+      include_assets:
+        type: "boolean"
+      include_collections:
+        type: "boolean"
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  BulkSavedSearchObjectsAnalyzeSchema:
+    type: "object"
+    required:
+    - "job_id"
+    - "search_ids"
+    properties:
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  BulkSavedSearchObjectsDeleteSchema:
+    type: "object"
+    required:
+    - "include_assets"
+    - "include_collections"
+    - "job_id"
+    - "search_ids"
+    properties:
+      content_only:
+        type: "boolean"
+      include_assets:
+        type: "boolean"
+      include_collections:
+        type: "boolean"
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  BulkSavedSearchObjectsTranscodeSchema:
+    type: "object"
+    required:
+    - "job_id"
+    - "search_ids"
+    properties:
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  BulkSavedSearchObjectsTranscribeSchema:
+    type: "object"
+    required:
+    - "job_id"
+    - "search_ids"
+    properties:
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  BulkSavedSearchObjectsTransferSchema:
+    type: "object"
+    required:
+    - "include_assets"
+    - "include_collections"
+    - "job_id"
+    - "search_ids"
+    properties:
+      include_assets:
+        type: "boolean"
+      include_collections:
+        type: "boolean"
+      job_id:
+        type: "string"
+      search_ids:
+        type: "array"
+        items:
+          type: "string"
+  CriteriaFilterSchema:
+    type: "object"
+    required:
+    - "operator"
+    properties:
+      filters:
+        type: "array"
+        items:
+          $ref: "#/definitions/CriteriaFilterSchema_filters_1"
+      operator:
+        type: "string"
+      terms:
+        type: "array"
+        items:
+          $ref: "#/definitions/CriteriaTermSchema"
+    example:
+      terms:
+      - value_in:
+        - "value_in"
+        - "value_in"
+        missing: true
+        name: "name"
+        exists: true
+        range:
+          min: "min"
+          max: "max"
+        value: "value"
+      - value_in:
+        - "value_in"
+        - "value_in"
+        missing: true
+        name: "name"
+        exists: true
+        range:
+          min: "min"
+          max: "max"
+        value: "value"
+      filters:
+      - terms:
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        filters:
+        - terms:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          filters:
+          - ""
+          - ""
+          operator: "operator"
+        - terms:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          filters:
+          - ""
+          - ""
+          operator: "operator"
+        operator: "operator"
+      - terms:
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        filters:
+        - terms:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          filters:
+          - ""
+          - ""
+          operator: "operator"
+        - terms:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          filters:
+          - ""
+          - ""
+          operator: "operator"
+        operator: "operator"
+      operator: "operator"
+  CriteriaRangeFilterSchema:
+    type: "object"
+    properties:
+      max:
+        type: "string"
+      min:
+        type: "string"
+    example:
+      min: "min"
+      max: "max"
+  CriteriaSortSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+      order:
+        type: "string"
+    example:
+      name: "name"
+      order: "order"
+  CriteriaTermSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      exists:
+        type: "boolean"
+      missing:
+        type: "boolean"
+      name:
+        type: "string"
+      range:
+        $ref: "#/definitions/CriteriaRangeFilterSchema"
+      value:
+        type: "string"
+      value_in:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      value_in:
+      - "value_in"
+      - "value_in"
+      missing: true
+      name: "name"
+      exists: true
+      range:
+        min: "min"
+        max: "max"
+      value: "value"
+  DiscoveryEntitiesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/DiscoveryEntitySchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+    example:
+      per_page: 1
+      first_url: "first_url"
+      total: 5
+      pages: 6
+      objects:
+      - metadata: "{}"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "COLLECTION"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        title: "title"
+        object_id: "object_id"
+      - metadata: "{}"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "COLLECTION"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        title: "title"
+        object_id: "object_id"
+      next_url: "next_url"
+      page: 0
+      prev_url: "prev_url"
+      last_url: "last_url"
+  DiscoveryEntitySchema:
+    type: "object"
+    required:
+    - "object_type"
+    - "title"
+    - "user_id"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "string"
+        readOnly: true
+      metadata:
+        type: "object"
+        properties: {}
+      object_id:
+        type: "string"
+      object_type:
+        type: "string"
+        enum:
+        - "COLLECTION"
+        - "SAVED_SEARCH"
+        - "ASSET"
+        - "RECOMMENDATION"
+        - "TRENDING"
+      title:
+        type: "string"
+      user_id:
+        type: "string"
+    example:
+      metadata: "{}"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_type: "COLLECTION"
+      user_id: "user_id"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      id: "id"
+      title: "title"
+      object_id: "object_id"
+  DiscoveryViewSettingsSchema:
+    type: "object"
+    required:
+    - "entity_ids"
+    properties:
+      entity_ids:
+        type: "array"
+        items:
+          type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+    example:
+      id: "id"
+      entity_ids:
+      - "entity_ids"
+      - "entity_ids"
+      system_domain_id: "system_domain_id"
+  FacetFilterSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+      value_in:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      value_in:
+      - "value_in"
+      - "value_in"
+      name: "name"
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+  ReindexSavedSearchGroupSchema:
+    type: "object"
+    properties:
+      sync_to_another_dc:
+        type: "boolean"
+        default: true
+  ReindexSavedSearchSchema:
+    type: "object"
+    properties:
+      sync_to_another_dc:
+        type: "boolean"
+        default: true
+  SavedSearchElasticSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      criteria:
+        type: "string"
+      date_created:
+        type: "string"
+      date_modified:
+        type: "string"
+      group_id:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      date_modified: "date_modified"
+      group_id: "group_id"
+      criteria: "criteria"
+      date_created: "date_created"
+      permissions:
+      - "permissions"
+      - "permissions"
+      name: "name"
+      id: "id"
+  SavedSearchGroupSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      system_domain_id:
+        type: "string"
+      user_id:
+        type: "string"
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      user_id: "user_id"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      id: "id"
+      system_domain_id: "system_domain_id"
+  SavedSearchGroupsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SavedSearchGroupSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+    example:
+      per_page: 1
+      first_url: "first_url"
+      total: 5
+      pages: 6
+      objects:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        system_domain_id: "system_domain_id"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "id"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: 0
+      prev_url: "prev_url"
+      last_url: "last_url"
+  SavedSearchResultsSchema:
+    type: "object"
+    properties:
+      facets:
+        type: "object"
+        properties: {}
+      first_url:
+        type: "string"
+        readOnly: true
+      id:
+        type: "string"
+      last_url:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SearchDocumentSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      prev_url:
+        type: "string"
+        readOnly: true
+      search_criteria_document:
+        $ref: "#/definitions/SavedSearchSchema"
+      total:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+    example:
+      per_page: 1
+      objects:
+      - metadata: "{}"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+        title: "title"
+      - metadata: "{}"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+        title: "title"
+      next_url: "next_url"
+      prev_url: "prev_url"
+      last_url: "last_url"
+      facets: "{}"
+      first_url: "first_url"
+      total: 5
+      pages: 6
+      search_criteria_document:
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        group_id: "group_id"
+        criteria:
+          filter:
+            terms:
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            filters:
+            - terms:
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              filters:
+              - terms:
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                filters:
+                - ""
+                - ""
+                operator: "operator"
+              - terms:
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                filters:
+                - ""
+                - ""
+                operator: "operator"
+              operator: "operator"
+            - terms:
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              filters:
+              - terms:
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                filters:
+                - ""
+                - ""
+                operator: "operator"
+              - terms:
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                - value_in:
+                  - "value_in"
+                  - "value_in"
+                  missing: true
+                  name: "name"
+                  exists: true
+                  range:
+                    min: "min"
+                    max: "max"
+                  value: "value"
+                filters:
+                - ""
+                - ""
+                operator: "operator"
+              operator: "operator"
+            operator: "operator"
+          metadata_view_id: "metadata_view_id"
+          search_fields:
+          - "search_fields"
+          - "search_fields"
+          query: "query"
+          include_fields:
+          - "include_fields"
+          - "include_fields"
+          sort:
+          - name: "name"
+            order: "order"
+          - name: "name"
+            order: "order"
+          doc_types:
+          - "doc_types"
+          - "doc_types"
+          exclude_fields:
+          - "exclude_fields"
+          - "exclude_fields"
+          facets_filters:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            name: "name"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            name: "name"
+          facets:
+          - "facets"
+          - "facets"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+        name: "name"
+        id: "id"
+      name: "name"
+      id: "id"
+      page: 0
+  SavedSearchSchema:
+    type: "object"
+    required:
+    - "criteria"
+    - "name"
+    properties:
+      criteria:
+        $ref: "#/definitions/SearchCriteriaSchema"
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      group_id:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      group_id: "group_id"
+      criteria:
+        filter:
+          terms:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          filters:
+          - terms:
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            filters:
+            - terms:
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              filters:
+              - ""
+              - ""
+              operator: "operator"
+            - terms:
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              filters:
+              - ""
+              - ""
+              operator: "operator"
+            operator: "operator"
+          - terms:
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            filters:
+            - terms:
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              filters:
+              - ""
+              - ""
+              operator: "operator"
+            - terms:
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              - value_in:
+                - "value_in"
+                - "value_in"
+                missing: true
+                name: "name"
+                exists: true
+                range:
+                  min: "min"
+                  max: "max"
+                value: "value"
+              filters:
+              - ""
+              - ""
+              operator: "operator"
+            operator: "operator"
+          operator: "operator"
+        metadata_view_id: "metadata_view_id"
+        search_fields:
+        - "search_fields"
+        - "search_fields"
+        query: "query"
+        include_fields:
+        - "include_fields"
+        - "include_fields"
+        sort:
+        - name: "name"
+          order: "order"
+        - name: "name"
+          order: "order"
+        doc_types:
+        - "doc_types"
+        - "doc_types"
+        exclude_fields:
+        - "exclude_fields"
+        - "exclude_fields"
+        facets_filters:
+        - value_in:
+          - "value_in"
+          - "value_in"
+          name: "name"
+        - value_in:
+          - "value_in"
+          - "value_in"
+          name: "name"
+        facets:
+        - "facets"
+        - "facets"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      permissions:
+      - "permissions"
+      - "permissions"
+      name: "name"
+      id: "id"
+  SavedSearchesSchema:
+    type: "object"
+    properties:
+      facets:
+        type: "object"
+        properties: {}
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SavedSearchElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+    example:
+      per_page: 1
+      first_url: "first_url"
+      total: 5
+      pages: 6
+      objects:
+      - date_modified: "date_modified"
+        group_id: "group_id"
+        criteria: "criteria"
+        date_created: "date_created"
+        permissions:
+        - "permissions"
+        - "permissions"
+        name: "name"
+        id: "id"
+      - date_modified: "date_modified"
+        group_id: "group_id"
+        criteria: "criteria"
+        date_created: "date_created"
+        permissions:
+        - "permissions"
+        - "permissions"
+        name: "name"
+        id: "id"
+      next_url: "next_url"
+      page: 0
+      prev_url: "prev_url"
+      last_url: "last_url"
+      facets: "{}"
+  SearchCriteriaSchema:
+    type: "object"
+    properties:
+      doc_types:
+        type: "array"
+        items:
+          type: "string"
+      exclude_fields:
+        type: "array"
+        items:
+          type: "string"
+      facets:
+        type: "array"
+        items:
+          type: "string"
+      facets_filters:
+        type: "array"
+        items:
+          $ref: "#/definitions/FacetFilterSchema"
+      filter:
+        $ref: "#/definitions/CriteriaFilterSchema"
+      include_fields:
+        type: "array"
+        items:
+          type: "string"
+      metadata_view_id:
+        type: "string"
+      query:
+        type: "string"
+      search_fields:
+        type: "array"
+        items:
+          type: "string"
+      sort:
+        type: "array"
+        items:
+          $ref: "#/definitions/CriteriaSortSchema"
+    example:
+      filter:
+        terms:
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        filters:
+        - terms:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          filters:
+          - terms:
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            filters:
+            - ""
+            - ""
+            operator: "operator"
+          - terms:
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            filters:
+            - ""
+            - ""
+            operator: "operator"
+          operator: "operator"
+        - terms:
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          - value_in:
+            - "value_in"
+            - "value_in"
+            missing: true
+            name: "name"
+            exists: true
+            range:
+              min: "min"
+              max: "max"
+            value: "value"
+          filters:
+          - terms:
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            filters:
+            - ""
+            - ""
+            operator: "operator"
+          - terms:
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            - value_in:
+              - "value_in"
+              - "value_in"
+              missing: true
+              name: "name"
+              exists: true
+              range:
+                min: "min"
+                max: "max"
+              value: "value"
+            filters:
+            - ""
+            - ""
+            operator: "operator"
+          operator: "operator"
+        operator: "operator"
+      metadata_view_id: "metadata_view_id"
+      search_fields:
+      - "search_fields"
+      - "search_fields"
+      query: "query"
+      include_fields:
+      - "include_fields"
+      - "include_fields"
+      sort:
+      - name: "name"
+        order: "order"
+      - name: "name"
+        order: "order"
+      doc_types:
+      - "doc_types"
+      - "doc_types"
+      exclude_fields:
+      - "exclude_fields"
+      - "exclude_fields"
+      facets_filters:
+      - value_in:
+        - "value_in"
+        - "value_in"
+        name: "name"
+      - value_in:
+        - "value_in"
+        - "value_in"
+        name: "name"
+      facets:
+      - "facets"
+      - "facets"
+  SearchDocumentInputSchema:
+    type: "object"
+    required:
+    - "fields"
+    properties:
+      fields:
+        type: "array"
+        items:
+          type: "object"
+          properties: {}
+  SearchDocumentSchema:
+    type: "object"
+    required:
+    - "object_type"
+    - "title"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      description:
+        type: "string"
+      id:
+        type: "string"
+        format: "uuid"
+        readOnly: true
+      metadata:
+        type: "object"
+        properties: {}
+      object_type:
+        type: "string"
+      title:
+        type: "string"
+    example:
+      metadata: "{}"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_type: "object_type"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      description: "description"
+      id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+      title: "title"
+  SearchDocumentsSchema:
+    type: "object"
+    properties:
+      facets:
+        type: "object"
+        properties: {}
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SearchDocumentSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+    example:
+      per_page: 1
+      first_url: "first_url"
+      total: 5
+      pages: 6
+      objects:
+      - metadata: "{}"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+        title: "title"
+      - metadata: "{}"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+        title: "title"
+      next_url: "next_url"
+      page: 0
+      prev_url: "prev_url"
+      last_url: "last_url"
+      facets: "{}"
+  SearchHistoryListSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SearchHistorySchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+    example:
+      per_page: 1
+      first_url: "first_url"
+      total: 5
+      pages: 6
+      objects:
+      - criteria: "{}"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+      - criteria: "{}"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+      next_url: "next_url"
+      page: 0
+      prev_url: "prev_url"
+      last_url: "last_url"
+  SearchHistorySchema:
+    type: "object"
+    required:
+    - "criteria"
+    - "id"
+    properties:
+      criteria:
+        type: "object"
+        properties: {}
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      id:
+        type: "string"
+    example:
+      criteria: "{}"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      id: "id"
+  SearchSuggestResponseSchema:
+    type: "object"
+    properties:
+      value:
+        type: "string"
+    example:
+      value: "value"
+  SearchSuggestSchema:
+    type: "object"
+    required:
+    - "field_name"
+    - "query"
+    properties:
+      doc_types:
+        type: "array"
+        items:
+          type: "string"
+      field_name:
+        type: "string"
+      metadata_view_id:
+        type: "string"
+      query:
+        type: "string"
+  SearchSuggestsResponseSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SearchSuggestResponseSchema"
+    example:
+      objects:
+      - value: "value"
+      - value: "value"
+  CriteriaFilterSchema_filters:
+    type: "object"
+    required:
+    - "operator"
+    - "terms"
+    properties:
+      filters:
+        type: "array"
+        items: {}
+      operator:
+        type: "string"
+      terms:
+        type: "array"
+        items:
+          $ref: "#/definitions/CriteriaTermSchema"
+    example:
+      terms:
+      - value_in:
+        - "value_in"
+        - "value_in"
+        missing: true
+        name: "name"
+        exists: true
+        range:
+          min: "min"
+          max: "max"
+        value: "value"
+      - value_in:
+        - "value_in"
+        - "value_in"
+        missing: true
+        name: "name"
+        exists: true
+        range:
+          min: "min"
+          max: "max"
+        value: "value"
+      filters:
+      - ""
+      - ""
+      operator: "operator"
+  CriteriaFilterSchema_filters_1:
+    type: "object"
+    required:
+    - "operator"
+    - "terms"
+    properties:
+      filters:
+        type: "array"
+        items:
+          $ref: "#/definitions/CriteriaFilterSchema_filters"
+      operator:
+        type: "string"
+      terms:
+        type: "array"
+        items:
+          $ref: "#/definitions/CriteriaTermSchema"
+    example:
+      terms:
+      - value_in:
+        - "value_in"
+        - "value_in"
+        missing: true
+        name: "name"
+        exists: true
+        range:
+          min: "min"
+          max: "max"
+        value: "value"
+      - value_in:
+        - "value_in"
+        - "value_in"
+        missing: true
+        name: "name"
+        exists: true
+        range:
+          min: "min"
+          max: "max"
+        value: "value"
+      filters:
+      - terms:
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        filters:
+        - ""
+        - ""
+        operator: "operator"
+      - terms:
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        - value_in:
+          - "value_in"
+          - "value_in"
+          missing: true
+          name: "name"
+          exists: true
+          range:
+            min: "min"
+            max: "max"
+          value: "value"
+        filters:
+        - ""
+        - ""
+        operator: "operator"
+      operator: "operator"

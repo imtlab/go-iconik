@@ -1,0 +1,2729 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_auth"
+basePath: "/API/auth"
+paths:
+  /v1/apps/:
+    get:
+      summary: "List of apps"
+      description: "\nRequired roles:\n - can_read_apps"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_id"
+        in: "query"
+        description: "ID of a last file set on previous page"
+        required: false
+        type: "string"
+        x-exportParamName: "LastId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of app"
+          schema:
+            $ref: "#/definitions/AppsSchema"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create a new app"
+      description: "\nRequired roles:\n - can_write_apps"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AppSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created app"
+          schema:
+            $ref: "#/definitions/AppSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/apps/external/auth/:
+    post:
+      summary: "Create a new token for the logged in user and store it for an external\
+        \ app"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ExternalAuthRequestSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns an app_id"
+          schema:
+            $ref: "#/definitions/ExternalAuthRequestResponseSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/apps/external/auth/{secret}/:
+    get:
+      summary: "Gets a token requested by an external app"
+      description: ""
+      parameters:
+      - name: "secret"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Secret"
+      responses:
+        "200":
+          description: "Returns auth info"
+          schema:
+            $ref: "#/definitions/ExternalAuthSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/apps/instance/:
+    post:
+      summary: "Create a new app instance"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ApprovedAppInstanceSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created app"
+          schema:
+            $ref: "#/definitions/ApprovedAppInstanceSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/apps/instance/{approved_instance_id}/:
+    get:
+      summary: "Gets an approved instance of an app"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "approved_instance_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ApprovedInstanceId"
+      responses:
+        "200":
+          description: "Returns auth info"
+          schema:
+            $ref: "#/definitions/ExternalAuthSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete an approved instance of an app"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "approved_instance_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ApprovedInstanceId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/apps/{app_id}/:
+    get:
+      summary: "Returns a particular app by id"
+      description: "\nRequired roles:\n - can_read_apps"
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "app_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AppId"
+      responses:
+        "200":
+          description: "Returns a app"
+          schema:
+            $ref: "#/definitions/AppSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    put:
+      summary: "Update app"
+      description: "\nRequired roles:\n - can_write_apps"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "app_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AppId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AppSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated app"
+          schema:
+            $ref: "#/definitions/AppSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete a particular app by id"
+      description: "\nRequired roles:\n - can_delete_apps"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "app_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AppId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    patch:
+      summary: "Update app"
+      description: "\nRequired roles:\n - can_write_apps"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "app_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AppId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AppSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated app"
+          schema:
+            $ref: "#/definitions/AppSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/apps/{app_id}/token/:
+    post:
+      summary: "Creates app token by id and returns it's data"
+      description: "\nRequired roles:\n - can_read_apps"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "app_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AppId"
+      responses:
+        "200":
+          description: "Returns an application token"
+          schema:
+            $ref: "#/definitions/TokenSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/apps/{app_name}/: {}
+  /v1/auth/ad/login/:
+    post:
+      summary: "Login by ActiveDirectory"
+      description: "<br/>This function is not yet implemented."
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          type: "object"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a new generated token for particular user"
+          schema:
+            $ref: "#/definitions/TokenSchema"
+        "400":
+          description: "Bad request"
+  /v1/auth/oauth/login/:
+    post:
+      summary: "Login by OAuth"
+      description: "<br/>This function is not yet implemented."
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          type: "object"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a new generated token for particular user"
+          schema:
+            $ref: "#/definitions/TokenSchema"
+        "400":
+          description: "Bad request"
+  /v1/auth/saml/acs/{public_id}/:
+    post:
+      summary: "SAML Assertion Consumer Service"
+      description: ""
+      parameters:
+      - name: "public_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "PublicId"
+      responses:
+        "302":
+          description: "Redirect on SAML IDP for SSO"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Unauthorized request"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/acs/{system_domain_id}/{identity_provider_id}/:
+    post:
+      summary: "SAML Assertion Consumer Service"
+      description: ""
+      parameters:
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      deprecated: true
+      responses:
+        "302":
+          description: "Redirect on SAML IDP for SSO"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Unauthorized request"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/domains/:
+    post:
+      summary: "Bind domain to identity provider"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/DomainIdentityProviderMapSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns an identity provider"
+          schema:
+            $ref: "#/definitions/DomainIdentityProviderMapSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/auth/saml/domains/{domain}/:
+    delete:
+      summary: "Unbind domain from identity provider"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "domain"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Domain"
+      responses:
+        "204":
+          description: "No body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Does not exist"
+  /v1/auth/saml/idp/:
+    get:
+      summary: "Get list of identity providers"
+      description: "\nRequired roles:\n - can_read_identity_providers"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "LastId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of identity providers"
+          schema:
+            $ref: "#/definitions/IdentityProvidersSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    post:
+      summary: "Create a new identity provider."
+      description: "<br/>Input can either be an IdentityProviderSchema as json or\
+        \ a SAML<br/>EntityDescriptor XML.\nRequired roles:\n - can_write_identity_providers"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/IdentityProviderSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns an identity provider"
+          schema:
+            $ref: "#/definitions/IdentityProviderSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/auth/saml/idp/convert/:
+    post:
+      summary: "Convert an IdP EntityDescriptor XML into json suitable as a settings\
+        \ configuration."
+      description: "<br/>Input should be a SAML EntityDescriptor XML."
+      consumes:
+      - "application/xml"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/IdentityProviderSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns an identity provider"
+          schema:
+            $ref: "#/definitions/IdentityProviderSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/auth/saml/idp/{identity_provider_id}/:
+    get:
+      summary: "Get a particular identity provider by id"
+      description: "\nRequired roles:\n - can_read_identity_providers"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      responses:
+        "200":
+          description: "Returns an identity provider"
+          schema:
+            $ref: "#/definitions/IdentityProviderSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Identity provider does not exist"
+    put:
+      summary: "Update a particular identity provider by id"
+      description: "\nRequired roles:\n - can_write_identity_providers"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/IdentityProviderSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated identity provider"
+          schema:
+            $ref: "#/definitions/IdentityProviderSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Identity provider does not exist"
+    delete:
+      summary: "Delete a particular identity provider by id"
+      description: "\nRequired roles:\n - can_delete_identity_providers"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      responses:
+        "204":
+          description: "No body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Identity provider does not exist"
+    patch:
+      summary: "Update a particular identity provider by id"
+      description: "\nRequired roles:\n - can_write_identity_providers"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/IdentityProviderSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated identity provider"
+          schema:
+            $ref: "#/definitions/IdentityProviderSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Identity provider does not exist"
+  /v1/auth/saml/login/:
+    post:
+      summary: "SAML Single sign-on url by domain"
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SAMLLoginSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an saml sso url"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/login/{email}/:
+    get:
+      summary: "SAML Single sign-on url by domain"
+      description: ""
+      parameters:
+      - name: "email"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Email"
+      deprecated: true
+      responses:
+        "200":
+          description: "Returns an saml sso url"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/logout/{public_id}/:
+    post:
+      summary: "Initiate SAML Single logout"
+      description: ""
+      parameters:
+      - name: "public_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "PublicId"
+      responses:
+        "200":
+          description: "Returns an saml slo url"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/auth/saml/metadata/{public_id}/:
+    get:
+      summary: "SAML Single Logout Service"
+      description: ""
+      parameters:
+      - name: "public_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "PublicId"
+      responses:
+        "200":
+          description: "Return SAML SP metadata"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/metadata/{system_domain_id}/{identity_provider_id}/:
+    get:
+      summary: "SAML Single Logout Service"
+      description: ""
+      parameters:
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      deprecated: true
+      responses:
+        "200":
+          description: "Return SAML SP metadata"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/slo/{public_id}/:
+    get:
+      summary: "SAML Single Logout Service"
+      description: ""
+      parameters:
+      - name: "public_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "PublicId"
+      responses:
+        "302":
+          description: "Redirect on SAML IDP for SLO"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/slo/{system_domain_id}/{identity_provider_id}/:
+    get:
+      summary: "SAML Single Logout Service"
+      description: ""
+      parameters:
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      deprecated: true
+      responses:
+        "302":
+          description: "Redirect on SAML IDP for SLO"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/sso/{public_id}/:
+    get:
+      summary: "SAML Single sign-on Service"
+      description: ""
+      parameters:
+      - name: "public_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "PublicId"
+      responses:
+        "302":
+          description: "Redirect on SAML IDP for SSO"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/saml/sso/{system_domain_id}/{identity_provider_id}/:
+    get:
+      summary: "SAML Single sign-on Service"
+      description: ""
+      parameters:
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - name: "identity_provider_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "IdentityProviderId"
+      deprecated: true
+      responses:
+        "302":
+          description: "Redirect on SAML IDP for SSO"
+        "404":
+          description: "Requested page does not exist"
+  /v1/auth/simple/login/:
+    post:
+      summary: "Login by using email and password"
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SimpleLoginSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a new generated token for particular user"
+          schema:
+            $ref: "#/definitions/TokenSchema"
+        "400":
+          description: "Bad request"
+  /v1/auth/token/:
+    get:
+      summary: "Check if auth token valid"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns if token valid"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    put:
+      summary: "Refresh token"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a new token"
+          schema:
+            $ref: "#/definitions/TokenSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Revoke token"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns if token was revoked"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/auth/user/{user_id}/tokens/: {}
+  /v1/auth/user/{user_id}/tokens/{token_id}/: {}
+  /v1/password/forgot/:
+    post:
+      summary: "Receives email address and sends email to this address with link for\
+        \ resetting password"
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ForgotPasswordSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Reset password email was sent to an email"
+        "400":
+          description: "Bad request"
+  /v1/password/invite/{user_id}/: {}
+  /v1/password/reset/{reset_hash}/:
+    put:
+      summary: "Changes password to a new one"
+      description: ""
+      parameters:
+      - name: "reset_hash"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ResetHash"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ResetPasswordSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Password was changed"
+        "400":
+          description: "Bad request"
+        "419":
+          description: "Authentication token expired"
+  /v1/referral_codes/:
+    get:
+      summary: "Get all referral_codes"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a referral_code"
+          schema:
+            $ref: "#/definitions/ReferralCodesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create a new referral_code"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ReferralCodeSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created referral_code"
+          schema:
+            $ref: "#/definitions/ReferralCodeSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "409":
+          description: "Code already exists"
+  /v1/referral_codes/{code}/:
+    get:
+      summary: "Get a referral_code"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "code"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Code"
+      responses:
+        "200":
+          description: "Returns a referral_code"
+          schema:
+            $ref: "#/definitions/ReferralCodeSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete a referral_code"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "code"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Code"
+      responses:
+        "204":
+          description: "OK"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/registrations/:
+    post:
+      summary: "Create a new registration"
+      description: ""
+      parameters:
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/RegistrationSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created registration"
+          schema:
+            $ref: "#/definitions/RegistrationSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/registrations/countries/:
+    get:
+      summary: "Returns list of countries"
+      description: ""
+      parameters: []
+      responses:
+        "201":
+          description: "Returns a list of countries"
+          schema:
+            $ref: "#/definitions/CountriesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/registrations/verify/{email_hash}/:
+    post:
+      summary: "Verify email address and create system domain from template is email\
+        \ address valid"
+      description: ""
+      parameters:
+      - name: "email_hash"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "EmailHash"
+      responses:
+        "201":
+          description: "Returns a created system domain"
+          schema:
+            $ref: "#/definitions/SystemDomainFromTemplateSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/system_domains/:
+    get:
+      summary: "List of system domains"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "query"
+        in: "query"
+        description: "Query the name"
+        required: false
+        type: "string"
+        x-exportParamName: "Query"
+        x-optionalDataType: "String"
+      - name: "statuses"
+        in: "query"
+        description: "Comma separated list of statuses to show"
+        required: false
+        type: "string"
+        x-exportParamName: "Statuses"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of system domains"
+          schema:
+            $ref: "#/definitions/SystemDomainsSchema"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create a new system domain"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemDomainSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created system domain"
+          schema:
+            $ref: "#/definitions/SystemDomainSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/system_domains/referral_code/{referral_code}/:
+    post:
+      summary: "Create a new system domain from a referral code (That is associated\
+        \ to your domain)"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "referral_code"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ReferralCode"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemDomainFromReferralCodeSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created system domain"
+          schema:
+            $ref: "#/definitions/SystemDomainFromTemplateSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/system_domains/templates/:
+    get:
+      summary: "List of system domain templates"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a list of system domain templates"
+          schema:
+            $ref: "#/definitions/SystemDomainsSchema"
+        "401":
+          description: "Token is invalid"
+  /v1/system_domains/{system_domain_id}/:
+    get:
+      summary: "Returns a particular system domain by id"
+      description: "\nRequired roles:\n - can_read_system_domains"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      responses:
+        "200":
+          description: "Returns a system domain"
+          schema:
+            $ref: "#/definitions/SystemDomainSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "System domain does not exist"
+    put:
+      summary: "Update system domain"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemDomainSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated system domain"
+          schema:
+            $ref: "#/definitions/SystemDomainSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "System domain does not exist"
+    delete:
+      summary: "Delete a particular system_domain by id"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    patch:
+      summary: "Update system domain"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemDomainSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated system domain"
+          schema:
+            $ref: "#/definitions/SystemDomainSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "System domain does not exist"
+  /v1/system_domains/{system_domain_id}/logo/:
+    post:
+      summary: "Upload system domain logo image."
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - name: "logo"
+        in: "formData"
+        required: true
+        type: "string"
+        x-exportParamName: "Logo"
+      responses:
+        "201":
+          description: "Returns url for system domain logo"
+          schema:
+            $ref: "#/definitions/inline_response_201"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "System domain does not exist"
+    delete:
+      summary: "Delete system domain logo image."
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      responses:
+        "204":
+          description: "No body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "System domain does not exist"
+definitions:
+  AppSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      default_user_id:
+        type: "string"
+        x-nullable: true
+      description:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      secret:
+        type: "string"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      url:
+        type: "string"
+        format: "url"
+        x-nullable: true
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      default_user_id: "default_user_id"
+      description: "description"
+      id: "id"
+      secret: "secret"
+      url: "http://example.com/aeiou"
+      system_domain_id: "system_domain_id"
+  ApprovedAppInstanceSchema:
+    type: "object"
+    required:
+    - "app_id"
+    - "id"
+    properties:
+      app_id:
+        type: "string"
+        format: "uuid"
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      id:
+        type: "string"
+        format: "uuid"
+    example:
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+      app_id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+  AppsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/AppSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        default_user_id: "default_user_id"
+        description: "description"
+        id: "id"
+        secret: "secret"
+        url: "http://example.com/aeiou"
+        system_domain_id: "system_domain_id"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        default_user_id: "default_user_id"
+        description: "description"
+        id: "id"
+        secret: "secret"
+        url: "http://example.com/aeiou"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  Auth0SettingsSchema:
+    type: "object"
+    required:
+    - "auth0_client_id"
+    - "auth0_name"
+    - "auth0_region"
+    properties:
+      auth0_client_id:
+        type: "string"
+      auth0_name:
+        type: "string"
+      auth0_region:
+        type: "string"
+      cert_fingerprint:
+        type: "string"
+      cert_fingerprint_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+      digest_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#sha1"
+      domain_name:
+        type: "string"
+        readOnly: true
+      idp_x509cert:
+        type: "string"
+      signature_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#dsa-sha1"
+        - "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+  CountriesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/CountrySchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - apolitical_name: "apolitical_name"
+        alpha2: "alpha2"
+        name: "name"
+        alpha3: "alpha3"
+        numeric: "numeric"
+      - apolitical_name: "apolitical_name"
+        alpha2: "alpha2"
+        name: "name"
+        alpha3: "alpha3"
+        numeric: "numeric"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  CountrySchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      alpha2:
+        type: "string"
+      alpha3:
+        type: "string"
+      apolitical_name:
+        type: "string"
+      name:
+        type: "string"
+      numeric:
+        type: "string"
+    example:
+      apolitical_name: "apolitical_name"
+      alpha2: "alpha2"
+      name: "name"
+      alpha3: "alpha3"
+      numeric: "numeric"
+  DomainIdentityProviderMapSchema:
+    type: "object"
+    required:
+    - "domain"
+    - "identity_provider_id"
+    - "system_domain_id"
+    properties:
+      domain:
+        type: "string"
+      identity_provider_id:
+        type: "string"
+      system_domain_id:
+        type: "string"
+    example:
+      identity_provider_id: "identity_provider_id"
+      domain: "domain"
+      system_domain_id: "system_domain_id"
+  ExternalAuthRequestResponseSchema:
+    type: "object"
+    properties:
+      app_id:
+        type: "string"
+      redirect_info:
+        $ref: "#/definitions/RedirectInfoTypeSchema"
+    example:
+      redirect_info:
+        headers: "{}"
+        url: "http://example.com/aeiou"
+      app_id: "app_id"
+  ExternalAuthRequestSchema:
+    type: "object"
+    required:
+    - "secret"
+    properties:
+      app_id:
+        type: "string"
+      app_name:
+        type: "string"
+      redirect_info:
+        $ref: "#/definitions/ExternalAuthRequestSchema_redirect_info"
+      secret:
+        type: "string"
+  ExternalAuthSchema:
+    type: "object"
+    properties:
+      app_id:
+        type: "string"
+        readOnly: true
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      redirect_info:
+        $ref: "#/definitions/RedirectInfoTypeSchema"
+      token:
+        type: "string"
+        readOnly: true
+    example:
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      redirect_info:
+        headers: "{}"
+        url: "http://example.com/aeiou"
+      app_id: "app_id"
+      token: "token"
+  ForgotPasswordSchema:
+    type: "object"
+    required:
+    - "email"
+    properties:
+      email:
+        type: "string"
+        format: "email"
+  GenericSettingsSchema:
+    type: "object"
+    required:
+    - "idp_entity_id"
+    - "idp_sso_post_url"
+    - "name"
+    properties:
+      cert_fingerprint:
+        type: "string"
+      cert_fingerprint_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+      digest_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#sha1"
+      domain_name:
+        type: "string"
+        readOnly: true
+      idp_entity_id:
+        type: "string"
+      idp_sls_redirect_url:
+        type: "string"
+      idp_sso_post_url:
+        type: "string"
+      idp_x509cert:
+        type: "string"
+      name:
+        type: "string"
+      name_id_encrypted:
+        type: "boolean"
+        default: false
+      signature_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#dsa-sha1"
+        - "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+      want_assertions_signed:
+        type: "boolean"
+        default: true
+      want_messages_signed:
+        type: "boolean"
+        default: false
+  IdentityProviderBaseSchema:
+    type: "object"
+    properties:
+      saml_settings:
+        type: "string"
+        readOnly: true
+  IdentityProviderBaseSettingsSchema:
+    type: "object"
+    properties:
+      cert_fingerprint:
+        type: "string"
+      cert_fingerprint_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+      digest_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#sha1"
+      domain_name:
+        type: "string"
+        readOnly: true
+      idp_x509cert:
+        type: "string"
+      signature_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#dsa-sha1"
+        - "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+  IdentityProviderSchema:
+    type: "object"
+    required:
+    - "settings"
+    - "type"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      id:
+        type: "string"
+        readOnly: true
+      public_id:
+        type: "string"
+        readOnly: true
+      saml_settings:
+        type: "string"
+        readOnly: true
+      settings:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "onelogin.com"
+        - "auth0.com"
+        - "okta.com"
+        - "GENERIC"
+      verbose_logging:
+        type: "boolean"
+        default: false
+    example:
+      settings: "settings"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      verbose_logging: false
+      saml_settings: "saml_settings"
+      id: "id"
+      type: "onelogin.com"
+      public_id: "public_id"
+  IdentityProvidersSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/IdentityProviderSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - settings: "settings"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        verbose_logging: false
+        saml_settings: "saml_settings"
+        id: "id"
+        type: "onelogin.com"
+        public_id: "public_id"
+      - settings: "settings"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        verbose_logging: false
+        saml_settings: "saml_settings"
+        id: "id"
+        type: "onelogin.com"
+        public_id: "public_id"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  OktaSettingsSchema:
+    type: "object"
+    required:
+    - "okta_name"
+    properties:
+      cert_fingerprint:
+        type: "string"
+      cert_fingerprint_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+      digest_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#sha1"
+      domain_name:
+        type: "string"
+        readOnly: true
+      idp_x509cert:
+        type: "string"
+      okta_app_id:
+        type: "string"
+      okta_name:
+        type: "string"
+      okta_preview:
+        type: "boolean"
+        default: false
+      okta_sso:
+        type: "string"
+      signature_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#dsa-sha1"
+        - "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+  OneloginSettingsSchema:
+    type: "object"
+    required:
+    - "onelogin_client_id"
+    - "onelogin_name"
+    properties:
+      cert_fingerprint:
+        type: "string"
+      cert_fingerprint_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+      digest_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#sha1"
+        - "http://www.w3.org/2001/04/xmlenc#sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#sha384"
+        - "http://www.w3.org/2001/04/xmlenc#sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#sha1"
+      domain_name:
+        type: "string"
+        readOnly: true
+      idp_x509cert:
+        type: "string"
+      onelogin_client_id:
+        type: "string"
+      onelogin_name:
+        type: "string"
+      signature_algorithm:
+        type: "string"
+        enum:
+        - "http://www.w3.org/2000/09/xmldsig#dsa-sha1"
+        - "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha384"
+        - "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
+        default: "http://www.w3.org/2000/09/xmldsig#rsa-sha1"
+  RedirectInfoTypeSchema:
+    type: "object"
+    properties:
+      headers:
+        type: "object"
+        properties: {}
+        x-nullable: true
+      url:
+        type: "string"
+        format: "url"
+        x-nullable: true
+    example:
+      headers: "{}"
+      url: "http://example.com/aeiou"
+  ReferralCodeSchema:
+    type: "object"
+    required:
+    - "code"
+    - "valid_to"
+    - "value"
+    properties:
+      code:
+        type: "string"
+      manage_system_domain_id:
+        type: "string"
+        x-nullable: true
+      valid_to:
+        type: "string"
+        format: "date-time"
+      value:
+        type: "number"
+        format: "float"
+    example:
+      code: "code"
+      manage_system_domain_id: "manage_system_domain_id"
+      valid_to: "2000-01-23T04:56:07.000+00:00"
+      value: 0.8008282
+  ReferralCodesSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/ReferralCodeSchema"
+    example:
+      objects:
+      - code: "code"
+        manage_system_domain_id: "manage_system_domain_id"
+        valid_to: "2000-01-23T04:56:07.000+00:00"
+        value: 0.8008282
+      - code: "code"
+        manage_system_domain_id: "manage_system_domain_id"
+        valid_to: "2000-01-23T04:56:07.000+00:00"
+        value: 0.8008282
+  RegistrationSchema:
+    type: "object"
+    required:
+    - "country"
+    - "email"
+    - "first_name"
+    - "last_name"
+    - "password"
+    properties:
+      base_url:
+        type: "string"
+        readOnly: true
+      company_name:
+        type: "string"
+        x-nullable: true
+      country:
+        type: "string"
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      last_name:
+        type: "string"
+      password:
+        type: "string"
+      referral_code:
+        type: "string"
+      stripe_id:
+        type: "string"
+    example:
+      country: "country"
+      password: "password"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      company_name: "company_name"
+      referral_code: "referral_code"
+      base_url: "base_url"
+      last_name: "last_name"
+      id: "id"
+      first_name: "first_name"
+      email: "email"
+      stripe_id: "stripe_id"
+  ResetPasswordSchema:
+    type: "object"
+    required:
+    - "password"
+    - "repeat_password"
+    properties:
+      password:
+        type: "string"
+      repeat_password:
+        type: "string"
+  SAMLLoginSchema:
+    type: "object"
+    required:
+    - "email"
+    properties:
+      email:
+        type: "string"
+        format: "email"
+  SimpleLoginSchema:
+    type: "object"
+    required:
+    - "email"
+    - "password"
+    properties:
+      app_name:
+        type: "string"
+        default: "WEB"
+      email:
+        type: "string"
+        format: "email"
+      password:
+        type: "string"
+  SystemDomainFromReferralCodeSchema:
+    type: "object"
+    required:
+    - "admin_email"
+    - "admin_first_name"
+    - "admin_password"
+    - "country_code"
+    - "name"
+    properties:
+      admin_email:
+        type: "string"
+      admin_first_name:
+        type: "string"
+      admin_last_name:
+        type: "string"
+      admin_password:
+        type: "string"
+      country_code:
+        type: "string"
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      description:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+  SystemDomainFromTemplateSchema:
+    type: "object"
+    required:
+    - "admin_email"
+    - "name"
+    properties:
+      admin_email:
+        type: "string"
+      admin_first_name:
+        type: "string"
+      admin_last_name:
+        type: "string"
+      admin_password:
+        type: "string"
+      base_url:
+        type: "string"
+      custom_terms:
+        type: "boolean"
+        default: false
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      description:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "TRIAL"
+        - "CUSTOMER"
+        - "PARTNER"
+        - "INTERNAL"
+    example:
+      admin_last_name: "admin_last_name"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      admin_first_name: "admin_first_name"
+      base_url: "base_url"
+      custom_terms: false
+      name: "name"
+      description: "description"
+      id: "id"
+      type: "TRIAL"
+      admin_password: "admin_password"
+      admin_email: "admin_email"
+  SystemDomainSchema:
+    type: "object"
+    required:
+    - "base_url"
+    - "name"
+    properties:
+      base_url:
+        type: "string"
+      custom_terms:
+        type: "boolean"
+        readOnly: true
+        default: false
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      deactivate_date:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      description:
+        type: "string"
+      discount_percent:
+        type: "number"
+        format: "float"
+        readOnly: true
+      do_not_charge_edge_transcoder:
+        type: "boolean"
+        readOnly: true
+        default: false
+      do_not_charge_remote_proxies:
+        type: "boolean"
+        readOnly: true
+        default: false
+      freeze_date:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      id:
+        type: "string"
+        readOnly: true
+      invoice_end_of_month:
+        type: "boolean"
+        readOnly: true
+        default: false
+      is_template:
+        type: "boolean"
+        readOnly: true
+        default: false
+      name:
+        type: "string"
+      referral_code:
+        type: "string"
+        readOnly: true
+      secret:
+        type: "string"
+        readOnly: true
+      status:
+        type: "string"
+        readOnly: true
+        enum:
+        - "ACTIVE"
+        - "WARNING"
+        - "FROZEN"
+        - "DEACTIVATED"
+      stripe_id:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        readOnly: true
+        enum:
+        - "TRIAL"
+        - "CUSTOMER"
+        - "PARTNER"
+        - "INTERNAL"
+      warning_message:
+        type: "string"
+        readOnly: true
+    example:
+      is_template: false
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      invoice_end_of_month: false
+      base_url: "base_url"
+      custom_terms: false
+      description: "description"
+      secret: "secret"
+      type: "TRIAL"
+      warning_message: "warning_message"
+      do_not_charge_edge_transcoder: false
+      freeze_date: "2000-01-23T04:56:07.000+00:00"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      referral_code: "referral_code"
+      name: "name"
+      do_not_charge_remote_proxies: false
+      deactivate_date: "2000-01-23T04:56:07.000+00:00"
+      id: "id"
+      discount_percent: 0.8008282
+      stripe_id: "stripe_id"
+      status: "ACTIVE"
+  SystemDomainSuperAdminSchema:
+    type: "object"
+    required:
+    - "base_url"
+    - "name"
+    properties:
+      base_url:
+        type: "string"
+      custom_terms:
+        type: "boolean"
+        default: false
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      deactivate_date:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      description:
+        type: "string"
+      discount_percent:
+        type: "number"
+        format: "float"
+        x-nullable: true
+      do_not_charge_edge_transcoder:
+        type: "boolean"
+        default: false
+      do_not_charge_remote_proxies:
+        type: "boolean"
+        default: false
+      freeze_date:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      invoice_end_of_month:
+        type: "boolean"
+        default: false
+      is_template:
+        type: "boolean"
+        default: false
+      name:
+        type: "string"
+      referral_code:
+        type: "string"
+        x-nullable: true
+      secret:
+        type: "string"
+        readOnly: true
+      status:
+        type: "string"
+        enum:
+        - "ACTIVE"
+        - "WARNING"
+        - "FROZEN"
+        - "DEACTIVATED"
+      stripe_id:
+        type: "string"
+        x-nullable: true
+      type:
+        type: "string"
+        enum:
+        - "TRIAL"
+        - "CUSTOMER"
+        - "PARTNER"
+        - "INTERNAL"
+      warning_message:
+        type: "string"
+  SystemDomainsSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SystemDomainSchema"
+    example:
+      objects:
+      - is_template: false
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        invoice_end_of_month: false
+        base_url: "base_url"
+        custom_terms: false
+        description: "description"
+        secret: "secret"
+        type: "TRIAL"
+        warning_message: "warning_message"
+        do_not_charge_edge_transcoder: false
+        freeze_date: "2000-01-23T04:56:07.000+00:00"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        referral_code: "referral_code"
+        name: "name"
+        do_not_charge_remote_proxies: false
+        deactivate_date: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        discount_percent: 0.8008282
+        stripe_id: "stripe_id"
+        status: "ACTIVE"
+      - is_template: false
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        invoice_end_of_month: false
+        base_url: "base_url"
+        custom_terms: false
+        description: "description"
+        secret: "secret"
+        type: "TRIAL"
+        warning_message: "warning_message"
+        do_not_charge_edge_transcoder: false
+        freeze_date: "2000-01-23T04:56:07.000+00:00"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        referral_code: "referral_code"
+        name: "name"
+        do_not_charge_remote_proxies: false
+        deactivate_date: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        discount_percent: 0.8008282
+        stripe_id: "stripe_id"
+        status: "ACTIVE"
+  TokenSchema:
+    type: "object"
+    required:
+    - "token"
+    properties:
+      app_id:
+        type: "string"
+        readOnly: true
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      expires:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      id:
+        type: "string"
+        readOnly: true
+      is_admin:
+        type: "boolean"
+        readOnly: true
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      system_domain_status:
+        type: "string"
+        readOnly: true
+        enum:
+        - "ACTIVE"
+        - "WARNING"
+        - "FROZEN"
+        - "DEACTIVATED"
+      system_domain_warning_message:
+        type: "string"
+        readOnly: true
+      system_domains:
+        type: "array"
+        readOnly: true
+        items:
+          type: "string"
+      token:
+        type: "string"
+      user_id:
+        type: "string"
+        readOnly: true
+    example:
+      system_domain_status: "ACTIVE"
+      expires: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      is_super_admin: true
+      system_domains:
+      - "system_domains"
+      - "system_domains"
+      token: "token"
+      is_admin: true
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      user_id: "user_id"
+      id: "id"
+      app_id: "app_id"
+      system_domain_warning_message: "system_domain_warning_message"
+      system_domain_id: "system_domain_id"
+  inline_response_200:
+    type: "object"
+    properties:
+      url:
+        type: "string"
+        description: "saml sso url"
+    example:
+      url: "url"
+  inline_response_200_1:
+    type: "object"
+    properties:
+      url:
+        type: "string"
+        description: "saml sso url. No url is returned if Single Logout is unsupported\
+          \ by IdP"
+    example:
+      url: "url"
+  inline_response_201:
+    type: "object"
+    properties:
+      logo:
+        type: "string"
+        description: "Url for the system domain logo"
+    example:
+      logo: "logo"
+  ExternalAuthRequestSchema_redirect_info:
+    type: "object"
+    x-nullable: true

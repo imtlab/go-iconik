@@ -1,0 +1,2974 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_users"
+basePath: "/API/users"
+paths:
+  /v1/groups/:
+    get:
+      summary: "List groups with details"
+      description: "\nRequired roles:\n - can_read_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        maximum: 100
+        minimum: 1
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "alias"
+        in: "query"
+        description: "Filter by alias"
+        required: false
+        type: "string"
+        x-exportParamName: "Alias"
+        x-optionalDataType: "String"
+      - name: "description"
+        in: "query"
+        description: "Filter by descripton"
+        required: false
+        type: "string"
+        x-exportParamName: "Description"
+        x-optionalDataType: "String"
+      - name: "name"
+        in: "query"
+        description: "Filter by name"
+        required: false
+        type: "string"
+        x-exportParamName: "Name"
+        x-optionalDataType: "String"
+      - name: "roles"
+        in: "query"
+        description: "Filter by roles"
+        required: false
+        type: "string"
+        x-exportParamName: "Roles"
+        x-optionalDataType: "String"
+      - name: "date_created"
+        in: "query"
+        description: "Filter by date_created"
+        required: false
+        type: "string"
+        x-exportParamName: "DateCreated"
+        x-optionalDataType: "String"
+      - name: "date_modified"
+        in: "query"
+        description: "Filter by date_modified"
+        required: false
+        type: "string"
+        x-exportParamName: "DateModified"
+        x-optionalDataType: "String"
+      - name: "query"
+        in: "query"
+        description: "Filter by any of field with wildcard support"
+        required: false
+        type: "string"
+        x-exportParamName: "Query"
+        x-optionalDataType: "String"
+      - name: "ids"
+        in: "query"
+        description: "Filter list of id:s (comma separated)"
+        required: false
+        type: "string"
+        x-exportParamName: "Ids"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of groups"
+          schema:
+            $ref: "#/definitions/GroupsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    post:
+      summary: "Create a new group"
+      description: "\nRequired roles:\n - can_write_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created group"
+          schema:
+            $ref: "#/definitions/GroupSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/groups/basic/:
+    get:
+      summary: "List groups info without details"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        maximum: 100
+        minimum: 1
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "alias"
+        in: "query"
+        description: "Filter by alias"
+        required: false
+        type: "string"
+        x-exportParamName: "Alias"
+        x-optionalDataType: "String"
+      - name: "description"
+        in: "query"
+        description: "Filter by descripton"
+        required: false
+        type: "string"
+        x-exportParamName: "Description"
+        x-optionalDataType: "String"
+      - name: "name"
+        in: "query"
+        description: "Filter by name"
+        required: false
+        type: "string"
+        x-exportParamName: "Name"
+        x-optionalDataType: "String"
+      - name: "roles"
+        in: "query"
+        description: "Filter by roles"
+        required: false
+        type: "string"
+        x-exportParamName: "Roles"
+        x-optionalDataType: "String"
+      - name: "date_created"
+        in: "query"
+        description: "Filter by date_created"
+        required: false
+        type: "string"
+        x-exportParamName: "DateCreated"
+        x-optionalDataType: "String"
+      - name: "date_modified"
+        in: "query"
+        description: "Filter by date_modified"
+        required: false
+        type: "string"
+        x-exportParamName: "DateModified"
+        x-optionalDataType: "String"
+      - name: "query"
+        in: "query"
+        description: "Filter by any of first_name, last_name and email with wildcard\
+          \ support"
+        required: false
+        type: "string"
+        x-exportParamName: "Query"
+        x-optionalDataType: "String"
+      - name: "ids"
+        in: "query"
+        description: "Filter list of id:s (comma separated)"
+        required: false
+        type: "string"
+        x-exportParamName: "Ids"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of groups"
+          schema:
+            $ref: "#/definitions/GroupsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/groups/mappings/:
+    get:
+      summary: "Get all group mappings"
+      description: "\nRequired roles:\n - can_read_group_mappings"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_id"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "LastId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of group mappings"
+          schema:
+            $ref: "#/definitions/GroupMappingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    post:
+      summary: "Create a new group mapping"
+      description: "\nRequired roles:\n - can_write_group_mappings"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupMappingSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created group mapping"
+          schema:
+            $ref: "#/definitions/GroupMappingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "409":
+          description: "Group mapping already exists"
+  /v1/groups/mappings/{name}/:
+    get:
+      summary: "Get a group mapping"
+      description: "\nRequired roles:\n - can_read_group_mappings"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      responses:
+        "200":
+          description: "Returns a group mapping"
+          schema:
+            $ref: "#/definitions/GroupMappingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    delete:
+      summary: "Delete group mapping by name"
+      description: "\nRequired roles:\n - can_delete_group_mappings"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group mapping does not exist"
+  /v1/groups/{group_id}/:
+    get:
+      summary: "Returns a particular group by id"
+      description: "\nRequired roles:\n - can_read_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "200":
+          description: "Returns a group"
+          schema:
+            $ref: "#/definitions/GroupSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group does not exist"
+    put:
+      summary: "Update group"
+      description: "\nRequired roles:\n - can_write_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated group"
+          schema:
+            $ref: "#/definitions/GroupSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group does not exist"
+    delete:
+      summary: "Delete a particular group by id"
+      description: "\nRequired roles:\n - can_delete_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group does not exist"
+    patch:
+      summary: "Update group"
+      description: "\nRequired roles:\n - can_write_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated group"
+          schema:
+            $ref: "#/definitions/GroupSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group does not exist"
+  /v1/groups/{group_id}/logo/:
+    post:
+      summary: "Upload group logo image."
+      description: "\nRequired roles:\n - can_write_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "logo"
+        in: "formData"
+        required: true
+        type: "string"
+        x-exportParamName: "Logo"
+      responses:
+        "200":
+          description: "Returns url for group logo"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "Group does not exist"
+    delete:
+      summary: "Delete group logo image."
+      description: "\nRequired roles:\n - can_write_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "204":
+          description: "No body"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "Group does not exist"
+  /v1/groups/{group_id}/reindex/:
+    post:
+      summary: "Reindex a particular group by id"
+      description: "\nRequired roles:\n - can_reindex_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "200":
+          description: "Returns a job"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group does not exist"
+  /v1/groups/{group_id}/users/{user_id}/:
+    post:
+      summary: "Add user into a group"
+      description: "\nRequired roles:\n - can_write_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "201":
+          description: "Returns a user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User or Group does not exist"
+    delete:
+      summary: "Delete a user from group"
+      description: "\nRequired roles:\n - can_delete_groups"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "200":
+          description: "Returns a user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User or Group does not exist"
+  /v1/users/:
+    get:
+      summary: "List of users with details"
+      description: "\nRequired roles:\n - can_read_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        maximum: 100
+        minimum: 1
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "date_created"
+        in: "query"
+        description: "Filter by date_created"
+        required: false
+        type: "string"
+        x-exportParamName: "DateCreated"
+        x-optionalDataType: "String"
+      - name: "date_modified"
+        in: "query"
+        description: "Filter by date_modified"
+        required: false
+        type: "string"
+        x-exportParamName: "DateModified"
+        x-optionalDataType: "String"
+      - name: "email"
+        in: "query"
+        description: "Filter by email"
+        required: false
+        type: "string"
+        x-exportParamName: "Email"
+        x-optionalDataType: "String"
+      - name: "first_name"
+        in: "query"
+        description: "Filter by first_name"
+        required: false
+        type: "string"
+        x-exportParamName: "FirstName"
+        x-optionalDataType: "String"
+      - name: "last_name"
+        in: "query"
+        description: "Filter by last_name"
+        required: false
+        type: "string"
+        x-exportParamName: "LastName"
+        x-optionalDataType: "String"
+      - name: "groups"
+        in: "query"
+        description: "Filter by groups"
+        required: false
+        type: "string"
+        x-exportParamName: "Groups"
+        x-optionalDataType: "String"
+      - name: "hide_email"
+        in: "query"
+        description: "Filter by hide_email"
+        required: false
+        type: "string"
+        x-exportParamName: "HideEmail"
+        x-optionalDataType: "String"
+      - name: "hide_phone"
+        in: "query"
+        description: "Filter by hide_phone"
+        required: false
+        type: "string"
+        x-exportParamName: "HidePhone"
+        x-optionalDataType: "String"
+      - name: "is_admin"
+        in: "query"
+        description: "Filter by is_admin"
+        required: false
+        type: "string"
+        x-exportParamName: "IsAdmin"
+        x-optionalDataType: "String"
+      - name: "password_changed"
+        in: "query"
+        description: "Filter by password_changed"
+        required: false
+        type: "string"
+        x-exportParamName: "PasswordChanged"
+        x-optionalDataType: "String"
+      - name: "phone"
+        in: "query"
+        description: "Filter by phone"
+        required: false
+        type: "string"
+        x-exportParamName: "Phone"
+        x-optionalDataType: "String"
+      - name: "photo"
+        in: "query"
+        description: "Filter by photo"
+        required: false
+        type: "string"
+        x-exportParamName: "Photo"
+        x-optionalDataType: "String"
+      - name: "status"
+        in: "query"
+        description: "Filter by status"
+        required: false
+        type: "string"
+        x-exportParamName: "Status"
+        x-optionalDataType: "String"
+      - name: "query"
+        in: "query"
+        description: "Filter by any of first_name, last_name and email with wildcard\
+          \ support"
+        required: false
+        type: "string"
+        x-exportParamName: "Query"
+        x-optionalDataType: "String"
+      - name: "ids"
+        in: "query"
+        description: "Filter list of id:s (comma separated)"
+        required: false
+        type: "string"
+        x-exportParamName: "Ids"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of users"
+          schema:
+            $ref: "#/definitions/UsersSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Specified page does not exist"
+    post:
+      summary: "Create a new user"
+      description: "\nRequired roles:\n - can_create_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/users/basic/:
+    get:
+      summary: "List of users without details"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        maximum: 100
+        minimum: 1
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "date_created"
+        in: "query"
+        description: "Filter by date_created"
+        required: false
+        type: "string"
+        x-exportParamName: "DateCreated"
+        x-optionalDataType: "String"
+      - name: "date_modified"
+        in: "query"
+        description: "Filter by date_modified"
+        required: false
+        type: "string"
+        x-exportParamName: "DateModified"
+        x-optionalDataType: "String"
+      - name: "email"
+        in: "query"
+        description: "Filter by email"
+        required: false
+        type: "string"
+        x-exportParamName: "Email"
+        x-optionalDataType: "String"
+      - name: "first_name"
+        in: "query"
+        description: "Filter by first_name"
+        required: false
+        type: "string"
+        x-exportParamName: "FirstName"
+        x-optionalDataType: "String"
+      - name: "last_name"
+        in: "query"
+        description: "Filter by last_name"
+        required: false
+        type: "string"
+        x-exportParamName: "LastName"
+        x-optionalDataType: "String"
+      - name: "groups"
+        in: "query"
+        description: "Filter by groups"
+        required: false
+        type: "string"
+        x-exportParamName: "Groups"
+        x-optionalDataType: "String"
+      - name: "hide_email"
+        in: "query"
+        description: "Filter by hide_email"
+        required: false
+        type: "string"
+        x-exportParamName: "HideEmail"
+        x-optionalDataType: "String"
+      - name: "hide_phone"
+        in: "query"
+        description: "Filter by hide_phone"
+        required: false
+        type: "string"
+        x-exportParamName: "HidePhone"
+        x-optionalDataType: "String"
+      - name: "is_admin"
+        in: "query"
+        description: "Filter by is_admin"
+        required: false
+        type: "string"
+        x-exportParamName: "IsAdmin"
+        x-optionalDataType: "String"
+      - name: "password_changed"
+        in: "query"
+        description: "Filter by password_changed"
+        required: false
+        type: "string"
+        x-exportParamName: "PasswordChanged"
+        x-optionalDataType: "String"
+      - name: "phone"
+        in: "query"
+        description: "Filter by phone"
+        required: false
+        type: "string"
+        x-exportParamName: "Phone"
+        x-optionalDataType: "String"
+      - name: "photo"
+        in: "query"
+        description: "Filter by photo"
+        required: false
+        type: "string"
+        x-exportParamName: "Photo"
+        x-optionalDataType: "String"
+      - name: "status"
+        in: "query"
+        description: "Filter by status"
+        required: false
+        type: "string"
+        x-exportParamName: "Status"
+        x-optionalDataType: "String"
+      - name: "query"
+        in: "query"
+        description: "Filter by any of first_name, last_name and email with wildcard\
+          \ support"
+        required: false
+        type: "string"
+        x-exportParamName: "Query"
+        x-optionalDataType: "String"
+      - name: "ids"
+        in: "query"
+        description: "Filter list of id:s (comma separated)"
+        required: false
+        type: "string"
+        x-exportParamName: "Ids"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of users"
+          schema:
+            $ref: "#/definitions/UsersSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Specified page does not exist"
+  /v1/users/current/:
+    get:
+      summary: "Returns current user"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+    put:
+      summary: "Update user"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+    patch:
+      summary: "Update user"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+  /v1/users/current/photo/:
+    post:
+      summary: "Upload current user photo image."
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "photo"
+        in: "formData"
+        required: true
+        type: "string"
+        x-exportParamName: "Photo"
+      responses:
+        "200":
+          description: "Returns url for user photo"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "User does not exist"
+    delete:
+      summary: "Delete current user photo image."
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "204":
+          description: "No body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+  /v1/users/current/roles/:
+    get:
+      summary: "Returns current user roles"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a user's roles"
+          schema:
+            $ref: "#/definitions/UserRolesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/users/login/:
+    post:
+      summary: "Login a user"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserLoginSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns authenticated user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/users/{user_id}/:
+    get:
+      summary: "Returns a particular user by id"
+      description: "\nRequired roles:\n - can_read_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "200":
+          description: "Returns a user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+    put:
+      summary: "Update user"
+      description: "\nRequired roles:\n - can_write_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+    delete:
+      summary: "Delete a particular user by id"
+      description: "\nRequired roles:\n - can_delete_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+    patch:
+      summary: "Update user"
+      description: "\nRequired roles:\n - can_write_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+  /v1/users/{user_id}/internal/: {}
+  /v1/users/{user_id}/photo/:
+    post:
+      summary: "Upload user photo image."
+      description: "\nRequired roles:\n - can_write_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - name: "photo"
+        in: "formData"
+        required: true
+        type: "string"
+        x-exportParamName: "Photo"
+      responses:
+        "200":
+          description: "Returns url for user photo"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+        "400":
+          description: "Bad request"
+        "404":
+          description: "User does not exist"
+    delete:
+      summary: "Delete a photo image of a specified user."
+      description: "\nRequired roles:\n - can_write_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "204":
+          description: "No body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+  /v1/users/{user_id}/reindex/:
+    post:
+      summary: "Reindex a particular user by id"
+      description: "\nRequired roles:\n - can_reindex_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "200":
+          description: "Returns a job"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+  /v1/users/{user_id}/roles/:
+    get:
+      summary: "Returns user roles by user_id"
+      description: "\nRequired roles:\n - can_read_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "200":
+          description: "Returns a user's roles"
+          schema:
+            $ref: "#/definitions/UserRolesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/users/{user_id}/roles/{role}/:
+    get:
+      summary: "Returns user roles by user_id"
+      description: "\nRequired roles:\n - can_read_users"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - name: "role"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Role"
+      responses:
+        "200":
+          description: "Returns 200 if user has role"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Returns 404 if user doesn't have role"
+  /v1/users/{user_id}/saml/:
+    put:
+      summary: "Update a user's SAML IdP settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSamlIdpUpdateSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+    delete:
+      summary: "Remove a user's SAML IdP setting"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "200":
+          description: "Returns an updated user"
+          schema:
+            $ref: "#/definitions/UserSchema"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+definitions:
+  GroupBaseSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      alias:
+        type: "string"
+      default_user_type:
+        type: "string"
+        x-nullable: true
+      description:
+        type: "string"
+      external_id:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      is_saml_group:
+        type: "boolean"
+        readOnly: true
+      logo:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      role_categories:
+        $ref: "#/definitions/GroupBaseSchema_role_categories"
+      roles:
+        type: "array"
+        items:
+          type: "string"
+      saml_primary_group_priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        default: 0
+        x-nullable: true
+  GroupCreateSchema:
+    type: "object"
+    required:
+    - "name"
+    - "system_domain_id"
+    properties:
+      alias:
+        type: "string"
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      default_user_type:
+        type: "string"
+        x-nullable: true
+      description:
+        type: "string"
+      external_id:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      is_saml_group:
+        type: "boolean"
+        readOnly: true
+      logo:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      role_categories:
+        $ref: "#/definitions/GroupBaseSchema_role_categories"
+      roles:
+        type: "array"
+        items:
+          type: "string"
+      saml_primary_group_priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        default: 0
+        x-nullable: true
+      system_domain_id:
+        type: "string"
+  GroupElasticSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      alias:
+        type: "string"
+      date_created:
+        type: "string"
+        readOnly: true
+      date_modified:
+        type: "string"
+        readOnly: true
+      default_user_type:
+        type: "string"
+        x-nullable: true
+      description:
+        type: "string"
+      external_id:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      is_saml_group:
+        type: "boolean"
+        readOnly: true
+      logo:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      role_categories:
+        $ref: "#/definitions/GroupBaseSchema_role_categories"
+      roles:
+        type: "array"
+        items:
+          type: "string"
+      saml_primary_group_priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        default: 0
+        x-nullable: true
+    example:
+      date_created: "date_created"
+      role_categories: {}
+      roles:
+      - "roles"
+      - "roles"
+      description: "description"
+      external_id: "external_id"
+      is_saml_group: true
+      date_modified: "date_modified"
+      name: "name"
+      alias: "alias"
+      logo: "logo"
+      saml_primary_group_priority: -1803530559
+      id: "id"
+      default_user_type: "default_user_type"
+  GroupMappingSchema:
+    type: "object"
+    required:
+    - "group_id"
+    - "name"
+    properties:
+      group_id:
+        type: "string"
+      name:
+        type: "string"
+    example:
+      group_id: "group_id"
+      name: "name"
+  GroupMappingsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/GroupMappingSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - group_id: "group_id"
+        name: "name"
+      - group_id: "group_id"
+        name: "name"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  GroupSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      alias:
+        type: "string"
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      default_user_type:
+        type: "string"
+        x-nullable: true
+      description:
+        type: "string"
+      external_id:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      is_saml_group:
+        type: "boolean"
+        readOnly: true
+      logo:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      role_categories:
+        $ref: "#/definitions/GroupBaseSchema_role_categories"
+      roles:
+        type: "array"
+        items:
+          type: "string"
+      saml_primary_group_priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        default: 0
+        x-nullable: true
+    example:
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      role_categories: {}
+      roles:
+      - "roles"
+      - "roles"
+      description: "description"
+      external_id: "external_id"
+      is_saml_group: true
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      alias: "alias"
+      logo: "logo"
+      saml_primary_group_priority: -1803530559
+      id: "id"
+      default_user_type: "default_user_type"
+  GroupsSchema:
+    type: "object"
+    properties:
+      facets:
+        type: "object"
+        properties: {}
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/GroupElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 413233370
+      first_url: "first_url"
+      total: 1175752406347165696
+      pages: -1517921766
+      objects:
+      - date_created: "date_created"
+        role_categories: {}
+        roles:
+        - "roles"
+        - "roles"
+        description: "description"
+        external_id: "external_id"
+        is_saml_group: true
+        date_modified: "date_modified"
+        name: "name"
+        alias: "alias"
+        logo: "logo"
+        saml_primary_group_priority: -1803530559
+        id: "id"
+        default_user_type: "default_user_type"
+      - date_created: "date_created"
+        role_categories: {}
+        roles:
+        - "roles"
+        - "roles"
+        description: "description"
+        external_id: "external_id"
+        is_saml_group: true
+        date_modified: "date_modified"
+        name: "name"
+        alias: "alias"
+        logo: "logo"
+        saml_primary_group_priority: -1803530559
+        id: "id"
+        default_user_type: "default_user_type"
+      next_url: "next_url"
+      page: 441289069
+      prev_url: "prev_url"
+      last_url: "last_url"
+      facets: "{}"
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  ReindexGroupSchema:
+    type: "object"
+    properties:
+      sync_to_another_dc:
+        type: "boolean"
+        default: true
+  ReindexUserSchema:
+    type: "object"
+    properties:
+      sync_to_another_dc:
+        type: "boolean"
+        default: true
+  RoleCategoriesSchema:
+    type: "object"
+    properties:
+      assets_edit:
+        type: "boolean"
+      billing:
+        type: "boolean"
+      collaborate:
+        type: "boolean"
+      core:
+        type: "boolean"
+      download:
+        type: "boolean"
+      integrations_admin:
+        type: "boolean"
+      metadata_admin:
+        type: "boolean"
+      organize:
+        type: "boolean"
+      others:
+        type: "boolean"
+      storage_admin:
+        type: "boolean"
+      upload:
+        type: "boolean"
+      users_groups_admin:
+        type: "boolean"
+  UserBaseSchema:
+    type: "object"
+    required:
+    - "email"
+    - "first_name"
+    - "password"
+    - "type"
+    properties:
+      date_terms_accepted:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      groups:
+        type: "array"
+        items:
+          type: "string"
+      hide_email:
+        type: "boolean"
+      hide_phone:
+        type: "boolean"
+      id:
+        type: "string"
+        readOnly: true
+      identity_provider_id:
+        type: "string"
+        readOnly: true
+      is_admin:
+        type: "boolean"
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      last_name:
+        type: "string"
+      last_successful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_unsuccessful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_web_login:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      metadata:
+        type: "string"
+        x-nullable: true
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      photo:
+        type: "string"
+        readOnly: true
+      photo_big:
+        type: "string"
+        readOnly: true
+      photo_small:
+        type: "string"
+        readOnly: true
+      primary_group:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INACTIVE"
+        - "ACTIVE"
+        - "BLOCKED"
+        - "DELETED"
+      system_domains:
+        type: "array"
+        items:
+          type: "string"
+      system_metadata:
+        $ref: "#/definitions/UserBaseSchema_system_metadata"
+      system_name:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        enum:
+        - "POWER"
+        - "STANDARD"
+        - "BROWSE_ONLY"
+        - "BROWSE_API_ONLY"
+  UserByEmailSchema:
+    type: "object"
+    required:
+    - "email"
+    properties:
+      email:
+        type: "string"
+        format: "email"
+  UserCreateSchema:
+    type: "object"
+    required:
+    - "email"
+    - "first_name"
+    - "password"
+    - "type"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_terms_accepted:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      groups:
+        type: "array"
+        items:
+          type: "string"
+      hide_email:
+        type: "boolean"
+      hide_phone:
+        type: "boolean"
+      id:
+        type: "string"
+        readOnly: true
+      identity_provider_id:
+        type: "string"
+        readOnly: true
+      is_admin:
+        type: "boolean"
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      last_name:
+        type: "string"
+      last_successful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_unsuccessful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_web_login:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      metadata:
+        type: "string"
+        x-nullable: true
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      photo:
+        type: "string"
+        readOnly: true
+      photo_big:
+        type: "string"
+        readOnly: true
+      photo_small:
+        type: "string"
+        readOnly: true
+      primary_group:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INACTIVE"
+        - "ACTIVE"
+        - "BLOCKED"
+        - "DELETED"
+      system_domains:
+        type: "array"
+        items:
+          type: "string"
+      system_metadata:
+        $ref: "#/definitions/UserBaseSchema_system_metadata"
+      system_name:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        enum:
+        - "POWER"
+        - "STANDARD"
+        - "BROWSE_ONLY"
+        - "BROWSE_API_ONLY"
+  UserEditInternalSchema:
+    type: "object"
+    required:
+    - "email"
+    - "first_name"
+    - "password"
+    - "type"
+    properties:
+      current_password:
+        type: "string"
+      date_terms_accepted:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      groups:
+        type: "array"
+        items:
+          type: "string"
+      hide_email:
+        type: "boolean"
+      hide_phone:
+        type: "boolean"
+      id:
+        type: "string"
+        readOnly: true
+      identity_provider_id:
+        type: "string"
+        readOnly: true
+      is_admin:
+        type: "boolean"
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      last_name:
+        type: "string"
+      last_successful_auth:
+        type: "string"
+        format: "date-time"
+      last_unsuccessful_auth:
+        type: "string"
+        format: "date-time"
+      last_web_login:
+        type: "string"
+        format: "date-time"
+      metadata:
+        type: "string"
+        x-nullable: true
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      photo:
+        type: "string"
+        readOnly: true
+      photo_big:
+        type: "string"
+        readOnly: true
+      photo_small:
+        type: "string"
+        readOnly: true
+      primary_group:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INACTIVE"
+        - "ACTIVE"
+        - "BLOCKED"
+        - "DELETED"
+      system_domains:
+        type: "array"
+        items:
+          type: "string"
+      system_metadata:
+        $ref: "#/definitions/UserBaseSchema_system_metadata"
+      system_name:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        enum:
+        - "POWER"
+        - "STANDARD"
+        - "BROWSE_ONLY"
+        - "BROWSE_API_ONLY"
+  UserEditSchema:
+    type: "object"
+    required:
+    - "email"
+    - "first_name"
+    - "password"
+    - "type"
+    properties:
+      current_password:
+        type: "string"
+      date_terms_accepted:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      groups:
+        type: "array"
+        items:
+          type: "string"
+      hide_email:
+        type: "boolean"
+      hide_phone:
+        type: "boolean"
+      id:
+        type: "string"
+        readOnly: true
+      identity_provider_id:
+        type: "string"
+        readOnly: true
+      is_admin:
+        type: "boolean"
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      last_name:
+        type: "string"
+      last_successful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_unsuccessful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_web_login:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      metadata:
+        type: "string"
+        x-nullable: true
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      photo:
+        type: "string"
+        readOnly: true
+      photo_big:
+        type: "string"
+        readOnly: true
+      photo_small:
+        type: "string"
+        readOnly: true
+      primary_group:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INACTIVE"
+        - "ACTIVE"
+        - "BLOCKED"
+        - "DELETED"
+      system_domains:
+        type: "array"
+        items:
+          type: "string"
+      system_metadata:
+        $ref: "#/definitions/UserBaseSchema_system_metadata"
+      system_name:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        enum:
+        - "POWER"
+        - "STANDARD"
+        - "BROWSE_ONLY"
+        - "BROWSE_API_ONLY"
+  UserElasticSchema:
+    type: "object"
+    required:
+    - "email"
+    - "first_name"
+    - "password"
+    - "type"
+    properties:
+      date_created:
+        type: "string"
+        readOnly: true
+      date_modified:
+        type: "string"
+        readOnly: true
+      date_terms_accepted:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      groups:
+        type: "array"
+        items:
+          type: "string"
+      hide_email:
+        type: "boolean"
+      hide_phone:
+        type: "boolean"
+      id:
+        type: "string"
+        readOnly: true
+      identity_provider_id:
+        type: "string"
+        readOnly: true
+      is_admin:
+        type: "boolean"
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      last_name:
+        type: "string"
+      last_successful_auth:
+        type: "string"
+        readOnly: true
+      last_unsuccessful_auth:
+        type: "string"
+        readOnly: true
+      last_web_login:
+        type: "string"
+        readOnly: true
+      metadata:
+        type: "string"
+        x-nullable: true
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      photo:
+        type: "string"
+        readOnly: true
+      photo_big:
+        type: "string"
+        readOnly: true
+      photo_small:
+        type: "string"
+        readOnly: true
+      primary_group:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INACTIVE"
+        - "ACTIVE"
+        - "BLOCKED"
+        - "DELETED"
+      system_domains:
+        type: "array"
+        items:
+          type: "string"
+      system_metadata:
+        $ref: "#/definitions/UserBaseSchema_system_metadata"
+      system_name:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        enum:
+        - "POWER"
+        - "STANDARD"
+        - "BROWSE_ONLY"
+        - "BROWSE_API_ONLY"
+    example:
+      metadata: "metadata"
+      primary_group: "primary_group"
+      photo_big: "photo_big"
+      is_super_admin: true
+      type: "POWER"
+      hide_email: true
+      is_admin: true
+      password: "password"
+      identity_provider_id: "identity_provider_id"
+      hide_phone: true
+      id: "id"
+      last_successful_auth: "last_successful_auth"
+      first_name: "first_name"
+      email: "email"
+      last_web_login: "last_web_login"
+      date_created: "date_created"
+      system_name: "system_name"
+      groups:
+      - "groups"
+      - "groups"
+      last_name: "last_name"
+      photo: "photo"
+      last_unsuccessful_auth: "last_unsuccessful_auth"
+      photo_small: "photo_small"
+      system_metadata: {}
+      system_domains:
+      - "system_domains"
+      - "system_domains"
+      date_modified: "date_modified"
+      date_terms_accepted: "2000-01-23T04:56:07.000+00:00"
+      phone: "phone"
+      status: "INACTIVE"
+  UserLoginSchema:
+    type: "object"
+    required:
+    - "email"
+    - "password"
+    properties:
+      email:
+        type: "string"
+        format: "email"
+      password:
+        type: "string"
+  UserRolesSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      objects:
+      - "objects"
+      - "objects"
+  UserSamlCreateSchema:
+    type: "object"
+    required:
+    - "email"
+    - "first_name"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_terms_accepted:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      group_names:
+        type: "array"
+        items:
+          type: "string"
+      groups:
+        type: "array"
+        items:
+          type: "string"
+      hide_email:
+        type: "boolean"
+      hide_phone:
+        type: "boolean"
+      id:
+        type: "string"
+        readOnly: true
+      identity_provider_id:
+        type: "string"
+      is_admin:
+        type: "boolean"
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      last_name:
+        type: "string"
+      last_successful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_unsuccessful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_web_login:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      metadata:
+        type: "string"
+        x-nullable: true
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      photo:
+        type: "string"
+        readOnly: true
+      photo_big:
+        type: "string"
+        readOnly: true
+      photo_small:
+        type: "string"
+        readOnly: true
+      primary_group:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INACTIVE"
+        - "ACTIVE"
+        - "BLOCKED"
+        - "DELETED"
+      system_domains:
+        type: "array"
+        items:
+          type: "string"
+      system_metadata:
+        $ref: "#/definitions/UserBaseSchema_system_metadata"
+      system_name:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        enum:
+        - "POWER"
+        - "STANDARD"
+        - "BROWSE_ONLY"
+        - "BROWSE_API_ONLY"
+        x-nullable: true
+  UserSamlIdpUpdateSchema:
+    type: "object"
+    required:
+    - "identity_provider_id"
+    properties:
+      identity_provider_id:
+        type: "string"
+  UserSamlUpdateSchema:
+    type: "object"
+    properties:
+      first_name:
+        type: "string"
+      group_names:
+        type: "array"
+        items:
+          type: "string"
+      identity_provider_id:
+        type: "string"
+      last_name:
+        type: "string"
+  UserSchema:
+    type: "object"
+    required:
+    - "email"
+    - "first_name"
+    - "password"
+    - "type"
+    properties:
+      app_id:
+        type: "string"
+        readOnly: true
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_terms_accepted:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      disable_mixpanel:
+        type: "boolean"
+        readOnly: true
+      email:
+        type: "string"
+        format: "email"
+      first_name:
+        type: "string"
+      groups:
+        type: "array"
+        items:
+          type: "string"
+      hide_email:
+        type: "boolean"
+      hide_phone:
+        type: "boolean"
+      id:
+        type: "string"
+        readOnly: true
+      identity_provider_id:
+        type: "string"
+        readOnly: true
+      is_admin:
+        type: "boolean"
+      is_super_admin:
+        type: "boolean"
+        readOnly: true
+      last_name:
+        type: "string"
+      last_successful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_unsuccessful_auth:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      last_web_login:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      metadata:
+        type: "string"
+        x-nullable: true
+      password:
+        type: "string"
+      phone:
+        type: "string"
+      photo:
+        type: "string"
+        readOnly: true
+      photo_big:
+        type: "string"
+        readOnly: true
+      photo_small:
+        type: "string"
+        readOnly: true
+      photo_storage_id:
+        type: "string"
+        readOnly: true
+      primary_group:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "INACTIVE"
+        - "ACTIVE"
+        - "BLOCKED"
+        - "DELETED"
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      system_domains:
+        type: "array"
+        items:
+          type: "string"
+      system_metadata:
+        $ref: "#/definitions/UserBaseSchema_system_metadata"
+      system_name:
+        type: "string"
+        readOnly: true
+      type:
+        type: "string"
+        enum:
+        - "POWER"
+        - "STANDARD"
+        - "BROWSE_ONLY"
+        - "BROWSE_API_ONLY"
+    example:
+      metadata: "metadata"
+      primary_group: "primary_group"
+      photo_big: "photo_big"
+      is_super_admin: true
+      type: "POWER"
+      hide_email: true
+      is_admin: true
+      password: "password"
+      identity_provider_id: "identity_provider_id"
+      disable_mixpanel: true
+      hide_phone: true
+      id: "id"
+      last_successful_auth: "2000-01-23T04:56:07.000+00:00"
+      app_id: "app_id"
+      first_name: "first_name"
+      email: "email"
+      photo_storage_id: "photo_storage_id"
+      last_web_login: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      system_name: "system_name"
+      groups:
+      - "groups"
+      - "groups"
+      last_name: "last_name"
+      photo: "photo"
+      last_unsuccessful_auth: "2000-01-23T04:56:07.000+00:00"
+      photo_small: "photo_small"
+      system_metadata: {}
+      system_domains:
+      - "system_domains"
+      - "system_domains"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      date_terms_accepted: "2000-01-23T04:56:07.000+00:00"
+      phone: "phone"
+      status: "INACTIVE"
+      system_domain_id: "system_domain_id"
+  UserSystemMetadataSchema:
+    type: "object"
+    properties:
+      saml_created:
+        type: "boolean"
+        readOnly: true
+  UsersSchema:
+    type: "object"
+    properties:
+      facets:
+        type: "object"
+        properties: {}
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/UserElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - metadata: "metadata"
+        primary_group: "primary_group"
+        photo_big: "photo_big"
+        is_super_admin: true
+        type: "POWER"
+        hide_email: true
+        is_admin: true
+        password: "password"
+        identity_provider_id: "identity_provider_id"
+        hide_phone: true
+        id: "id"
+        last_successful_auth: "last_successful_auth"
+        first_name: "first_name"
+        email: "email"
+        last_web_login: "last_web_login"
+        date_created: "date_created"
+        system_name: "system_name"
+        groups:
+        - "groups"
+        - "groups"
+        last_name: "last_name"
+        photo: "photo"
+        last_unsuccessful_auth: "last_unsuccessful_auth"
+        photo_small: "photo_small"
+        system_metadata: {}
+        system_domains:
+        - "system_domains"
+        - "system_domains"
+        date_modified: "date_modified"
+        date_terms_accepted: "2000-01-23T04:56:07.000+00:00"
+        phone: "phone"
+        status: "INACTIVE"
+      - metadata: "metadata"
+        primary_group: "primary_group"
+        photo_big: "photo_big"
+        is_super_admin: true
+        type: "POWER"
+        hide_email: true
+        is_admin: true
+        password: "password"
+        identity_provider_id: "identity_provider_id"
+        hide_phone: true
+        id: "id"
+        last_successful_auth: "last_successful_auth"
+        first_name: "first_name"
+        email: "email"
+        last_web_login: "last_web_login"
+        date_created: "date_created"
+        system_name: "system_name"
+        groups:
+        - "groups"
+        - "groups"
+        last_name: "last_name"
+        photo: "photo"
+        last_unsuccessful_auth: "last_unsuccessful_auth"
+        photo_small: "photo_small"
+        system_metadata: {}
+        system_domains:
+        - "system_domains"
+        - "system_domains"
+        date_modified: "date_modified"
+        date_terms_accepted: "2000-01-23T04:56:07.000+00:00"
+        phone: "phone"
+        status: "INACTIVE"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+      facets: "{}"
+  inline_response_200:
+    type: "object"
+    properties:
+      logo:
+        type: "string"
+        description: "Url for the group logo"
+    example:
+      logo: "logo"
+  inline_response_200_1:
+    type: "object"
+    properties:
+      photo:
+        type: "string"
+        description: "Url for the user original photo"
+      photo_big:
+        type: "string"
+        description: "Url for the user re-sized big photo"
+      photo_small:
+        type: "string"
+        description: "Url for the user re-sized small photo"
+    example:
+      photo: "photo"
+      photo_big: "photo_big"
+      photo_small: "photo_small"
+  GroupBaseSchema_role_categories:
+    type: "object"
+    x-nullable: true
+  UserBaseSchema_system_metadata:
+    type: "object"

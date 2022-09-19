@@ -1,0 +1,2481 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_metadata"
+basePath: "/API/metadata"
+paths:
+  /v1/assets/{asset_id}/versions/{version_id}/views/{view_id}/:
+    get:
+      summary: "Get object metadata by object type, object ID, version ID and view\
+        \ ID"
+      description: "\nRequired roles:\n - can_read_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - name: "version_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "VersionId"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      responses:
+        "200":
+          description: "Returns a metadata values for object and view if it exists"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata values for this object and view doesn't exist"
+  /v1/assets/{asset_id}/{object_type}/{object_id}/versions/{version_id}/views/{view_id}/:
+    get:
+      summary: "Get asset metadata by object type, object ID, version ID and view\
+        \ ID"
+      description: "\nRequired roles:\n - can_read_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      - name: "version_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "VersionId"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      responses:
+        "200":
+          description: "Returns a metadata values for object and view if it exists"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata values for this object and view doesn't exist"
+  /v1/assets/{asset_id}/{object_type}/{object_id}/views/{view_id}/:
+    get:
+      summary: "Get asset metadata by object type, object ID and view ID"
+      description: "\nRequired roles:\n - can_read_metadata_values\nRequired roles:\n\
+        \ - can_read_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      responses:
+        "200":
+          description: "Returns a metadata values for object and view if it exists"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata values for this object and view doesn't exist"
+    put:
+      summary: "Edit view metadata values for sub-objects of an asset (Such as segments)"
+      description: "\nRequired roles:\n - can_write_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataValuesInputSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns a created metadata values for object and view"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+  /v1/facet/fields/: {}
+  /v1/fields/:
+    get:
+      summary: "List the fields defined in the system"
+      description: "\nRequired roles:\n - can_read_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page (Default 500)"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_field_name"
+        in: "query"
+        description: "If your request returns per_page entries, send the last value\
+          \ of \"name\" to fetch next page"
+        required: false
+        type: "string"
+        x-exportParamName: "LastFieldName"
+        x-optionalDataType: "String"
+      - name: "filter"
+        in: "query"
+        description: "A comma separated list of fieldnames For example - first_name,last_name,salary"
+        required: false
+        type: "string"
+        x-exportParamName: "Filter"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of metadata entities"
+          schema:
+            $ref: "#/definitions/MetadataFieldsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create a new field"
+      description: "\nRequired roles:\n - can_write_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataFieldCreateSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created field"
+          schema:
+            $ref: "#/definitions/MetadataFieldSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/fields/{field_name}/:
+    get:
+      summary: "Returns a particular field by name"
+      description: "\nRequired roles:\n - can_read_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "field_name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "FieldName"
+      responses:
+        "200":
+          description: "Returns a field"
+          schema:
+            $ref: "#/definitions/MetadataFieldSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata field doesn't exist"
+    put:
+      summary: "Update field by name"
+      description: "\nRequired roles:\n - can_write_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "field_name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "FieldName"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataFieldSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated field"
+          schema:
+            $ref: "#/definitions/MetadataFieldSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata field doesn't exist"
+    delete:
+      summary: "Delete a particular field by name"
+      description: "\nRequired roles:\n - can_delete_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "field_name"
+        in: "path"
+        required: true
+        type: "integer"
+        x-exportParamName: "FieldName"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata field doesn't exist"
+    patch:
+      summary: "Update field by name"
+      description: "\nRequired roles:\n - can_write_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "field_name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "FieldName"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataFieldSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated field"
+          schema:
+            $ref: "#/definitions/MetadataFieldSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata field doesn't exist"
+  /v1/mapping/fields/:
+    post:
+      summary: "Create a new metadata field mapping"
+      description: "\nRequired roles:\n - can_read_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataFieldMappingSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created field mapping"
+          schema:
+            $ref: "#/definitions/MetadataFieldMappingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/mapping/fields/{field_name}/:
+    get:
+      summary: "Get the metadata field mapping"
+      description: "\nRequired roles:\n - can_read_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "field_name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "FieldName"
+      responses:
+        "200":
+          description: "Returns the metadata field mapping"
+          schema:
+            $ref: "#/definitions/MetadataFieldMappingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/mapping/options/:
+    get:
+      summary: "List the metadata field mapping options"
+      description: "\nRequired roles:\n - can_read_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a list of metadata field mapping options"
+          schema:
+            $ref: "#/definitions/MetadataFieldMappingOptionsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/user/fields/:
+    get:
+      summary: "List the fields that can be accessed by a user"
+      description: "\nRequired roles:\n - can_read_metadata_fields"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a list of metadata fields"
+          schema:
+            $ref: "#/definitions/MetadataFieldsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/views/:
+    get:
+      summary: "List the views defined in the system"
+      description: "\nRequired roles:\n - can_read_metadata_views"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "filter"
+        in: "query"
+        description: "A comma separated list of fieldnames with order For example\
+          \ - first_name,eq,Vlad;last_name,eq,Gudkov"
+        required: false
+        type: "string"
+        x-exportParamName: "Filter"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of metadata views"
+          schema:
+            $ref: "#/definitions/MetadataViewsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create a new view"
+      description: "\nRequired roles:\n - can_write_metadata_views"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataViewInputSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created view"
+          schema:
+            $ref: "#/definitions/MetadataViewSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/views/{view_id}/:
+    get:
+      summary: "Returns a particular view by id"
+      description: "\nRequired roles:\n - can_read_metadata_views"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      - name: "merge_fields"
+        in: "query"
+        required: false
+        type: "boolean"
+        default: true
+        x-exportParamName: "MergeFields"
+        x-optionalDataType: "Bool"
+      responses:
+        "200":
+          description: "Returns a view"
+          schema:
+            $ref: "#/definitions/MetadataViewSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+    put:
+      summary: "Update view"
+      description: "\nRequired roles:\n - can_write_metadata_views"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataViewInputSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated view"
+          schema:
+            $ref: "#/definitions/MetadataViewSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+    delete:
+      summary: "Delete a particular view by id"
+      description: "\nRequired roles:\n - can_delete_metadata_views"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+    patch:
+      summary: "Update view"
+      description: "\nRequired roles:\n - can_write_metadata_views"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataViewInputSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated view"
+          schema:
+            $ref: "#/definitions/MetadataViewSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+  /v1/{object_type}/bulk/: {}
+  /v1/{object_type}/categories/:
+    get:
+      summary: "Get metadata categories"
+      description: "\nRequired roles:\n - can_read_metadata_categories"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      responses:
+        "200":
+          description: "Returns metadata categories for an object"
+          schema:
+            $ref: "#/definitions/MetadataCategoriesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Add a metadata category for an object type"
+      description: "\nRequired roles:\n - can_write_metadata_categories"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataCategorySchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a metadata category"
+          schema:
+            $ref: "#/definitions/MetadataCategorySchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "409":
+          description: "A category with the same name and object_type already exists"
+  /v1/{object_type}/categories/{name}/:
+    get:
+      summary: "Get metadata category by object type and category name"
+      description: "\nRequired roles:\n - can_read_metadata_categories"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      responses:
+        "200":
+          description: "Returns metadata category by object type and category name"
+          schema:
+            $ref: "#/definitions/MetadataCategorySchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata category by object type and category name doesn't\
+            \ exist"
+    put:
+      summary: "Edit metadata category for an object type"
+      description: "\nRequired roles:\n - can_write_metadata_categories"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataCategorySchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns a metadata category"
+          schema:
+            $ref: "#/definitions/MetadataCategorySchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata category for this object type doesn't exist"
+    delete:
+      summary: "Delete metadata category by object type and category name"
+      description: "\nRequired roles:\n - can_delete_metadata_categories"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata category by object type and category name doesn't\
+            \ exist"
+  /v1/{object_type}/categories/{name}/views/:
+    get:
+      summary: "Get metadata views with field for object type and category"
+      description: "\nRequired roles:\n - can_read_metadata_categories"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Name"
+      - name: "ext_options"
+        in: "query"
+        required: false
+        type: "boolean"
+        x-exportParamName: "ExtOptions"
+        x-optionalDataType: "Bool"
+      - name: "writable_only"
+        in: "query"
+        required: false
+        type: "boolean"
+        x-exportParamName: "WritableOnly"
+        x-optionalDataType: "Bool"
+      responses:
+        "200":
+          description: "Returns metadata views with field for object type and category"
+          schema:
+            $ref: "#/definitions/MetadataCategorySchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata views with field for object type and category doesn't\
+            \ exist"
+  /v1/{object_type}/content/views/{view_id}/:
+    put:
+      summary: "Edit view metadata values for collection or saved search content."
+      description: "\nRequired roles:\n - can_write_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/CollectionMetadataValuesBatchSchema"
+        x-exportParamName: "Body"
+      responses:
+        "202":
+          description: "No body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+  /v1/{object_type}/views/{view_id}/:
+    put:
+      summary: "Edit view metadata values for multiple objects (Assets, Collections\
+        \ or Segments)"
+      description: "\nRequired roles:\n - can_write_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataValuesBatchSchema"
+        x-exportParamName: "Body"
+      responses:
+        "202":
+          description: "Batch metadata update was successfully scheduled"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+  /v1/{object_type}/{object_id}/:
+    get:
+      summary: "Get object metadata by object type and object ID"
+      description: "This view should be available only internally"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      responses:
+        "200":
+          description: "Returns a metadata values for object and view if it exists"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata values for this object don't exist"
+    put:
+      summary: "Edit metadata values directly without a view. Admin access required."
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataValuesInputSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns a created metadata values for object and view"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+  /v1/{object_type}/{object_id}/versions/{version_id}/: {}
+  /v1/{object_type}/{object_id}/views/{view_id}/:
+    get:
+      summary: "Get object metadata by object type, object ID and view ID"
+      description: "\nRequired roles:\n - can_read_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      responses:
+        "200":
+          description: "Returns a metadata values for object and view if it exists"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata values for this object and view doesn't exist"
+    put:
+      summary: "Edit view metadata values for a single object"
+      description: "\nRequired roles:\n - can_write_metadata_values"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      - name: "view_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ViewId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/MetadataValuesInputSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns a created metadata values for object and view"
+          schema:
+            $ref: "#/definitions/MetadataValuesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Metadata view doesn't exist"
+definitions:
+  BulkMetadataDeleteSchema:
+    type: "object"
+    required:
+    - "object_ids"
+    properties:
+      object_ids:
+        type: "array"
+        items:
+          type: "string"
+  CollectionMetadataValuesBatchSchema:
+    type: "object"
+    required:
+    - "include_assets"
+    - "include_collections"
+    - "metadata_values"
+    - "object_ids"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      include_assets:
+        type: "boolean"
+      include_collections:
+        type: "boolean"
+      metadata_values:
+        type: "string"
+      object_ids:
+        type: "array"
+        items:
+          type: "string"
+      object_type:
+        type: "string"
+  CopySourceQueryParamsSchema:
+    type: "object"
+    properties:
+      source_object_id:
+        type: "string"
+      source_object_type:
+        type: "string"
+      source_version_id:
+        type: "string"
+  ExternalSourceFieldOptionsSchema:
+    type: "object"
+    properties:
+      label:
+        type: "string"
+      value:
+        type: "string"
+  ExternalSourceFieldSchema:
+    type: "object"
+  FacetFieldNamesSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        items:
+          type: "string"
+  FieldOptionsSchema:
+    type: "object"
+    properties:
+      label:
+        type: "string"
+      value:
+        type: "string"
+    example:
+      label: "label"
+      value: "value"
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  MetadataCategoriesSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/MetadataCategorySchema"
+    example:
+      objects:
+      - view_ids:
+        - "view_ids"
+        - "view_ids"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        label: "label"
+        views:
+        - date_modified: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          name: "name"
+          description: "description"
+          view_fields:
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          id: "id"
+        - date_modified: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          name: "name"
+          description: "description"
+          view_fields:
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          id: "id"
+      - view_ids:
+        - "view_ids"
+        - "view_ids"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        label: "label"
+        views:
+        - date_modified: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          name: "name"
+          description: "description"
+          view_fields:
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          id: "id"
+        - date_modified: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          name: "name"
+          description: "description"
+          view_fields:
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          - date_created: "2000-01-23T04:56:07.000+00:00"
+            description: "description"
+            hide_if_not_set: true
+            external_id: "external_id"
+            label: "label"
+            sortable: true
+            mapped_field_name: "mapped_field_name"
+            required: true
+            source_url: "http://example.com/aeiou"
+            multi: true
+            min_value: 6.0274563
+            is_warning_field: true
+            use_as_facet: true
+            auto_set: true
+            date_modified: "2000-01-23T04:56:07.000+00:00"
+            read_only: true
+            name: "name"
+            options:
+            - label: "label"
+              value: "value"
+            - label: "label"
+              value: "value"
+            field_type: "field_type"
+            is_block_field: true
+            representative: true
+            max_value: 0.8008282
+          id: "id"
+  MetadataCategorySchema:
+    type: "object"
+    required:
+    - "label"
+    - "name"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      label:
+        type: "string"
+      name:
+        type: "string"
+      object_type:
+        type: "string"
+        readOnly: true
+      view_ids:
+        type: "array"
+        items:
+          type: "string"
+      views:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/MetadataViewSchema"
+    example:
+      view_ids:
+      - "view_ids"
+      - "view_ids"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_type: "object_type"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      label: "label"
+      views:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        description: "description"
+        view_fields:
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        id: "id"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        description: "description"
+        view_fields:
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        id: "id"
+  MetadataFieldBaseSchema:
+    type: "object"
+    required:
+    - "field_type"
+    properties:
+      auto_set:
+        type: "boolean"
+        x-nullable: true
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+      external_id:
+        type: "string"
+      field_type:
+        type: "string"
+      hide_if_not_set:
+        type: "boolean"
+        x-nullable: true
+      is_block_field:
+        type: "boolean"
+      is_warning_field:
+        type: "boolean"
+      mapped_field_name:
+        type: "string"
+        readOnly: true
+      max_value:
+        type: "number"
+        format: "float"
+      min_value:
+        type: "number"
+        format: "float"
+      multi:
+        type: "boolean"
+      options:
+        type: "array"
+        items:
+          $ref: "#/definitions/FieldOptionsSchema"
+      read_only:
+        type: "boolean"
+        x-nullable: true
+      representative:
+        type: "boolean"
+      required:
+        type: "boolean"
+        x-nullable: true
+      sortable:
+        type: "boolean"
+      source_url:
+        type: "string"
+        format: "url"
+        description: "Will be used to upload MetadataField's `options`. Cannot be\
+          \ set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`.\
+          \ In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`.\
+          \ Please note that some query parameters were added by *iconik* to get values\
+          \ that were predefined in your system for each user [user_id] and view [view_id].\
+          \ Metadata field name [field_name], view's name [view_name] and system domain\
+          \ identifier [system_domain_id] will be also passed in each request. *iconik*\
+          \ will successfully parse the response from that URL if it will be sent\
+          \ in JSON formatted string: `{\"bar\": [{\"value\": \"1\", \"label\": \"\
+          1st\"}, {\"value\": \"2\", \"label\": \"2nd\"}]}`"
+        x-nullable: true
+      use_as_facet:
+        type: "boolean"
+  MetadataFieldCreateSchema:
+    type: "object"
+    required:
+    - "field_type"
+    - "label"
+    - "name"
+    properties:
+      auto_set:
+        type: "boolean"
+        x-nullable: true
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+      external_id:
+        type: "string"
+      field_type:
+        type: "string"
+      hide_if_not_set:
+        type: "boolean"
+        x-nullable: true
+      is_block_field:
+        type: "boolean"
+      is_warning_field:
+        type: "boolean"
+      label:
+        type: "string"
+      mapped_field_name:
+        type: "string"
+        readOnly: true
+      max_value:
+        type: "number"
+        format: "float"
+      min_value:
+        type: "number"
+        format: "float"
+      multi:
+        type: "boolean"
+      name:
+        type: "string"
+      options:
+        type: "array"
+        items:
+          $ref: "#/definitions/FieldOptionsSchema"
+      read_only:
+        type: "boolean"
+        x-nullable: true
+      representative:
+        type: "boolean"
+      required:
+        type: "boolean"
+        x-nullable: true
+      sortable:
+        type: "boolean"
+      source_url:
+        type: "string"
+        format: "url"
+        description: "Will be used to upload MetadataField's `options`. Cannot be\
+          \ set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`.\
+          \ In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`.\
+          \ Please note that some query parameters were added by *iconik* to get values\
+          \ that were predefined in your system for each user [user_id] and view [view_id].\
+          \ Metadata field name [field_name], view's name [view_name] and system domain\
+          \ identifier [system_domain_id] will be also passed in each request. *iconik*\
+          \ will successfully parse the response from that URL if it will be sent\
+          \ in JSON formatted string: `{\"bar\": [{\"value\": \"1\", \"label\": \"\
+          1st\"}, {\"value\": \"2\", \"label\": \"2nd\"}]}`"
+        x-nullable: true
+      use_as_facet:
+        type: "boolean"
+  MetadataFieldMappingOptionSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+        minLength: 1
+    example:
+      name: "name"
+  MetadataFieldMappingOptionsSchema:
+    type: "object"
+    required:
+    - "objects"
+    properties:
+      objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/MetadataFieldMappingOptionSchema"
+    example:
+      objects:
+      - name: "name"
+      - name: "name"
+  MetadataFieldMappingSchema:
+    type: "object"
+    required:
+    - "mapped_field_name"
+    - "name"
+    properties:
+      field_type:
+        type: "string"
+        readOnly: true
+      mapped_field_name:
+        type: "string"
+        minLength: 1
+      name:
+        type: "string"
+        minLength: 1
+    example:
+      name: "name"
+      field_type: "field_type"
+      mapped_field_name: "mapped_field_name"
+  MetadataFieldMappingUpdateSchema:
+    type: "object"
+    required:
+    - "mapped_field_name"
+    properties:
+      field_type:
+        type: "string"
+        readOnly: true
+      mapped_field_name:
+        type: "string"
+        minLength: 1
+      name:
+        type: "string"
+        readOnly: true
+  MetadataFieldMappingsSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/MetadataFieldMappingSchema"
+  MetadataFieldSchema:
+    type: "object"
+    required:
+    - "field_type"
+    properties:
+      auto_set:
+        type: "boolean"
+        x-nullable: true
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+      external_id:
+        type: "string"
+      field_type:
+        type: "string"
+      hide_if_not_set:
+        type: "boolean"
+        x-nullable: true
+      is_block_field:
+        type: "boolean"
+      is_warning_field:
+        type: "boolean"
+      label:
+        type: "string"
+        x-nullable: true
+      mapped_field_name:
+        type: "string"
+        readOnly: true
+      max_value:
+        type: "number"
+        format: "float"
+      min_value:
+        type: "number"
+        format: "float"
+      multi:
+        type: "boolean"
+      name:
+        type: "string"
+        readOnly: true
+      options:
+        type: "array"
+        items:
+          $ref: "#/definitions/FieldOptionsSchema"
+      read_only:
+        type: "boolean"
+        x-nullable: true
+      representative:
+        type: "boolean"
+      required:
+        type: "boolean"
+        x-nullable: true
+      sortable:
+        type: "boolean"
+      source_url:
+        type: "string"
+        format: "url"
+        description: "Will be used to upload MetadataField's `options`. Cannot be\
+          \ set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`.\
+          \ In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`.\
+          \ Please note that some query parameters were added by *iconik* to get values\
+          \ that were predefined in your system for each user [user_id] and view [view_id].\
+          \ Metadata field name [field_name], view's name [view_name] and system domain\
+          \ identifier [system_domain_id] will be also passed in each request. *iconik*\
+          \ will successfully parse the response from that URL if it will be sent\
+          \ in JSON formatted string: `{\"bar\": [{\"value\": \"1\", \"label\": \"\
+          1st\"}, {\"value\": \"2\", \"label\": \"2nd\"}]}`"
+        x-nullable: true
+      use_as_facet:
+        type: "boolean"
+    example:
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      description: "description"
+      hide_if_not_set: true
+      external_id: "external_id"
+      label: "label"
+      sortable: true
+      mapped_field_name: "mapped_field_name"
+      required: true
+      source_url: "http://example.com/aeiou"
+      multi: true
+      min_value: 6.0274563
+      is_warning_field: true
+      use_as_facet: true
+      auto_set: true
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      read_only: true
+      name: "name"
+      options:
+      - label: "label"
+        value: "value"
+      - label: "label"
+        value: "value"
+      field_type: "field_type"
+      is_block_field: true
+      representative: true
+      max_value: 0.8008282
+  MetadataFieldValueSchema:
+    type: "object"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      field_values:
+        type: "array"
+        items:
+          type: "object"
+          properties: {}
+      mode:
+        type: "string"
+        enum:
+        - "append"
+        - "delete"
+        - "overwrite"
+        default: "overwrite"
+  MetadataFieldsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/MetadataFieldSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 273751188
+      first_url: "first_url"
+      total: -4976680883935979520
+      pages: 413233370
+      objects:
+      - date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        hide_if_not_set: true
+        external_id: "external_id"
+        label: "label"
+        sortable: true
+        mapped_field_name: "mapped_field_name"
+        required: true
+        source_url: "http://example.com/aeiou"
+        multi: true
+        min_value: 6.0274563
+        is_warning_field: true
+        use_as_facet: true
+        auto_set: true
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        read_only: true
+        name: "name"
+        options:
+        - label: "label"
+          value: "value"
+        - label: "label"
+          value: "value"
+        field_type: "field_type"
+        is_block_field: true
+        representative: true
+        max_value: 0.8008282
+      - date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        hide_if_not_set: true
+        external_id: "external_id"
+        label: "label"
+        sortable: true
+        mapped_field_name: "mapped_field_name"
+        required: true
+        source_url: "http://example.com/aeiou"
+        multi: true
+        min_value: 6.0274563
+        is_warning_field: true
+        use_as_facet: true
+        auto_set: true
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        read_only: true
+        name: "name"
+        options:
+        - label: "label"
+          value: "value"
+        - label: "label"
+          value: "value"
+        field_type: "field_type"
+        is_block_field: true
+        representative: true
+        max_value: 0.8008282
+      next_url: "next_url"
+      page: -1517921766
+      prev_url: "prev_url"
+      last_url: "last_url"
+  MetadataValuesBatchSchema:
+    type: "object"
+    required:
+    - "metadata_values"
+    - "object_ids"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      metadata_values:
+        type: "string"
+      object_ids:
+        type: "array"
+        items:
+          type: "string"
+      object_type:
+        type: "string"
+  MetadataValuesInputSchema:
+    type: "object"
+    required:
+    - "metadata_values"
+    properties:
+      metadata_values:
+        type: "array"
+        items:
+          $ref: "#/definitions/MetadataFieldValueSchema"
+  MetadataValuesSchema:
+    type: "object"
+    required:
+    - "metadata_values"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      metadata_values:
+        type: "string"
+      object_id:
+        type: "string"
+      object_type:
+        type: "string"
+      version_id:
+        type: "string"
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_type: "object_type"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      version_id: "version_id"
+      metadata_values: "metadata_values"
+      object_id: "object_id"
+  MetadataViewFieldSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      auto_set:
+        type: "boolean"
+        x-nullable: true
+      hide_if_not_set:
+        type: "boolean"
+        x-nullable: true
+      label:
+        type: "string"
+        x-nullable: true
+      name:
+        type: "string"
+      read_only:
+        type: "boolean"
+        x-nullable: true
+      required:
+        type: "boolean"
+        x-nullable: true
+      source_url:
+        type: "string"
+        format: "url"
+        description: "Will be used to upload MetadataField's `options`. Cannot be\
+          \ set or used as long as `options` are set.  **Example**: The value is `https://external-url.com/foo/`.\
+          \ In that case `GET` request will be sent to `https://external-url.com/foo/?user_id=uuid1&view_id=uuid1&field_name=bar&view_name=user_view&system_domain_id=uuid1`.\
+          \ Please note that some query parameters were added by *iconik* to get values\
+          \ that were predefined in your system for each user [user_id] and view [view_id].\
+          \ Metadata field name [field_name], view's name [view_name] and system domain\
+          \ identifier [system_domain_id] will be also passed in each request. *iconik*\
+          \ will successfully parse the response from that URL if it will be sent\
+          \ in JSON formatted string: `{\"bar\": [{\"value\": \"1\", \"label\": \"\
+          1st\"}, {\"value\": \"2\", \"label\": \"2nd\"}]}`"
+        x-nullable: true
+  MetadataViewInputSchema:
+    type: "object"
+    required:
+    - "name"
+    - "view_fields"
+    properties:
+      description:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      view_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/MetadataViewFieldSchema"
+  MetadataViewSchema:
+    type: "object"
+    required:
+    - "name"
+    - "view_fields"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_modified:
+        type: "string"
+        format: "date-time"
+      description:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      name:
+        type: "string"
+      view_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/MetadataFieldSchema"
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      description: "description"
+      view_fields:
+      - date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        hide_if_not_set: true
+        external_id: "external_id"
+        label: "label"
+        sortable: true
+        mapped_field_name: "mapped_field_name"
+        required: true
+        source_url: "http://example.com/aeiou"
+        multi: true
+        min_value: 6.0274563
+        is_warning_field: true
+        use_as_facet: true
+        auto_set: true
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        read_only: true
+        name: "name"
+        options:
+        - label: "label"
+          value: "value"
+        - label: "label"
+          value: "value"
+        field_type: "field_type"
+        is_block_field: true
+        representative: true
+        max_value: 0.8008282
+      - date_created: "2000-01-23T04:56:07.000+00:00"
+        description: "description"
+        hide_if_not_set: true
+        external_id: "external_id"
+        label: "label"
+        sortable: true
+        mapped_field_name: "mapped_field_name"
+        required: true
+        source_url: "http://example.com/aeiou"
+        multi: true
+        min_value: 6.0274563
+        is_warning_field: true
+        use_as_facet: true
+        auto_set: true
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        read_only: true
+        name: "name"
+        options:
+        - label: "label"
+          value: "value"
+        - label: "label"
+          value: "value"
+        field_type: "field_type"
+        is_block_field: true
+        representative: true
+        max_value: 0.8008282
+      id: "id"
+  MetadataViewsSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/MetadataViewSchema"
+    example:
+      objects:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        description: "description"
+        view_fields:
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        id: "id"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        description: "description"
+        view_fields:
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        - date_created: "2000-01-23T04:56:07.000+00:00"
+          description: "description"
+          hide_if_not_set: true
+          external_id: "external_id"
+          label: "label"
+          sortable: true
+          mapped_field_name: "mapped_field_name"
+          required: true
+          source_url: "http://example.com/aeiou"
+          multi: true
+          min_value: 6.0274563
+          is_warning_field: true
+          use_as_facet: true
+          auto_set: true
+          date_modified: "2000-01-23T04:56:07.000+00:00"
+          read_only: true
+          name: "name"
+          options:
+          - label: "label"
+            value: "value"
+          - label: "label"
+            value: "value"
+          field_type: "field_type"
+          is_block_field: true
+          representative: true
+          max_value: 0.8008282
+        id: "id"

@@ -1,0 +1,347 @@
+---
+swagger: "2.0"
+info:
+  description: "Swagger API definition\n"
+  version: "1.0.0"
+  title: "Swagger API"
+basePath: "/API/webhooks"
+schemes:
+- "http"
+- "https"
+paths:
+  /v1/webhooks/:
+    get:
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      responses:
+        "201":
+          description: "Returns a list of webhooks"
+          schema:
+            properties:
+              objects:
+                type: "array"
+                description: "list of webhooks"
+                items:
+                  type: "object"
+                  properties:
+                    id:
+                      type: "string"
+                      description: "ID"
+                    event_type:
+                      type: "string"
+                      description: "Type of events. Example assets, collections"
+                    object_id:
+                      type: "string"
+                      description: "ID of a particular object you want to subscribe\
+                        \ on"
+                    realm:
+                      type: "string"
+                      description: "Realm of event. Example entity, contents, acls,\
+                        \ metadata"
+                    operation:
+                      type: "string"
+                      description: "Operation of event. Example create, update, delete"
+                    url:
+                      type: "string"
+                      description: "URL you want to be called when notification is\
+                        \ appeared"
+                    headers:
+                      type: "object"
+                      description: "Headers needed for your third party integration"
+                      properties: {}
+                    date_created:
+                      type: "string"
+                      description: "Date and time when webhook was created"
+                    date_modified:
+                      type: "string"
+                      description: "Date and time when webhook was modified"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/body"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created webhook"
+          schema:
+            required:
+            - "event_type"
+            - "status"
+            - "url"
+            properties:
+              id:
+                type: "string"
+                description: "ID"
+              event_type:
+                type: "string"
+                description: "Type of events. Example assets, collections"
+              object_id:
+                type: "string"
+                description: "ID of a particular object you want to subscribe on"
+              status:
+                type: "string"
+                description: "Status of the webhook onject"
+              realm:
+                type: "string"
+                description: "Realm of event. Example entity, contents, acls, metadata"
+              operation:
+                type: "string"
+                description: "Operation of event. Example create, update, delete"
+              url:
+                type: "string"
+                description: "URL you want to be called when notification is appeared"
+              name:
+                type: "string"
+                description: "Name of the webhook"
+              description:
+                type: "string"
+                description: "Description of the webhook"
+              headers:
+                type: "object"
+                description: "Headers needed for your third party integration"
+                properties: {}
+              date_created:
+                type: "string"
+                description: "Date and time when webhook was created"
+              date_modified:
+                type: "string"
+                description: "Date and time when webhook was modified"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/webhooks/{webhook_id}/:
+    get:
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "webhook_id"
+        in: "path"
+        required: true
+        x-exportParamName: "WebhookId"
+      responses:
+        "201":
+          description: "Returns a webhook by it's ID"
+          schema:
+            required:
+            - "event_type"
+            - "url"
+            properties:
+              id:
+                type: "string"
+                description: "ID"
+              event_type:
+                type: "string"
+                description: "Type of events. Example assets, collections"
+              object_id:
+                type: "string"
+                description: "ID of a particular object you want to subscribe on"
+              realm:
+                type: "string"
+                description: "Realm of event. Example entity, contents, acls, metadata"
+              operation:
+                type: "string"
+                description: "Operation of event. Example create, update, delete"
+              url:
+                type: "string"
+                description: "URL you want to be called when notification is appeared"
+              headers:
+                type: "object"
+                description: "Headers needed for your third party integration"
+                properties: {}
+              date_created:
+                type: "string"
+                description: "Date and time when webhook was created"
+              date_modified:
+                type: "string"
+                description: "Date and time when webhook was modified"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    put:
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "webhook_id"
+        in: "path"
+        required: true
+        x-exportParamName: "WebhookId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/body_1"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the updated webhook"
+          schema:
+            required:
+            - "event_type"
+            - "status"
+            - "url"
+            properties:
+              id:
+                type: "string"
+                description: "ID"
+              event_type:
+                type: "string"
+                description: "Type of events. Example assets, collections"
+              status:
+                type: "string"
+                description: "Status of the webhook onject"
+              object_id:
+                type: "string"
+                description: "ID of a particular object you want to subscribe on"
+              realm:
+                type: "string"
+                description: "Realm of event. Example entity, contents, acls, metadata"
+              operation:
+                type: "string"
+                description: "Operation of event. Example create, update, delete"
+              url:
+                type: "string"
+                description: "URL you want to be called when notification is appeared"
+              name:
+                type: "string"
+                description: "Name of the webhook"
+              description:
+                type: "string"
+                description: "Description of the webhook"
+              headers:
+                type: "object"
+                description: "Headers needed for your third party integration"
+                properties: {}
+              date_created:
+                type: "string"
+                description: "Date and time when webhook was created"
+              date_modified:
+                type: "string"
+                description: "Date and time when webhook was modified"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "webhook_id"
+        in: "path"
+        required: true
+        x-exportParamName: "WebhookId"
+      responses:
+        "204":
+          description: "Returns an empty body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+definitions:
+  body_1:
+    required:
+    - "event_type"
+    - "url"
+    properties:
+      event_type:
+        type: "string"
+        description: "Type of events. Example assets, collections"
+      object_id:
+        type: "string"
+        description: "ID of a particular object you want to subscribe on"
+      realm:
+        type: "string"
+        description: "Realm of event. Example entity, contents, acls, metadata"
+      operation:
+        type: "string"
+        description: "Operation of event. Example create, update, delete"
+      url:
+        type: "string"
+        description: "URL you want to be called when notification is appeared"
+      headers:
+        type: "object"
+        example: "{ 'AWS_ACCESS_KEY_ID': 'AWSACCESSKEYEXAMPLE', 'AWS_SECRET_ACCESS_KEY':\
+          \ '+AWSSECRETKEYEXAMPLEXXXXXYYYYYYZZZZZZZ', 'S3_BUCKET_NAME': 'iconik-examples',\
+          \ 'S3_REGION': 'eu-west-1', }"
+        description: "Define the key-value pairs your third party provider requires\
+          \ here"
+        properties: {}
+  body:
+    required:
+    - "event_type"
+    - "url"
+    properties:
+      event_type:
+        type: "string"
+        description: "Type of events. Example assets, collections"
+      object_id:
+        type: "string"
+        description: "ID of a particular object you want to subscribe on"
+      realm:
+        type: "string"
+        description: "Realm of event. Example entity, contents, acls, metadata"
+      operation:
+        type: "string"
+        description: "Operation of event. Example create, update, delete"
+      url:
+        type: "string"
+        description: "URL you want to be called when notification is appeared"
+      headers:
+        type: "object"
+        example: "{ 'AWS_ACCESS_KEY_ID': 'AWSACCESSKEYEXAMPLE', 'AWS_SECRET_ACCESS_KEY':\
+          \ '+AWSSECRETKEYEXAMPLEXXXXXYYYYYYZZZZZZZ', 'S3_BUCKET_NAME': 'iconik-examples',\
+          \ 'S3_REGION': 'eu-west-1', }"
+        description: "Define the key-value pairs your third party provider requires\
+          \ here"
+        properties: {}

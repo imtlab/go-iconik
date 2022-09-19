@@ -1,0 +1,2386 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_transcode"
+basePath: "/API/transcode"
+paths:
+  /v1/analyze/assets/{asset_id}/:
+    post:
+      summary: "Start a job that sends an asset for analysis"
+      description: "\nRequired roles:\n - can_analyze_content"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AnalyzeSchema"
+        x-exportParamName: "Body"
+      deprecated: true
+      responses:
+        "201":
+          description: "Returns a definition of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/analyze/assets/{asset_id}/profiles/default/:
+    post:
+      summary: "Start a job that sends an asset for analysis with a default analysis\
+        \ profile"
+      description: "\nRequired roles:\n - can_analyze_content"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/body"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a definition of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/analyze/assets/{asset_id}/profiles/default/{media_type}/:
+    post:
+      summary: "Start a job that sends an asset for analysis"
+      description: "with a default analysis profile of specified media type\nRequired\
+        \ roles:\n - can_analyze_content"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - name: "media_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "MediaType"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/body_1"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a definition of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/analyze/assets/{asset_id}/profiles/{profile_id}/:
+    post:
+      summary: "Start a job that sends an asset for analysis with a custom analysis\
+        \ profile"
+      description: "\nRequired roles:\n - can_analyze_content"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - name: "profile_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ProfileId"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/body_2"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a definition of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/analyze/bulk/:
+    post:
+      summary: "Start a job that sends objects for analysis using a custom analysis\
+        \ profile"
+      description: "\nRequired roles:\n - can_analyze_content"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/BulkAnalyzeSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a definition of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Analysis account/profile was not found"
+  /v1/edge_transcode/jobs/{job_id}/acknowledge/:
+    post:
+      summary: "Acknowledge an edge transcode job"
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      responses:
+        "200":
+          description: "Acknowledge an edge transcode job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Edge transcode job doesn't exist"
+  /v1/edge_transcode/workers/:
+    get:
+      summary: "Get edge transcode workers"
+      description: "\nRequired roles:\n - is_storage_worker\n- can_read_transcoders"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "201":
+          description: "Returns edge transcode workers"
+          schema:
+            $ref: "#/definitions/EdgeTranscodeWorkersSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create a new edge transcode worker"
+      description: "\nRequired roles:\n - is_storage_worker\n- can_write_transcoders"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns an edge transcode worker"
+          schema:
+            $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/edge_transcode/workers/{worker_id}/:
+    get:
+      summary: "Get a edge transcode worker"
+      description: "\nRequired roles:\n - is_storage_worker\n- can_read_transcoders"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "worker_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "WorkerId"
+      responses:
+        "201":
+          description: "Returns a edge transcode worker"
+          schema:
+            $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Edge transcode worker doesn't exist"
+    put:
+      summary: "Update a edge transcode worker"
+      description: "\nRequired roles:\n - is_storage_worker\n- can_write_transcoders"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "worker_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "WorkerId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a edge transcode worker that was updated"
+          schema:
+            $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Edge transcode worker doesn't exist"
+    delete:
+      summary: "Delete a edge transcode worker"
+      description: "\nRequired roles:\n - is_storage_worker\n- can_write_transcoders"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "worker_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "WorkerId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Edge transcode worker doesn't exist"
+    patch:
+      summary: "Update a edge transcode worker"
+      description: "\nRequired roles:\n - is_storage_worker\n- can_write_transcoders"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "worker_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "WorkerId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a edge transcode worker that was updated"
+          schema:
+            $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Edge transcode worker doesn't exist"
+  /v1/keyframes/collections/{collection_id}/:
+    post:
+      summary: "Start a job that creates a collection keyframe"
+      description: "\nRequired roles:\n - can_write_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "collection_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "CollectionId"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/GenerateCollectionKeyframeSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a definiton of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/queue_records/{queue_record_id}/reindex/: {}
+  /v1/storages/{storage_id}/:
+    delete:
+      summary: "Cancel all transcode jobs linked to the storage"
+      description: "\nRequired roles:\n - can_delete_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "storage_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "StorageId"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/AbortStorageTranscodeJobsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "202":
+          description: "Successfully scheduled operation"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "User does not exist"
+  /v1/storages/{storage_id}/edge_transcode/jobs/:
+    get:
+      summary: "Get a edge transcode jobs from the job queue"
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "storage_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "StorageId"
+      - name: "limit"
+        in: "query"
+        description: "The max number of items to fetch"
+        required: false
+        type: "integer"
+        default: 10
+        x-exportParamName: "Limit"
+        x-optionalDataType: "Int32"
+      responses:
+        "200":
+          description: "Returns all analysis service accounts"
+          schema:
+            $ref: "#/definitions/EdgeTranscodeJobsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/storages/{storage_id}/files/{file_id}/transcode/:
+    delete:
+      summary: "Delete local storage transcode job."
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "storage_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "StorageId"
+      - name: "file_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "FileId"
+      deprecated: true
+      responses:
+        "204":
+          description: "Transcode job was deleted"
+        "404":
+          description: "Transcode job does not exist"
+  /v1/storages/{storage_id}/transcode/:
+    get:
+      summary: "Get pending local storage transcode jobs."
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "storage_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "StorageId"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_id"
+        in: "query"
+        description: "ID of a last transcode job entity on previous page"
+        required: false
+        type: "string"
+        x-exportParamName: "LastId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns pending transcode jobs to be handled"
+          schema:
+            $ref: "#/definitions/LocalStorageFileTranscodeJobsSchema"
+  /v1/storages/{storage_id}/transcode/{record_id}/:
+    get:
+      summary: "Get local storage transcode job."
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "storage_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "StorageId"
+      - name: "record_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "RecordId"
+      responses:
+        "200":
+          description: "Returns pending transcode job to be handled"
+          schema:
+            $ref: "#/definitions/LocalStorageFileTranscodeJobSchema"
+        "404":
+          description: "Transcode job does not exist"
+    delete:
+      summary: "Delete local storage transcode job."
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "storage_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "StorageId"
+      - name: "record_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "RecordId"
+      responses:
+        "204":
+          description: "Transcode job was deleted"
+        "404":
+          description: "Transcode job does not exist"
+  /v1/transcode/:
+    post:
+      summary: "Starts a new transcode."
+      description: "Use /API/files/v1/assets/ID/files/ID/keyframes instead\nRequired\
+        \ roles:\n - can_write_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobSchema"
+        x-exportParamName: "Body"
+      deprecated: true
+      responses:
+        "201":
+          description: "Returns a definiton of the started job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/transcode/jobs/priority/: {}
+  /v1/transcode/jobs/state/: {}
+  /v1/transcode/queue/:
+    get:
+      summary: "Get all the statuses of the queued transcode jobs"
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames without spaces. object_type,user_id,retry_count,priority,type,status"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns the status of all ongoing transcode jobs"
+          schema:
+            $ref: "#/definitions/TranscodeQueueSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/transcode/queue/system/:
+    get:
+      summary: "Get the status of the transcode job queues"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_domain_id"
+        in: "query"
+        required: false
+        type: "boolean"
+        x-exportParamName: "PerDomainId"
+        x-optionalDataType: "Bool"
+      - name: "per_page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "page"
+        in: "query"
+        required: false
+        type: "integer"
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns the status of all ongoing transcode job queues for\
+            \ all domains"
+          schema:
+            $ref: "#/definitions/TranscodeQueueSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/transcode/validate_media_info/: {}
+  /v1/transcode/{transcode_job_id}/:
+    get:
+      summary: "Get transcode job"
+      description: "\nRequired roles:\n - can_read_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "transcode_job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TranscodeJobId"
+      responses:
+        "200":
+          description: "Returns the status of a particular transcode job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Cancel a particular transcode job by id"
+      description: "\nRequired roles:\n - can_delete_transcode_jobs\nRequired roles:\n\
+        \ - can_delete_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "transcode_job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TranscodeJobId"
+      deprecated: true
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Transcode does not exist"
+  /v1/transcode/{transcode_job_id}/position/{position}/:
+    post:
+      summary: "Move transcode job to top or bottom of the queue"
+      description: "\nRequired roles:\n - can_write_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "transcode_job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TranscodeJobId"
+      - name: "position"
+        in: "path"
+        description: "move transcode job to \"top\" or \"bottom\" position"
+        required: true
+        type: "string"
+        x-exportParamName: "Position"
+      deprecated: true
+      responses:
+        "200":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Transcode does not exist"
+  /v1/transcode/{transcode_job_id}/priority/{priority}/:
+    put:
+      summary: "Change transcode job priority"
+      description: "\nRequired roles:\n - can_write_transcode_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "transcode_job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TranscodeJobId"
+      - name: "priority"
+        in: "path"
+        required: true
+        type: "integer"
+        x-exportParamName: "Priority"
+      deprecated: true
+      responses:
+        "200":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Transcode does not exist"
+  /v1/transcribe/assets/{asset_id}/profiles/default/:
+    post:
+      summary: "Start a job that sends an asset to default transcription service"
+      description: "\nRequired roles:\n - can_transcribe_content"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "asset_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "AssetId"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          $ref: "#/definitions/TranscribeSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a definition of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/transcribe/bulk/:
+    post:
+      summary: "Start a job that sends multiple objects to transcription service"
+      description: "\nRequired roles:\n - can_transcribe_content"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BulkTranscribeSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a definition of the started job"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+definitions:
+  AbortStorageTranscodeJobsSchema:
+    type: "object"
+    properties:
+      error_message:
+        type: "string"
+  AnalyzeSchema:
+    type: "object"
+    properties:
+      force:
+        type: "boolean"
+      service_name:
+        type: "string"
+  BulkActionSchema:
+    type: "object"
+    required:
+    - "object_ids"
+    - "object_type"
+    properties:
+      object_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+      object_type:
+        type: "string"
+        enum:
+        - "assets"
+        - "collections"
+        - "saved_searches"
+  BulkAnalyzeSchema:
+    type: "object"
+    required:
+    - "object_ids"
+    - "object_type"
+    properties:
+      force:
+        type: "boolean"
+      object_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+      object_type:
+        type: "string"
+        enum:
+        - "assets"
+        - "collections"
+        - "saved_searches"
+      profile_id:
+        type: "string"
+  BulkTranscribeSchema:
+    type: "object"
+    required:
+    - "object_ids"
+    - "object_type"
+    properties:
+      force:
+        type: "boolean"
+      language:
+        type: "string"
+        x-nullable: true
+      object_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+      object_type:
+        type: "string"
+        enum:
+        - "assets"
+        - "collections"
+        - "saved_searches"
+      profile_id:
+        type: "string"
+      speakers:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+        maximum: 100
+        x-nullable: true
+  EdgeThumbnailJobFieldSchema:
+    type: "object"
+    properties:
+      height:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      id:
+        type: "string"
+      max_number:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      min_interval:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      timestamp:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      width:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+    example:
+      min_interval: -6519424345728851968
+      width: 273751188
+      id: "id"
+      max_number: 441289069
+      height: -1803530559
+      timestamp: 1774823812569044992
+  EdgeTranscodeEndpointSchema:
+    type: "object"
+    required:
+    - "url"
+    properties:
+      data:
+        type: "object"
+        properties: {}
+      method:
+        type: "string"
+      storage_method:
+        type: "string"
+      type:
+        type: "string"
+      url:
+        type: "string"
+    example:
+      storage_method: "storage_method"
+      data: "{}"
+      method: "method"
+      type: "type"
+      url: "url"
+  EdgeTranscodeInputSchema:
+    type: "object"
+    required:
+    - "endpoint"
+    properties:
+      asset_id:
+        type: "string"
+      closed_captions:
+        type: "boolean"
+      endpoint:
+        $ref: "#/definitions/EdgeTranscodeEndpointSchema"
+      file_id:
+        type: "string"
+      file_set_id:
+        type: "string"
+        x-nullable: true
+      format_id:
+        type: "string"
+        x-nullable: true
+      language:
+        type: "string"
+      original_name:
+        type: "string"
+      proxy_id:
+        type: "string"
+        x-nullable: true
+      storage_id:
+        type: "string"
+    example:
+      endpoint:
+        storage_method: "storage_method"
+        data: "{}"
+        method: "method"
+        type: "type"
+        url: "url"
+      storage_id: "storage_id"
+      file_id: "file_id"
+      original_name: "original_name"
+      format_id: "format_id"
+      language: "language"
+      asset_id: "asset_id"
+      closed_captions: true
+      proxy_id: "proxy_id"
+      file_set_id: "file_set_id"
+  EdgeTranscodeJobFieldSchema:
+    type: "object"
+    properties:
+      height:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      id:
+        type: "string"
+      width:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+    example:
+      width: 885365090
+      id: "id"
+      height: -1158723813
+  EdgeTranscodeJobSchema:
+    type: "object"
+    required:
+    - "input"
+    properties:
+      asset_id:
+        type: "string"
+      collection_id:
+        type: "string"
+      input:
+        $ref: "#/definitions/EdgeTranscodeInputSchema"
+      job_id:
+        type: "string"
+      job_steps:
+        type: "array"
+        items:
+          $ref: "#/definitions/JobStepSchema"
+      media_info:
+        type: "string"
+        x-nullable: true
+      thumbnail:
+        type: "array"
+        items:
+          $ref: "#/definitions/EdgeThumbnailJobFieldSchema"
+      transcode:
+        type: "array"
+        items:
+          $ref: "#/definitions/EdgeTranscodeJobFieldSchema"
+    example:
+      collection_id: "collection_id"
+      input:
+        endpoint:
+          storage_method: "storage_method"
+          data: "{}"
+          method: "method"
+          type: "type"
+          url: "url"
+        storage_id: "storage_id"
+        file_id: "file_id"
+        original_name: "original_name"
+        format_id: "format_id"
+        language: "language"
+        asset_id: "asset_id"
+        closed_captions: true
+        proxy_id: "proxy_id"
+        file_set_id: "file_set_id"
+      thumbnail:
+      - min_interval: -6519424345728851968
+        width: 273751188
+        id: "id"
+        max_number: 441289069
+        height: -1803530559
+        timestamp: 1774823812569044992
+      - min_interval: -6519424345728851968
+        width: 273751188
+        id: "id"
+        max_number: 441289069
+        height: -1803530559
+        timestamp: 1774823812569044992
+      media_info: "media_info"
+      job_id: "job_id"
+      job_steps:
+      - date_updated: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "status"
+      - date_updated: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "status"
+      transcode:
+      - width: 885365090
+        id: "id"
+        height: -1158723813
+      - width: 885365090
+        id: "id"
+        height: -1158723813
+      asset_id: "asset_id"
+  EdgeTranscodeJobsSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/EdgeTranscodeJobSchema"
+    example:
+      objects:
+      - collection_id: "collection_id"
+        input:
+          endpoint:
+            storage_method: "storage_method"
+            data: "{}"
+            method: "method"
+            type: "type"
+            url: "url"
+          storage_id: "storage_id"
+          file_id: "file_id"
+          original_name: "original_name"
+          format_id: "format_id"
+          language: "language"
+          asset_id: "asset_id"
+          closed_captions: true
+          proxy_id: "proxy_id"
+          file_set_id: "file_set_id"
+        thumbnail:
+        - min_interval: -6519424345728851968
+          width: 273751188
+          id: "id"
+          max_number: 441289069
+          height: -1803530559
+          timestamp: 1774823812569044992
+        - min_interval: -6519424345728851968
+          width: 273751188
+          id: "id"
+          max_number: 441289069
+          height: -1803530559
+          timestamp: 1774823812569044992
+        media_info: "media_info"
+        job_id: "job_id"
+        job_steps:
+        - date_updated: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        - date_updated: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        transcode:
+        - width: 885365090
+          id: "id"
+          height: -1158723813
+        - width: 885365090
+          id: "id"
+          height: -1158723813
+        asset_id: "asset_id"
+      - collection_id: "collection_id"
+        input:
+          endpoint:
+            storage_method: "storage_method"
+            data: "{}"
+            method: "method"
+            type: "type"
+            url: "url"
+          storage_id: "storage_id"
+          file_id: "file_id"
+          original_name: "original_name"
+          format_id: "format_id"
+          language: "language"
+          asset_id: "asset_id"
+          closed_captions: true
+          proxy_id: "proxy_id"
+          file_set_id: "file_set_id"
+        thumbnail:
+        - min_interval: -6519424345728851968
+          width: 273751188
+          id: "id"
+          max_number: 441289069
+          height: -1803530559
+          timestamp: 1774823812569044992
+        - min_interval: -6519424345728851968
+          width: 273751188
+          id: "id"
+          max_number: 441289069
+          height: -1803530559
+          timestamp: 1774823812569044992
+        media_info: "media_info"
+        job_id: "job_id"
+        job_steps:
+        - date_updated: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        - date_updated: "2000-01-23T04:56:07.000+00:00"
+          date_created: "2000-01-23T04:56:07.000+00:00"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        transcode:
+        - width: 885365090
+          id: "id"
+          height: -1158723813
+        - width: 885365090
+          id: "id"
+          height: -1158723813
+        asset_id: "asset_id"
+  EdgeTranscodeWorkerSchema:
+    type: "object"
+    required:
+    - "status"
+    - "storage_id"
+    properties:
+      id:
+        type: "string"
+        readOnly: true
+      last_update_date:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      status:
+        type: "string"
+        enum:
+        - "ACTIVE"
+        - "INACTIVE"
+      storage_id:
+        type: "string"
+    example:
+      storage_id: "storage_id"
+      id: "id"
+      last_update_date: "2000-01-23T04:56:07.000+00:00"
+      status: "ACTIVE"
+  EdgeTranscodeWorkersSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/EdgeTranscodeWorkerSchema"
+    example:
+      objects:
+      - storage_id: "storage_id"
+        id: "id"
+        last_update_date: "2000-01-23T04:56:07.000+00:00"
+        status: "ACTIVE"
+      - storage_id: "storage_id"
+        id: "id"
+        last_update_date: "2000-01-23T04:56:07.000+00:00"
+        status: "ACTIVE"
+  EndpointSchema:
+    type: "object"
+    required:
+    - "url"
+    properties:
+      data:
+        type: "object"
+        properties: {}
+      headers:
+        type: "object"
+        properties: {}
+      method:
+        type: "string"
+      storage_method:
+        type: "string"
+      type:
+        type: "string"
+      url:
+        type: "string"
+    example:
+      headers: "{}"
+      storage_method: "storage_method"
+      data: "{}"
+      method: "method"
+      type: "type"
+      url: "url"
+  FacetBucketSchema:
+    type: "object"
+    properties:
+      doc_count:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      key:
+        type: "string"
+  FacetSchema:
+    type: "object"
+    properties:
+      buckets:
+        type: "array"
+        items:
+          $ref: "#/definitions/FacetBucketSchema"
+      doc_count_error_upper_bound:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      sum_other_doc_count:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  GenerateCollectionKeyframeSchema:
+    type: "object"
+    properties:
+      deleted_asset_id:
+        type: "string"
+      force:
+        type: "boolean"
+        default: false
+      specified_asset_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 4
+        minItems: 0
+      specified_keyframes:
+        type: "array"
+        items:
+          $ref: "#/definitions/SpecifiedKeyframesSchema"
+        maxItems: 4
+        minItems: 0
+  InputSchema:
+    type: "object"
+    required:
+    - "endpoint"
+    properties:
+      asset_id:
+        type: "string"
+        x-nullable: true
+      closed_captions:
+        type: "boolean"
+      collection_id:
+        type: "string"
+        x-nullable: true
+      endpoint:
+        $ref: "#/definitions/EndpointSchema"
+      file_id:
+        type: "string"
+        x-nullable: true
+      file_set_id:
+        type: "string"
+        x-nullable: true
+      format_id:
+        type: "string"
+        x-nullable: true
+      language:
+        type: "string"
+      original_name:
+        type: "string"
+      proxy_id:
+        type: "string"
+        x-nullable: true
+      storage_id:
+        type: "string"
+      update_proxy_mediainfo:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      version_id:
+        type: "string"
+        x-nullable: true
+    example:
+      language: "language"
+      asset_id: "asset_id"
+      proxy_id: "proxy_id"
+      update_proxy_mediainfo: false
+      version_id: "version_id"
+      collection_id: "collection_id"
+      endpoint:
+        headers: "{}"
+        storage_method: "storage_method"
+        data: "{}"
+        method: "method"
+        type: "type"
+        url: "url"
+      storage_id: "storage_id"
+      file_id: "file_id"
+      original_name: "original_name"
+      format_id: "format_id"
+      closed_captions: true
+      file_set_id: "file_set_id"
+  JobBaseSchema:
+    type: "object"
+    required:
+    - "input"
+    properties:
+      asset_id:
+        type: "string"
+      collection_id:
+        type: "string"
+      input:
+        $ref: "#/definitions/InputSchema"
+      job_id:
+        type: "string"
+      job_steps:
+        type: "array"
+        items:
+          $ref: "#/definitions/JobStepSchema"
+      media_info:
+        type: "string"
+        x-nullable: true
+      thumbnail:
+        type: "array"
+        items:
+          $ref: "#/definitions/ThumbnailJobSchema"
+      transcode:
+        type: "array"
+        items:
+          $ref: "#/definitions/TranscodeJobSchema"
+  JobSchema:
+    type: "object"
+    required:
+    - "input"
+    properties:
+      amazon_rekognition:
+        type: "boolean"
+        default: false
+      analysis_data:
+        type: "object"
+        properties: {}
+      analysis_query_default_service_account:
+        type: "boolean"
+        default: false
+      asset_id:
+        type: "string"
+      collection_id:
+        type: "string"
+      create_transcription:
+        type: "boolean"
+        default: false
+      force_transcoder:
+        type: "string"
+      google_cloud_video_intelligence:
+        type: "boolean"
+        default: false
+      input:
+        $ref: "#/definitions/InputSchema"
+      job_id:
+        type: "string"
+      job_steps:
+        type: "array"
+        items:
+          $ref: "#/definitions/JobStepSchema"
+      language:
+        type: "string"
+        x-nullable: true
+      media_info:
+        type: "string"
+        x-nullable: true
+      priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        default: 5
+      speakers:
+        type: "integer"
+        format: "int32"
+        minimum: 2
+        maximum: 100
+        x-nullable: true
+      thumbnail:
+        type: "array"
+        items:
+          $ref: "#/definitions/ThumbnailJobSchema"
+      transcode:
+        type: "array"
+        items:
+          $ref: "#/definitions/TranscodeJobSchema"
+      valid_transcoders:
+        type: "array"
+        items:
+          $ref: "#/definitions/TranscodersSchema"
+      version_id:
+        type: "string"
+    example:
+      create_transcription: false
+      thumbnail:
+      - output_endpoint:
+          headers: "{}"
+          key: "key"
+        min_interval: 1175752406347165696
+        width: 885365090
+        id: "id"
+        set_as_custom_keyframe: false
+        max_number: 413233370
+        height: -1517921766
+        timestamp: -4976680883935979520
+      - output_endpoint:
+          headers: "{}"
+          key: "key"
+        min_interval: 1175752406347165696
+        width: 885365090
+        id: "id"
+        set_as_custom_keyframe: false
+        max_number: 413233370
+        height: -1517921766
+        timestamp: -4976680883935979520
+      job_steps:
+      - date_updated: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "status"
+      - date_updated: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "status"
+      transcode:
+      - output_endpoint:
+          headers: "{}"
+          key: "key"
+        width: -594390510
+        id: "id"
+        height: 1847456234
+      - output_endpoint:
+          headers: "{}"
+          key: "key"
+        width: -594390510
+        id: "id"
+        height: 1847456234
+      language: "language"
+      asset_id: "asset_id"
+      version_id: "version_id"
+      priority: -1803530559
+      collection_id: "collection_id"
+      input:
+        language: "language"
+        asset_id: "asset_id"
+        proxy_id: "proxy_id"
+        update_proxy_mediainfo: false
+        version_id: "version_id"
+        collection_id: "collection_id"
+        endpoint:
+          headers: "{}"
+          storage_method: "storage_method"
+          data: "{}"
+          method: "method"
+          type: "type"
+          url: "url"
+        storage_id: "storage_id"
+        file_id: "file_id"
+        original_name: "original_name"
+        format_id: "format_id"
+        closed_captions: true
+        file_set_id: "file_set_id"
+      amazon_rekognition: false
+      valid_transcoders:
+      - settings: "{}"
+        name: "name"
+        id: "id"
+        type: "type"
+      - settings: "{}"
+        name: "name"
+        id: "id"
+        type: "type"
+      media_info: "media_info"
+      job_id: "job_id"
+      speakers: 61
+      force_transcoder: "force_transcoder"
+      analysis_query_default_service_account: false
+      google_cloud_video_intelligence: false
+      analysis_data: "{}"
+  JobStepSchema:
+    type: "object"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_updated:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "string"
+      label:
+        type: "string"
+      message:
+        type: "string"
+      status:
+        type: "string"
+    example:
+      date_updated: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      id: "id"
+      label: "label"
+      message: "message"
+      status: "status"
+  JobsPrioritySchema:
+    type: "object"
+    required:
+    - "job_ids"
+    - "priority"
+    properties:
+      job_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+      priority:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+        maximum: 10
+  JobsStateSchema:
+    type: "object"
+    required:
+    - "action"
+    - "job_ids"
+    properties:
+      action:
+        type: "string"
+        enum:
+        - "ABORT"
+      job_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  LocalStorageFileTranscodeJobSchema:
+    type: "object"
+    required:
+    - "asset_id"
+    - "directory_path"
+    - "file_id"
+    - "file_set_id"
+    - "filename"
+    - "format_id"
+    - "job_id"
+    - "size"
+    - "version_id"
+    properties:
+      asset_id:
+        type: "string"
+      checksum:
+        type: "string"
+        x-nullable: true
+      collection_id:
+        type: "string"
+        x-nullable: true
+      component_ids:
+        type: "array"
+        items:
+          type: "string"
+      directory_path:
+        type: "string"
+      file_id:
+        type: "string"
+      file_set_id:
+        type: "string"
+      filename:
+        type: "string"
+      format_id:
+        type: "string"
+      id:
+        type: "string"
+      job_id:
+        type: "string"
+      priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        default: 5
+      size:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      version_id:
+        type: "string"
+    example:
+      directory_path: "directory_path"
+      asset_id: "asset_id"
+      version_id: "version_id"
+      priority: -1803530559
+      component_ids:
+      - "component_ids"
+      - "component_ids"
+      collection_id: "collection_id"
+      filename: "filename"
+      size: 1895322125605019648
+      job_id: "job_id"
+      file_id: "file_id"
+      checksum: "checksum"
+      format_id: "format_id"
+      id: "id"
+      file_set_id: "file_set_id"
+  LocalStorageFileTranscodeJobsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/LocalStorageFileTranscodeJobSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 273751188
+      first_url: "first_url"
+      total: -4976680883935979520
+      pages: 413233370
+      objects:
+      - directory_path: "directory_path"
+        asset_id: "asset_id"
+        version_id: "version_id"
+        priority: -1803530559
+        component_ids:
+        - "component_ids"
+        - "component_ids"
+        collection_id: "collection_id"
+        filename: "filename"
+        size: 1895322125605019648
+        job_id: "job_id"
+        file_id: "file_id"
+        checksum: "checksum"
+        format_id: "format_id"
+        id: "id"
+        file_set_id: "file_set_id"
+      - directory_path: "directory_path"
+        asset_id: "asset_id"
+        version_id: "version_id"
+        priority: -1803530559
+        component_ids:
+        - "component_ids"
+        - "component_ids"
+        collection_id: "collection_id"
+        filename: "filename"
+        size: 1895322125605019648
+        job_id: "job_id"
+        file_id: "file_id"
+        checksum: "checksum"
+        format_id: "format_id"
+        id: "id"
+        file_set_id: "file_set_id"
+      next_url: "next_url"
+      page: -1517921766
+      prev_url: "prev_url"
+      last_url: "last_url"
+  LocalTranscodeInputSchema:
+    type: "object"
+    required:
+    - "asset_id"
+    - "directory_path"
+    - "endpoint"
+    - "file_id"
+    - "file_set_id"
+    - "filename"
+    - "format_id"
+    - "size"
+    - "storage_id"
+    - "version_id"
+    properties:
+      asset_id:
+        type: "string"
+      checksum:
+        type: "string"
+        x-nullable: true
+      closed_captions:
+        type: "boolean"
+      collection_id:
+        type: "string"
+        x-nullable: true
+      component_ids:
+        type: "array"
+        items:
+          type: "string"
+      directory_path:
+        type: "string"
+      endpoint:
+        $ref: "#/definitions/EndpointSchema"
+      file_id:
+        type: "string"
+      file_set_id:
+        type: "string"
+      filename:
+        type: "string"
+      format_id:
+        type: "string"
+      language:
+        type: "string"
+      original_name:
+        type: "string"
+      proxy_id:
+        type: "string"
+        x-nullable: true
+      size:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      storage_id:
+        type: "string"
+      update_proxy_mediainfo:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      version_id:
+        type: "string"
+  LocalTranscodeJobSchema:
+    type: "object"
+    required:
+    - "input"
+    properties:
+      amazon_rekognition:
+        type: "boolean"
+        default: false
+      analysis_data:
+        type: "object"
+        properties: {}
+      analysis_query_default_service_account:
+        type: "boolean"
+        default: false
+      asset_id:
+        type: "string"
+      collection_id:
+        type: "string"
+      create_transcription:
+        type: "boolean"
+        default: false
+      force_transcoder:
+        type: "string"
+      google_cloud_video_intelligence:
+        type: "boolean"
+        default: false
+      input:
+        $ref: "#/definitions/LocalTranscodeInputSchema"
+      job_id:
+        type: "string"
+      job_steps:
+        type: "array"
+        items:
+          $ref: "#/definitions/JobStepSchema"
+      language:
+        type: "string"
+        x-nullable: true
+      media_info:
+        type: "string"
+        x-nullable: true
+      priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        default: 5
+      speakers:
+        type: "integer"
+        format: "int32"
+        minimum: 2
+        maximum: 100
+        x-nullable: true
+      thumbnail:
+        type: "array"
+        items:
+          $ref: "#/definitions/ThumbnailJobSchema"
+      transcode:
+        type: "array"
+        items:
+          $ref: "#/definitions/TranscodeJobSchema"
+      valid_transcoders:
+        type: "array"
+        items:
+          $ref: "#/definitions/TranscodersSchema"
+      version_id:
+        type: "string"
+  OutputEndpointSchema:
+    type: "object"
+    required:
+    - "key"
+    properties:
+      headers:
+        type: "object"
+        properties: {}
+      key:
+        type: "string"
+    example:
+      headers: "{}"
+      key: "key"
+  ReindexQueueRecordSchema:
+    type: "object"
+    properties:
+      sync_to_another_dc:
+        type: "boolean"
+        default: true
+  SpecifiedKeyframesSchema:
+    type: "object"
+    required:
+    - "url"
+    properties:
+      url:
+        type: "string"
+  ThumbnailJobSchema:
+    type: "object"
+    required:
+    - "output_endpoint"
+    properties:
+      height:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      id:
+        type: "string"
+      max_number:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      min_interval:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      output_endpoint:
+        $ref: "#/definitions/OutputEndpointSchema"
+      set_as_custom_keyframe:
+        type: "boolean"
+        default: false
+      timestamp:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      width:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+    example:
+      output_endpoint:
+        headers: "{}"
+        key: "key"
+      min_interval: 1175752406347165696
+      width: 885365090
+      id: "id"
+      set_as_custom_keyframe: false
+      max_number: 413233370
+      height: -1517921766
+      timestamp: -4976680883935979520
+  TranscodeJobSchema:
+    type: "object"
+    required:
+    - "output_endpoint"
+    properties:
+      height:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      id:
+        type: "string"
+      output_endpoint:
+        $ref: "#/definitions/OutputEndpointSchema"
+      width:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+    example:
+      output_endpoint:
+        headers: "{}"
+        key: "key"
+      width: -594390510
+      id: "id"
+      height: 1847456234
+  TranscodeQueueObjectSchema:
+    type: "object"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+      date_updated:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "string"
+      job_id:
+        type: "string"
+      priority:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      retry_count:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      status:
+        type: "string"
+      system_domain:
+        type: "string"
+      system_domain_id:
+        type: "string"
+      system_domain_timestamp:
+        type: "number"
+        format: "float"
+      system_name:
+        type: "string"
+      type:
+        type: "string"
+      user_id:
+        type: "string"
+    example:
+      date_updated: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      system_name: "system_name"
+      priority: -1803530559
+      type: "type"
+      system_domain: "system_domain"
+      system_domain_timestamp: 1.4658129
+      user_id: "user_id"
+      job_id: "job_id"
+      retry_count: 441289069
+      id: "id"
+      status: "status"
+      system_domain_id: "system_domain_id"
+  TranscodeQueueSchema:
+    type: "object"
+    properties:
+      facets:
+        type: "object"
+        properties: {}
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/TranscodeQueueObjectSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1158723813
+      first_url: "first_url"
+      total: 3802614113523499008
+      pages: 273751188
+      objects:
+      - date_updated: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        system_name: "system_name"
+        priority: -1803530559
+        type: "type"
+        system_domain: "system_domain"
+        system_domain_timestamp: 1.4658129
+        user_id: "user_id"
+        job_id: "job_id"
+        retry_count: 441289069
+        id: "id"
+        status: "status"
+        system_domain_id: "system_domain_id"
+      - date_updated: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        system_name: "system_name"
+        priority: -1803530559
+        type: "type"
+        system_domain: "system_domain"
+        system_domain_timestamp: 1.4658129
+        user_id: "user_id"
+        job_id: "job_id"
+        retry_count: 441289069
+        id: "id"
+        status: "status"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: 413233370
+      prev_url: "prev_url"
+      last_url: "last_url"
+      facets: "{}"
+  TranscodeValidateMediaInfoSchema:
+    type: "object"
+    required:
+    - "media_info"
+    properties:
+      filename:
+        type: "string"
+      media_info:
+        type: "string"
+  TranscodersSchema:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      name:
+        type: "string"
+      settings:
+        type: "object"
+        properties: {}
+      type:
+        type: "string"
+    example:
+      settings: "{}"
+      name: "name"
+      id: "id"
+      type: "type"
+  TranscribeSchema:
+    type: "object"
+    properties:
+      force:
+        type: "boolean"
+      language:
+        type: "string"
+        x-nullable: true
+      profile_id:
+        type: "string"
+      speakers:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+        maximum: 100
+        x-nullable: true
+  body:
+    type: "object"
+    properties:
+      force:
+        type: "boolean"
+  body_1:
+    type: "object"
+    properties:
+      force:
+        type: "boolean"
+  body_2:
+    type: "object"
+    properties:
+      force:
+        type: "boolean"

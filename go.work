@@ -1,0 +1,22 @@
+go 1.18
+
+use (
+	./shared
+	./acls
+	./assets
+	./auth
+	./files
+	./jobs
+	./metadata
+	./notifications
+	./search
+	./settings
+	./stats
+	./transcode
+	./users
+	./usersnotifications
+)
+
+//replace (
+//	github.com/imtlab/iconik/shared => ./shared
+//)

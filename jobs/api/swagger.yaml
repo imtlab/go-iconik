@@ -1,0 +1,1573 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_jobs"
+basePath: "/API/jobs"
+paths:
+  /v1/jobs/:
+    get:
+      summary: "Get list of jobs"
+      description: "\nRequired roles:\n - can_read_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "facets"
+        in: "query"
+        description: "If facets should be returned"
+        required: false
+        type: "boolean"
+        default: true
+        x-exportParamName: "Facets"
+        x-optionalDataType: "Bool"
+      - name: "page"
+        in: "query"
+        description: "Which page number to fetch"
+        required: false
+        type: "integer"
+        default: 1
+        minimum: 1
+        x-exportParamName: "Page"
+        x-optionalDataType: "Int32"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        maximum: 100
+        minimum: 1
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "sort"
+        in: "query"
+        description: "A comma separated list of fieldnames with order. For example\
+          \ - first_name,asc;last_name,desc"
+        required: false
+        type: "string"
+        x-exportParamName: "Sort"
+        x-optionalDataType: "String"
+      - name: "type"
+        in: "query"
+        description: "Filter by type"
+        required: false
+        type: "string"
+        x-exportParamName: "Type_"
+        x-optionalDataType: "String"
+      - name: "object_type"
+        in: "query"
+        description: "Filter by object_type"
+        required: false
+        type: "string"
+        x-exportParamName: "ObjectType"
+        x-optionalDataType: "String"
+      - name: "parent_id"
+        in: "query"
+        description: "Filter by parent_id"
+        required: false
+        type: "string"
+        x-exportParamName: "ParentId"
+        x-optionalDataType: "String"
+      - name: "object_id"
+        in: "query"
+        description: "Filter by object_id"
+        required: false
+        type: "string"
+        x-exportParamName: "ObjectId"
+        x-optionalDataType: "String"
+      - name: "status"
+        in: "query"
+        description: "Filter by status"
+        required: false
+        type: "string"
+        x-exportParamName: "Status"
+        x-optionalDataType: "String"
+      - name: "created_by"
+        in: "query"
+        description: "Filter by created_by"
+        required: false
+        type: "string"
+        x-exportParamName: "CreatedBy"
+        x-optionalDataType: "String"
+      - name: "date_created"
+        in: "query"
+        description: "Filter by date_created. Can either be a single ISO8601 timestamp\
+          \ or two timestamps separated by a semicolon `;`. The timestamp can also\
+          \ be expressed as number of milliseconds since Jan 1 1970 (epoch). Either\
+          \ timestamp can also be replaced with an asterisk `*` to make the query\
+          \ open ended.\nFor example: 2018-01-01T10:00:00Z;2018-01-01T15:00:00Z"
+        required: false
+        type: "string"
+        x-exportParamName: "DateCreated"
+        x-optionalDataType: "String"
+      - name: "date_modified"
+        in: "query"
+        description: "Filter by date_modified Can either be a single ISO8601 timestamp\
+          \ or two timestamps separated by a semicolon `;`. The timestamp can also\
+          \ be expressed as number of milliseconds since Jan 1 1970 (epoch). Either\
+          \ timestamp can also be replaced with an asterisk `*` to make the query\
+          \ open ended.\nFor example: *;1544450400"
+        required: false
+        type: "string"
+        x-exportParamName: "DateModified"
+        x-optionalDataType: "String"
+      - name: "query"
+        in: "query"
+        description: "Filter by any of the above with wildcard support"
+        required: false
+        type: "string"
+        x-exportParamName: "Query"
+        x-optionalDataType: "String"
+      - name: "ids"
+        in: "query"
+        description: "Filter list of id:s (comma separated)"
+        required: false
+        type: "string"
+        x-exportParamName: "Ids"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a list of jobs"
+          schema:
+            $ref: "#/definitions/JobsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    post:
+      summary: "Create a new job"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete multiple jobs by ids list"
+      description: "\nRequired roles:\n - can_delete_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobsBulkDeleteSchema"
+        x-exportParamName: "Body"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/jobs/priority/:
+    put:
+      summary: "Change jobs priority"
+      description: "\nRequired roles:\n - can_write_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobsPrioritySchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Success"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/jobs/state/:
+    put:
+      summary: "Change jobs state"
+      description: "\nRequired roles:\n - can_write_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobsStateSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Success"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/jobs/{job_id}/:
+    get:
+      summary: "Returns a particular job by id"
+      description: "\nRequired roles:\n - can_read_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      responses:
+        "200":
+          description: "Returns a job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Job does not exist"
+    put:
+      summary: "Update job"
+      description: "\nRequired roles:\n - can_write_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete a particular job by id"
+      description: "\nRequired roles:\n - can_delete_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Job does not exist"
+    patch:
+      summary: "Update job"
+      description: "\nRequired roles:\n - can_write_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/jobs/{job_id}/reindex/:
+    post:
+      summary: "Reindex job"
+      description: "\nRequired roles:\n - can_write_jobs"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ReindexJobSchema"
+        x-exportParamName: "Body"
+      responses:
+        "202":
+          description: "OK"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/jobs/{job_id}/steps/{job_step_id}/:
+    put:
+      summary: "Update job step"
+      description: "\nRequired roles:\n - can_write_jobs"
+      parameters:
+      - name: "System-Domain-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainID"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      - name: "job_step_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobStepId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobStepSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    patch:
+      summary: "Update job step"
+      description: "\nRequired roles:\n - can_write_jobs"
+      parameters:
+      - name: "System-Domain-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainID"
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "job_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobId"
+      - name: "job_step_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "JobStepId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/JobStepSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated job"
+          schema:
+            $ref: "#/definitions/JobSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+definitions:
+  ActionContextSchema:
+    type: "object"
+    properties:
+      ABORT:
+        $ref: "#/definitions/ActionContextValueSchema"
+      CHANGE_PRIORITY:
+        $ref: "#/definitions/ActionContextValueSchema"
+      PAUSE:
+        $ref: "#/definitions/ActionContextValueSchema"
+      RESTART:
+        $ref: "#/definitions/ActionContextValueSchema"
+      RESUME:
+        $ref: "#/definitions/ActionContextValueSchema"
+    example:
+      PAUSE:
+        bulk: true
+        url: "url"
+      ABORT:
+        bulk: true
+        url: "url"
+      RESTART:
+        bulk: true
+        url: "url"
+      CHANGE_PRIORITY:
+        bulk: true
+        url: "url"
+      RESUME:
+        bulk: true
+        url: "url"
+  ActionContextValueSchema:
+    type: "object"
+    properties:
+      bulk:
+        type: "boolean"
+      url:
+        type: "string"
+    example:
+      bulk: true
+      url: "url"
+  JobBaseSchema:
+    type: "object"
+    required:
+    - "status"
+    - "title"
+    - "type"
+    properties:
+      action_context:
+        $ref: "#/definitions/ActionContextSchema"
+      children_progress:
+        type: "string"
+        readOnly: true
+      custom_type:
+        type: "string"
+        x-nullable: true
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      error_message:
+        type: "string"
+      has_children:
+        type: "boolean"
+        default: false
+      id:
+        type: "string"
+        readOnly: true
+      job_context:
+        type: "object"
+        properties: {}
+      message:
+        type: "string"
+      metadata:
+        type: "object"
+        properties: {}
+      object_id:
+        type: "string"
+        x-nullable: true
+      object_type:
+        type: "string"
+        x-nullable: true
+      parent_id:
+        type: "string"
+        x-nullable: true
+      priority:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: 1
+        maximum: 10
+      progress:
+        type: "integer"
+        format: "int32"
+        default: 100
+      progress_processed:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 0
+      progress_total:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 100
+      related_objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedObjectSchema"
+        minItems: 1
+      status:
+        type: "string"
+        enum:
+        - "READY"
+        - "STARTED"
+        - "FINISHED"
+        - "FAILED"
+        - "WAITING"
+        - "ABORT_PENDING"
+        - "ABORTED"
+        - "SKIPPED"
+      title:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "MEDIAINFO"
+        - "TRANSCODE"
+        - "KEYFRAMES"
+        - "EXPORT"
+        - "DELETE"
+        - "REINDEX"
+        - "MOVE"
+        - "TRANSFER"
+        - "ANALYZE"
+        - "METADATA"
+        - "CUSTOM"
+        - "SCAN"
+        - "ARCHIVE"
+        - "RESTORE"
+        - "RESTORE_FROM_GLACIER"
+        - "ACL"
+        - "COPY"
+        - "TRANSCRIPTION"
+        - "REQUEST_COLLECTION_MAP"
+        - "COLLECTION_CUSTOM_ORDER"
+  JobChildProgressSchema:
+    type: "object"
+    properties:
+      progress_processed:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 0
+      progress_total:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 100
+      status:
+        type: "string"
+        enum:
+        - "READY"
+        - "STARTED"
+        - "FINISHED"
+        - "FAILED"
+        - "WAITING"
+        - "ABORT_PENDING"
+        - "ABORTED"
+        - "SKIPPED"
+  JobCreateSchema:
+    type: "object"
+    required:
+    - "status"
+    - "title"
+    - "type"
+    properties:
+      action_context:
+        $ref: "#/definitions/ActionContextSchema"
+      children_progress:
+        type: "string"
+        readOnly: true
+      created_by:
+        type: "string"
+      custom_type:
+        type: "string"
+        x-nullable: true
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      error_message:
+        type: "string"
+      has_children:
+        type: "boolean"
+        default: false
+      id:
+        type: "string"
+        readOnly: true
+      job_context:
+        type: "object"
+        properties: {}
+      message:
+        type: "string"
+      metadata:
+        type: "object"
+        properties: {}
+      object_id:
+        type: "string"
+        x-nullable: true
+      object_type:
+        type: "string"
+        x-nullable: true
+      parent_id:
+        type: "string"
+        x-nullable: true
+      priority:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: 1
+        maximum: 10
+      progress:
+        type: "integer"
+        format: "int32"
+        default: 100
+      progress_processed:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 0
+      progress_total:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 100
+      related_objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedObjectSchema"
+        minItems: 1
+      status:
+        type: "string"
+        enum:
+        - "READY"
+        - "STARTED"
+        - "FINISHED"
+        - "FAILED"
+        - "WAITING"
+        - "ABORT_PENDING"
+        - "ABORTED"
+        - "SKIPPED"
+      steps:
+        type: "array"
+        items:
+          $ref: "#/definitions/JobStepSchema"
+      title:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "MEDIAINFO"
+        - "TRANSCODE"
+        - "KEYFRAMES"
+        - "EXPORT"
+        - "DELETE"
+        - "REINDEX"
+        - "MOVE"
+        - "TRANSFER"
+        - "ANALYZE"
+        - "METADATA"
+        - "CUSTOM"
+        - "SCAN"
+        - "ARCHIVE"
+        - "RESTORE"
+        - "RESTORE_FROM_GLACIER"
+        - "ACL"
+        - "COPY"
+        - "TRANSCRIPTION"
+        - "REQUEST_COLLECTION_MAP"
+        - "COLLECTION_CUSTOM_ORDER"
+  JobElasticSchema:
+    type: "object"
+    required:
+    - "status"
+    - "title"
+    - "type"
+    properties:
+      action_context:
+        $ref: "#/definitions/ActionContextSchema"
+      children_progress:
+        type: "string"
+        readOnly: true
+      created_by:
+        type: "string"
+        readOnly: true
+      custom_type:
+        type: "string"
+        x-nullable: true
+      date_created:
+        type: "string"
+        readOnly: true
+      date_modified:
+        type: "string"
+        readOnly: true
+      error_message:
+        type: "string"
+      has_children:
+        type: "boolean"
+        default: false
+      id:
+        type: "string"
+        readOnly: true
+      job_context:
+        type: "object"
+        properties: {}
+      message:
+        type: "string"
+      metadata:
+        type: "object"
+        properties: {}
+      object_id:
+        type: "string"
+        x-nullable: true
+      object_type:
+        type: "string"
+        x-nullable: true
+      parent_id:
+        type: "string"
+        x-nullable: true
+      priority:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: 1
+        maximum: 10
+      progress:
+        type: "integer"
+        format: "int32"
+        default: 100
+      progress_processed:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 0
+      progress_total:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 100
+      related_objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedObjectSchema"
+        minItems: 1
+      status:
+        type: "string"
+        enum:
+        - "READY"
+        - "STARTED"
+        - "FINISHED"
+        - "FAILED"
+        - "WAITING"
+        - "ABORT_PENDING"
+        - "ABORTED"
+        - "SKIPPED"
+      steps:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/JobStepElasticSchema"
+      storage_id:
+        type: "string"
+        readOnly: true
+      title:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "MEDIAINFO"
+        - "TRANSCODE"
+        - "KEYFRAMES"
+        - "EXPORT"
+        - "DELETE"
+        - "REINDEX"
+        - "MOVE"
+        - "TRANSFER"
+        - "ANALYZE"
+        - "METADATA"
+        - "CUSTOM"
+        - "SCAN"
+        - "ARCHIVE"
+        - "RESTORE"
+        - "RESTORE_FROM_GLACIER"
+        - "ACL"
+        - "COPY"
+        - "TRANSCRIPTION"
+        - "REQUEST_COLLECTION_MAP"
+        - "COLLECTION_CUSTOM_ORDER"
+    example:
+      progress_processed: -6519424345728851968
+      metadata: "{}"
+      custom_type: "custom_type"
+      related_objects:
+      - object_type: "object_type"
+        object_id: "object_id"
+      - object_type: "object_type"
+        object_id: "object_id"
+      title: "title"
+      type: "MEDIAINFO"
+      progress_total: 1774823812569044992
+      storage_id: "storage_id"
+      id: "id"
+      error_message: "error_message"
+      action_context:
+        PAUSE:
+          bulk: true
+          url: "url"
+        ABORT:
+          bulk: true
+          url: "url"
+        RESTART:
+          bulk: true
+          url: "url"
+        CHANGE_PRIORITY:
+          bulk: true
+          url: "url"
+        RESUME:
+          bulk: true
+          url: "url"
+      children_progress: "children_progress"
+      has_children: false
+      object_type: "object_type"
+      date_created: "date_created"
+      message: "message"
+      priority: 1
+      created_by: "created_by"
+      object_id: "object_id"
+      steps:
+      - error_message: "error_message"
+        date_updated: "date_updated"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "status"
+      - error_message: "error_message"
+        date_updated: "date_updated"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "status"
+      job_context: "{}"
+      date_modified: "date_modified"
+      parent_id: "parent_id"
+      progress: 6
+      status: "READY"
+  JobSchema:
+    type: "object"
+    required:
+    - "status"
+    - "title"
+    - "type"
+    properties:
+      action_context:
+        $ref: "#/definitions/ActionContextSchema"
+      children_progress:
+        type: "string"
+        readOnly: true
+      created_by:
+        type: "string"
+        readOnly: true
+      custom_type:
+        type: "string"
+        x-nullable: true
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      error_message:
+        type: "string"
+      has_children:
+        type: "boolean"
+        default: false
+      id:
+        type: "string"
+        readOnly: true
+      job_context:
+        type: "object"
+        properties: {}
+      message:
+        type: "string"
+      metadata:
+        type: "object"
+        properties: {}
+      object_id:
+        type: "string"
+        x-nullable: true
+      object_type:
+        type: "string"
+        x-nullable: true
+      parent_id:
+        type: "string"
+        x-nullable: true
+      priority:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: 1
+        maximum: 10
+      progress:
+        type: "integer"
+        format: "int32"
+        default: 100
+      progress_processed:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 0
+      progress_total:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        default: 100
+      related_objects:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelatedObjectSchema"
+        minItems: 1
+      status:
+        type: "string"
+        enum:
+        - "READY"
+        - "STARTED"
+        - "FINISHED"
+        - "FAILED"
+        - "WAITING"
+        - "ABORT_PENDING"
+        - "ABORTED"
+        - "SKIPPED"
+      steps:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/JobStepSchema"
+      title:
+        type: "string"
+      type:
+        type: "string"
+        enum:
+        - "MEDIAINFO"
+        - "TRANSCODE"
+        - "KEYFRAMES"
+        - "EXPORT"
+        - "DELETE"
+        - "REINDEX"
+        - "MOVE"
+        - "TRANSFER"
+        - "ANALYZE"
+        - "METADATA"
+        - "CUSTOM"
+        - "SCAN"
+        - "ARCHIVE"
+        - "RESTORE"
+        - "RESTORE_FROM_GLACIER"
+        - "ACL"
+        - "COPY"
+        - "TRANSCRIPTION"
+        - "REQUEST_COLLECTION_MAP"
+        - "COLLECTION_CUSTOM_ORDER"
+    example:
+      error_message: "error_message"
+      action_context:
+        PAUSE:
+          bulk: true
+          url: "url"
+        ABORT:
+          bulk: true
+          url: "url"
+        RESTART:
+          bulk: true
+          url: "url"
+        CHANGE_PRIORITY:
+          bulk: true
+          url: "url"
+        RESUME:
+          bulk: true
+          url: "url"
+      progress_processed: -6519424345728851968
+      children_progress: "children_progress"
+      metadata: "{}"
+      has_children: false
+      custom_type: "custom_type"
+      object_type: "object_type"
+      related_objects:
+      - object_type: "object_type"
+        object_id: "object_id"
+      - object_type: "object_type"
+        object_id: "object_id"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      message: "message"
+      priority: 1
+      title: "title"
+      type: "MEDIAINFO"
+      created_by: "created_by"
+      object_id: "object_id"
+      steps:
+      - error_message: "error_message"
+        date_updated: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "IN_PROGRESS"
+      - error_message: "error_message"
+        date_updated: "2000-01-23T04:56:07.000+00:00"
+        id: "id"
+        label: "label"
+        message: "message"
+        status: "IN_PROGRESS"
+      job_context: "{}"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      progress_total: 1774823812569044992
+      parent_id: "parent_id"
+      progress: 6
+      id: "id"
+      status: "READY"
+  JobStepElasticSchema:
+    type: "object"
+    required:
+    - "label"
+    properties:
+      date_updated:
+        type: "string"
+        readOnly: true
+      error_message:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+      label:
+        type: "string"
+      message:
+        type: "string"
+        x-nullable: true
+      status:
+        type: "string"
+    example:
+      error_message: "error_message"
+      date_updated: "date_updated"
+      id: "id"
+      label: "label"
+      message: "message"
+      status: "status"
+  JobStepSchema:
+    type: "object"
+    required:
+    - "label"
+    - "status"
+    properties:
+      date_updated:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      error_message:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+      label:
+        type: "string"
+      message:
+        type: "string"
+        x-nullable: true
+      status:
+        type: "string"
+        enum:
+        - "IN_PROGRESS"
+        - "WAITING"
+        - "FAILED"
+        - "DONE"
+        - "SKIPPED"
+    example:
+      error_message: "error_message"
+      date_updated: "2000-01-23T04:56:07.000+00:00"
+      id: "id"
+      label: "label"
+      message: "message"
+      status: "IN_PROGRESS"
+  JobStepUpdateSchema:
+    type: "object"
+    required:
+    - "label"
+    - "status"
+    properties:
+      date_updated:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      error_message:
+        type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+      label:
+        type: "string"
+      message:
+        type: "string"
+        x-nullable: true
+      status:
+        type: "string"
+        enum:
+        - "IN_PROGRESS"
+        - "WAITING"
+        - "FAILED"
+        - "DONE"
+        - "SKIPPED"
+  JobStepsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/JobStepSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  JobsBulkActionSchema:
+    type: "object"
+    required:
+    - "job_ids"
+    properties:
+      job_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+  JobsBulkDeleteSchema:
+    type: "object"
+    required:
+    - "job_ids"
+    properties:
+      job_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+  JobsPrioritySchema:
+    type: "object"
+    required:
+    - "job_ids"
+    - "priority"
+    properties:
+      job_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+      priority:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+        maximum: 10
+  JobsSchema:
+    type: "object"
+    properties:
+      facets:
+        type: "object"
+        properties: {}
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/JobElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 885365090
+      first_url: "first_url"
+      total: 7934764111515531264
+      pages: -1158723813
+      objects:
+      - progress_processed: -6519424345728851968
+        metadata: "{}"
+        custom_type: "custom_type"
+        related_objects:
+        - object_type: "object_type"
+          object_id: "object_id"
+        - object_type: "object_type"
+          object_id: "object_id"
+        title: "title"
+        type: "MEDIAINFO"
+        progress_total: 1774823812569044992
+        storage_id: "storage_id"
+        id: "id"
+        error_message: "error_message"
+        action_context:
+          PAUSE:
+            bulk: true
+            url: "url"
+          ABORT:
+            bulk: true
+            url: "url"
+          RESTART:
+            bulk: true
+            url: "url"
+          CHANGE_PRIORITY:
+            bulk: true
+            url: "url"
+          RESUME:
+            bulk: true
+            url: "url"
+        children_progress: "children_progress"
+        has_children: false
+        object_type: "object_type"
+        date_created: "date_created"
+        message: "message"
+        priority: 1
+        created_by: "created_by"
+        object_id: "object_id"
+        steps:
+        - error_message: "error_message"
+          date_updated: "date_updated"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        - error_message: "error_message"
+          date_updated: "date_updated"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        job_context: "{}"
+        date_modified: "date_modified"
+        parent_id: "parent_id"
+        progress: 6
+        status: "READY"
+      - progress_processed: -6519424345728851968
+        metadata: "{}"
+        custom_type: "custom_type"
+        related_objects:
+        - object_type: "object_type"
+          object_id: "object_id"
+        - object_type: "object_type"
+          object_id: "object_id"
+        title: "title"
+        type: "MEDIAINFO"
+        progress_total: 1774823812569044992
+        storage_id: "storage_id"
+        id: "id"
+        error_message: "error_message"
+        action_context:
+          PAUSE:
+            bulk: true
+            url: "url"
+          ABORT:
+            bulk: true
+            url: "url"
+          RESTART:
+            bulk: true
+            url: "url"
+          CHANGE_PRIORITY:
+            bulk: true
+            url: "url"
+          RESUME:
+            bulk: true
+            url: "url"
+        children_progress: "children_progress"
+        has_children: false
+        object_type: "object_type"
+        date_created: "date_created"
+        message: "message"
+        priority: 1
+        created_by: "created_by"
+        object_id: "object_id"
+        steps:
+        - error_message: "error_message"
+          date_updated: "date_updated"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        - error_message: "error_message"
+          date_updated: "date_updated"
+          id: "id"
+          label: "label"
+          message: "message"
+          status: "status"
+        job_context: "{}"
+        date_modified: "date_modified"
+        parent_id: "parent_id"
+        progress: 6
+        status: "READY"
+      next_url: "next_url"
+      page: 273751188
+      prev_url: "prev_url"
+      last_url: "last_url"
+      facets: "{}"
+  JobsStateSchema:
+    type: "object"
+    required:
+    - "action"
+    - "job_ids"
+    properties:
+      action:
+        type: "string"
+        enum:
+        - "PAUSE"
+        - "RESUME"
+        - "ABORT"
+        - "RESTART"
+      job_ids:
+        type: "array"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 1
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  ReindexJobSchema:
+    type: "object"
+    properties:
+      sync_to_another_dc:
+        type: "boolean"
+        default: true
+  RelatedObjectSchema:
+    type: "object"
+    required:
+    - "object_id"
+    - "object_type"
+    properties:
+      object_id:
+        type: "string"
+      object_type:
+        type: "string"
+    example:
+      object_type: "object_type"
+      object_id: "object_id"

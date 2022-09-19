@@ -1,0 +1,1884 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_acls"
+basePath: "/API/acls"
+paths:
+  /v1/acl/:
+    post:
+      summary: "Check if objects have required permission"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns empty dict if object has permission"
+          schema:
+            $ref: "#/definitions/BulkACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "403":
+          description: "Returns a dict with two lists `access_granted` and `access_denied`\
+            \ object keys"
+          schema:
+            $ref: "#/definitions/BulkACLSchema"
+  /v1/acl/inherited/: {}
+  /v1/acl/templates/:
+    get:
+      summary: "Retreive all acl templates"
+      description: "\nRequired roles:\n - can_read_acl_templates"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/ACLTemplatesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create an acl template"
+      description: "\nRequired roles:\n - can_write_acl_templates"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ACLTemplateSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Successfully Created"
+          schema:
+            $ref: "#/definitions/ACLTemplateSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/acl/templates/{template_id}/:
+    get:
+      summary: "Retreive an acl template"
+      description: "\nRequired roles:\n - can_read_acl_templates"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "template_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/ACLTemplateSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Template does not exist"
+    put:
+      summary: "Update an acl template"
+      description: "\nRequired roles:\n - can_write_acl_templates"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "template_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ACLTemplateSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Successfully updated"
+          schema:
+            $ref: "#/definitions/ACLTemplateSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL template does not exist"
+    delete:
+      summary: "Remove an acl template"
+      description: "\nRequired roles:\n - can_delete_acl_templates"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "template_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      responses:
+        "204":
+          description: "Successfully deleted"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL template does not exist"
+    patch:
+      summary: "Update an acl template"
+      description: "\nRequired roles:\n - can_write_acl_templates"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "template_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ACLTemplateSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Successfully updated"
+          schema:
+            $ref: "#/definitions/ACLTemplateSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL template does not exist"
+  /v1/acl/templates/{template_id}/{object_type}/{object_key}/:
+    post:
+      summary: "Apply template permissions to an object"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "template_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "TemplateId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "200":
+          description: "Success"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "403":
+          description: "User does not have permission"
+        "404":
+          description: "ACL template does not exist"
+  /v1/acl/templates/{template_id}/{object_type}/{object_key}/internal/: {}
+  /v1/acl/{object_type}/:
+    put:
+      summary: "Create a new acl for multiple objects"
+      description: "\nRequired roles:\n - can_write_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateACLsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the updated objects"
+          schema:
+            $ref: "#/definitions/CreateACLsResultSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete acls for multiple objects"
+      description: "\nRequired roles:\n - can_delete_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/DeleteACLsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the deleted objects"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/acl/{object_type}/content/:
+    put:
+      summary: "Create a new acl for content of multiple objects"
+      description: "\nRequired roles:\n - can_write_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateBulkACLsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "202":
+          description: "Returns the updated objects"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "501":
+          description: "Invalid object type"
+    delete:
+      summary: "Delete acls for content of multiple objects"
+      description: "\nRequired roles:\n - can_delete_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/DeleteBulkACLsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the deleted objects"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/acl/{object_type}/{object_key}/:
+    get:
+      summary: "List of object permissions"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "200":
+          description: "Returns a list of permissions"
+          schema:
+            $ref: "#/definitions/ACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/acl/{object_type}/{object_key}/permissions/:
+    get:
+      summary: "List of permissions for the user"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "200":
+          description: "Returns a list of permissions"
+          schema:
+            $ref: "#/definitions/CombinedPermissionsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/acl/{object_type}/{object_key}/{permission}/:
+    get:
+      summary: "Check if particular object has required permission"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - name: "permission"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Permission"
+      responses:
+        "200":
+          description: "Returns empty dict if object has permission"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "403":
+          description: "Returns empty dict if object doesn't have permission"
+  /v1/acl/{object_type}/{permission}/:
+    post:
+      summary: "Check if objects have required permission"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "permission"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Permission"
+      responses:
+        "200":
+          description: "Returns a dict with two lists `access_granted` and `access_denied`\
+            \ object keys"
+          schema:
+            $ref: "#/definitions/BulkACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "403":
+          description: "Returns a dict with two lists `access_granted` and `access_denied`\
+            \ object keys"
+          schema:
+            $ref: "#/definitions/BulkACLSchema"
+  /v1/groups/{group_id}/acl/{object_type}/{object_key}/:
+    get:
+      summary: "List of groups permissions for an object"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "200":
+          description: "Returns a list of group permissions"
+          schema:
+            $ref: "#/definitions/GroupACLSchema"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Group doesn't have permissions"
+    put:
+      summary: "Update or create group acl for an object"
+      description: "\nRequired roles:\n - can_write_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupACLSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated acl"
+          schema:
+            $ref: "#/definitions/GroupACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL does not exist"
+    delete:
+      summary: "Delete a particular acl by id for an object"
+      description: "\nRequired roles:\n - can_delete_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL does not exist"
+  /v1/groups/{group_id}/acl/{object_type}/{object_key}/{permission}/:
+    get:
+      summary: "Check if group has particular permission for an object"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - name: "permission"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Permission"
+      responses:
+        "200":
+          description: "Returns an empty body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "403":
+          description: "Group doesn't have particular permission"
+  /v1/propagating_acl/{object_type}/{object_key}/reindex/: {}
+  /v1/shares/{object_type}/{object_key}/:
+    get:
+      summary: "List of share acls"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "200":
+          description: "Returns a list of permissions"
+          schema:
+            $ref: "#/definitions/SharesACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/shares/{share_id}/acl/{object_type}/:
+    put:
+      summary: "Create a new acl for multiple share objects"
+      description: "\nRequired roles:\n - can_write_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "share_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ShareId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateShareACLsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns the updated objects"
+          schema:
+            $ref: "#/definitions/CreateACLsResultSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/shares/{share_id}/acl/{object_type}/{object_key}/:
+    get:
+      summary: "List of share permissions for an object"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "share_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ShareId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "200":
+          description: "Returns a list of permissions"
+          schema:
+            $ref: "#/definitions/ShareACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    post:
+      summary: "Create a new share acl for an object"
+      description: "\nRequired roles:\n - can_write_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "share_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ShareId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ShareACLSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created acl"
+          schema:
+            $ref: "#/definitions/ShareACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    put:
+      summary: "Update share acl for an object"
+      description: "\nRequired roles:\n - can_write_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "share_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ShareId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/ShareACLSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated acl"
+          schema:
+            $ref: "#/definitions/ShareACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL does not exist"
+    delete:
+      summary: "Delete a share acl for an object"
+      description: "\nRequired roles:\n - can_delete_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "share_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ShareId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL does not exist"
+  /v1/shares/{share_id}/acl/{object_type}/{object_key}/{permission}/:
+    get:
+      summary: "Returns a share acl for an object"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "share_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ShareId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - name: "permission"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Permission"
+      responses:
+        "200":
+          description: "Returns an empty body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "403":
+          description: "User does not have permission"
+  /v1/users/{user_id}/acl/{object_type}/{object_key}/:
+    get:
+      summary: "List of user permissions for an object"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "200":
+          description: "Returns a list of permissions"
+          schema:
+            $ref: "#/definitions/UserACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    put:
+      summary: "Update or create user acl for an object"
+      description: "\nRequired roles:\n - can_write_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserACLSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns an updated acl"
+          schema:
+            $ref: "#/definitions/UserACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL does not exist"
+    delete:
+      summary: "Delete a user acl for an object"
+      description: "\nRequired roles:\n - can_delete_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "ACL does not exist"
+  /v1/users/{user_id}/acl/{object_type}/{object_key}/{permission}/:
+    get:
+      summary: "Returns a user acl for an object"
+      description: "\nRequired roles:\n - can_read_acls"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_key"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectKey"
+      - name: "permission"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Permission"
+      responses:
+        "200":
+          description: "Returns a acl"
+          schema:
+            $ref: "#/definitions/UserACLSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "403":
+          description: "User does not have permission"
+definitions:
+  ACLSchema:
+    type: "object"
+    properties:
+      groups_acl:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/GroupACLSchema"
+      inherited_groups_acl:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/GroupACLSchema"
+      inherited_users_acl:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/UserACLSchema"
+      propagating_groups_acl:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/GroupACLSchema"
+      propagating_users_acl:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/UserACLSchema"
+      users_acl:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/UserACLSchema"
+    example:
+      inherited_users_acl:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      propagating_groups_acl:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        group_id: "group_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        group_id: "group_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      inherited_groups_acl:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        group_id: "group_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        group_id: "group_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      groups_acl:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        group_id: "group_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        group_id: "group_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      propagating_users_acl:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      users_acl:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+  ACLTemplateSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      id:
+        type: "string"
+        format: "uuid"
+        readOnly: true
+      name:
+        type: "string"
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      name: "name"
+      id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+  ACLTemplatesSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/ACLTemplateSchema"
+    example:
+      objects:
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+      - date_modified: "2000-01-23T04:56:07.000+00:00"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        name: "name"
+        id: "046b6c7f-0b8a-43b9-b35d-6489e6daee91"
+  ACLsSchema:
+    type: "object"
+    properties:
+      object_keys:
+        type: "array"
+        description: "The number of object_keys in the list is limited to a minimum\
+          \ of 0 and a maximum of 500"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 0
+  BulkACLSchema:
+    type: "object"
+    properties:
+      access_denied:
+        type: "array"
+        items:
+          type: "string"
+      access_granted:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      access_granted:
+      - "access_granted"
+      - "access_granted"
+      access_denied:
+      - "access_denied"
+      - "access_denied"
+  BulkACLsObjectSchema:
+    type: "object"
+    required:
+    - "object_keys"
+    - "object_type"
+    - "permissions"
+    properties:
+      object_keys:
+        type: "array"
+        items:
+          type: "string"
+      object_type:
+        type: "string"
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "read"
+          - "write"
+          - "delete"
+          - "change-acl"
+  CheckBulkACLsSchema:
+    type: "object"
+    required:
+    - "objects"
+    properties:
+      objects:
+        type: "array"
+        description: "The number of objects in the list is limited to a minimum of\
+          \ 0 and a maximum of 500"
+        items:
+          $ref: "#/definitions/BulkACLsObjectSchema"
+        maxItems: 500
+        minItems: 0
+  CombinedPermissionsSchema:
+    type: "object"
+    properties:
+      permissions:
+        type: "array"
+        readOnly: true
+        items:
+          type: "string"
+    example:
+      permissions:
+      - "permissions"
+      - "permissions"
+  CopyInheritedACLSchema:
+    type: "object"
+    required:
+    - "from_collection_ids"
+    - "object_key"
+    - "object_type"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      from_collection_ids:
+        type: "array"
+        items:
+          type: "string"
+      object_key:
+        type: "string"
+      object_type:
+        type: "string"
+  CreateACLsResultSchema:
+    type: "object"
+    properties:
+      updated_object_keys:
+        type: "array"
+        readOnly: true
+        items:
+          type: "string"
+    example:
+      updated_object_keys:
+      - "updated_object_keys"
+      - "updated_object_keys"
+  CreateACLsSchema:
+    type: "object"
+    required:
+    - "object_keys"
+    - "permissions"
+    properties:
+      group_ids:
+        type: "array"
+        items:
+          type: "string"
+          readOnly: true
+      mode:
+        type: "string"
+        enum:
+        - "APPEND"
+        - "OVERWRITE"
+        default: "OVERWRITE"
+      object_keys:
+        type: "array"
+        description: "The number of object_keys in the list is limited to a minimum\
+          \ of 0 and a maximum of 500"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 0
+      object_type:
+        type: "string"
+        readOnly: true
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+      user_ids:
+        type: "array"
+        items:
+          type: "string"
+          readOnly: true
+  CreateBulkACLsSchema:
+    type: "object"
+    required:
+    - "include_assets"
+    - "include_collections"
+    - "permissions"
+    properties:
+      group_ids:
+        type: "array"
+        items:
+          type: "string"
+      include_assets:
+        type: "boolean"
+      include_collections:
+        type: "boolean"
+      mode:
+        type: "string"
+        enum:
+        - "APPEND"
+        - "OVERWRITE"
+        default: "OVERWRITE"
+      object_ids:
+        type: "array"
+        description: "The number of object_ids in the list is limited to a minimum\
+          \ of 0 and a maximum of 500"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 0
+      object_type:
+        type: "string"
+        readOnly: true
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+      user_ids:
+        type: "array"
+        items:
+          type: "string"
+  CreateShareACLsSchema:
+    type: "object"
+    required:
+    - "permissions"
+    properties:
+      object_keys:
+        type: "array"
+        description: "The number of object_keys in the list is limited to a min of\
+          \ 0 and a maximum of 500"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 0
+      object_type:
+        type: "string"
+        readOnly: true
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+      share_id:
+        type: "string"
+        readOnly: true
+  DeleteACLsSchema:
+    type: "object"
+    properties:
+      group_ids:
+        type: "array"
+        items:
+          type: "string"
+          readOnly: true
+      object_keys:
+        type: "array"
+        description: "The number of object_keys in the list is limited to a minimum\
+          \ of 0 and a maximum of 500"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 0
+      object_type:
+        type: "string"
+        readOnly: true
+      user_ids:
+        type: "array"
+        items:
+          type: "string"
+          readOnly: true
+  DeleteBulkACLsSchema:
+    type: "object"
+    required:
+    - "include_assets"
+    - "include_collections"
+    properties:
+      group_ids:
+        type: "array"
+        items:
+          type: "string"
+      include_assets:
+        type: "boolean"
+      include_collections:
+        type: "boolean"
+      object_ids:
+        type: "array"
+        description: "The number of object_ids in the list is limited to a minimum\
+          \ of 0 and a maximum of 500"
+        items:
+          type: "string"
+        maxItems: 500
+        minItems: 0
+      object_type:
+        type: "string"
+        readOnly: true
+      user_ids:
+        type: "array"
+        items:
+          type: "string"
+  GroupACLSchema:
+    type: "object"
+    required:
+    - "permissions"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      group_id:
+        type: "string"
+        readOnly: true
+      object_key:
+        type: "string"
+        readOnly: true
+      object_type:
+        type: "string"
+        readOnly: true
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_key: "object_key"
+      group_id: "group_id"
+      object_type: "object_type"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      permissions:
+      - "permissions"
+      - "permissions"
+  GroupIDsSchema:
+    type: "object"
+    properties:
+      group_ids:
+        type: "array"
+        items:
+          type: "string"
+          readOnly: true
+  InheritedACLSchema:
+    type: "object"
+    required:
+    - "collection_ids"
+    properties:
+      collection_ids:
+        type: "array"
+        items:
+          type: "string"
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      object_key:
+        type: "string"
+        readOnly: true
+      object_type:
+        type: "string"
+        readOnly: true
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  ReindexPropagatingACLSchema:
+    type: "object"
+    properties:
+      sync_to_another_dc:
+        type: "boolean"
+        default: true
+  ShareACLSchema:
+    type: "object"
+    required:
+    - "permissions"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      object_key:
+        type: "string"
+        readOnly: true
+      object_type:
+        type: "string"
+        readOnly: true
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+      share_id:
+        type: "string"
+        readOnly: true
+    example:
+      share_id: "share_id"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_key: "object_key"
+      object_type: "object_type"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      permissions:
+      - "permissions"
+      - "permissions"
+  SharesACLSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/ShareACLSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - share_id: "share_id"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      - share_id: "share_id"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_key: "object_key"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        permissions:
+        - "permissions"
+        - "permissions"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  UserACLSchema:
+    type: "object"
+    required:
+    - "permissions"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      object_key:
+        type: "string"
+        readOnly: true
+      object_type:
+        type: "string"
+        readOnly: true
+      permissions:
+        type: "array"
+        items:
+          type: "string"
+      user_id:
+        type: "string"
+        readOnly: true
+    example:
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_key: "object_key"
+      object_type: "object_type"
+      user_id: "user_id"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      permissions:
+      - "permissions"
+      - "permissions"
+  UserIDsSchema:
+    type: "object"
+    properties:
+      user_ids:
+        type: "array"
+        items:
+          type: "string"
+          readOnly: true
+  UsersCheckAclSchema:
+    type: "object"
+    properties:
+      group_ids:
+        type: "array"
+        items:
+          type: "string"
+      user_id:
+        type: "string"
+  UsersSchema:
+    type: "object"
+    properties:
+      users:
+        type: "array"
+        items:
+          $ref: "#/definitions/UsersCheckAclSchema"

@@ -1,0 +1,2254 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_stats"
+basePath: "/API/stats"
+paths:
+  /v1/assets/:
+    post:
+      summary: "Sets asset usage."
+      description: "<br/>system_domain_id will be automatically added when <br/>posting\
+        \ to this end point."
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/AssetUsageSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Usage entered"
+          schema:
+            $ref: "#/definitions/AssetUsageSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/assets/by/{period}/:
+    get:
+      summary: "Returns all asset usage"
+      description: "\nRequired roles:\n - can_read_stats"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "period"
+        in: "path"
+        description: "Period of stats (month or day)"
+        required: true
+        type: "string"
+        x-exportParamName: "Period"
+      - name: "from_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "FromDate"
+        x-optionalDataType: "String"
+      - name: "to_date"
+        in: "query"
+        description: "Filter by to_date"
+        required: false
+        type: "string"
+        x-exportParamName: "ToDate"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns asset usage"
+          schema:
+            $ref: "#/definitions/AssetUsageSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/:
+    get:
+      summary: "Returns billing info"
+      description: "\nRequired roles:\n - can_read_stats"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "from_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "FromDate"
+        x-optionalDataType: "String"
+      - name: "to_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "ToDate"
+        x-optionalDataType: "String"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 100
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_id"
+        in: "query"
+        description: "ID of a last file on previous page"
+        required: false
+        type: "string"
+        x-exportParamName: "LastId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns billing data"
+          schema:
+            $ref: "#/definitions/BillingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    post:
+      summary: "Updates Billing (Requires super admin access)."
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Usage entered"
+          schema:
+            $ref: "#/definitions/BillingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/charges/{charge_id}/receipt_url/:
+    get:
+      summary: "Returns billing receipt"
+      description: "\nRequired roles:\n - can_read_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "charge_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ChargeId"
+      responses:
+        "200":
+          description: "Billing receipts"
+          schema:
+            $ref: "#/definitions/BillingReceiptSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/billing/credits/:
+    post:
+      summary: "Add credits to an account"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingCreditsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Credits entered"
+          schema:
+            $ref: "#/definitions/BillingCreditsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/credits/price/:
+    get:
+      summary: "Checks the total price that needs to be paid including VAT if it's\
+        \ needed"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "credits"
+        in: "query"
+        required: true
+        type: "integer"
+        x-exportParamName: "Credits"
+      responses:
+        "201":
+          description: "Credits entered"
+          schema:
+            $ref: "#/definitions/CreditsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/credits/verify/:
+    post:
+      summary: "Verify status of add credits to an account"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingCreditsVerifySchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Credits entered"
+          schema:
+            $ref: "#/definitions/BillingCreditsVerifySchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/customer/:
+    get:
+      summary: "Returns billing customer"
+      description: "\nRequired roles:\n - can_read_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Usage entered"
+          schema:
+            $ref: "#/definitions/BillingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    post:
+      summary: "Updates billing customer"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingCustomerSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Usage entered"
+          schema:
+            $ref: "#/definitions/BillingCustomerSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/customer/card/:
+    post:
+      summary: "Creates billing customer card"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingCustomerCardSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Usage entered"
+          schema:
+            $ref: "#/definitions/BillingCustomerCardSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    delete:
+      summary: "Creates billing customer card"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Card deleted"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/invoices/:
+    get:
+      summary: "Returns billing invoices"
+      description: "\nRequired roles:\n - can_read_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "starting_after"
+        in: "query"
+        required: false
+        type: "string"
+        x-exportParamName: "StartingAfter"
+        x-optionalDataType: "String"
+      - name: "limit"
+        in: "query"
+        required: false
+        type: "integer"
+        x-exportParamName: "Limit"
+        x-optionalDataType: "Int32"
+      responses:
+        "200":
+          description: "Billing invoices"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/billing/recipients/:
+    get:
+      summary: "Updates Billing Recipients"
+      description: "\nRequired roles:\n - can_read_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Email recipients"
+          schema:
+            $ref: "#/definitions/BillingRecipientsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    put:
+      summary: "Updates Billing Recipients"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingRecipientsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Email recipients"
+          schema:
+            $ref: "#/definitions/BillingRecipientsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/settings/:
+    get:
+      summary: "Updates Billing Settings"
+      description: "\nRequired roles:\n - can_read_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Email recipients"
+          schema:
+            $ref: "#/definitions/BillingSettingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+    put:
+      summary: "Updates Billing Settings"
+      description: "\nRequired roles:\n - can_write_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/BillingSettingsSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Email recipients"
+          schema:
+            $ref: "#/definitions/BillingSettingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/billing/status/:
+    get:
+      summary: "Returns billing status"
+      description: "\nRequired roles:\n - can_read_billing"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Billing status"
+          schema:
+            $ref: "#/definitions/BillingStatsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/billing/{system_domain_id}/{billing_id}/:
+    delete:
+      summary: "Delete billing record (Requires super admin access)."
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - name: "billing_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "BillingId"
+      responses:
+        "204":
+          description: "Usage deleted"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/collections/: {}
+  /v1/collections/by/{period}/:
+    get:
+      summary: "Returns all collection usage"
+      description: "\nRequired roles:\n - can_read_stats"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "period"
+        in: "path"
+        description: "Period of stats (month or day)"
+        required: true
+        type: "string"
+        x-exportParamName: "Period"
+      - name: "from_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "FromDate"
+        x-optionalDataType: "String"
+      - name: "to_date"
+        in: "query"
+        description: "Filter by to_date"
+        required: false
+        type: "string"
+        x-exportParamName: "ToDate"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns Collection usage"
+          schema:
+            $ref: "#/definitions/CollectionUsageSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/id/{object_id}/info/:
+    get:
+      summary: "Internal endpoint to convert ID to system domain"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_id"
+        in: "path"
+        description: "Object ID"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      responses:
+        "200":
+          description: "Returns asset usage"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/storage/access/: {}
+  /v1/storage/access/by/{period}/:
+    get:
+      summary: "Returns storage_access for all storages"
+      description: "\nRequired roles:\n - can_read_stats"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "period"
+        in: "path"
+        description: "Period of stats (month or day)"
+        required: true
+        type: "string"
+        x-exportParamName: "Period"
+      - name: "from_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "FromDate"
+        x-optionalDataType: "String"
+      - name: "to_date"
+        in: "query"
+        description: "Filter by to_date"
+        required: false
+        type: "string"
+        x-exportParamName: "ToDate"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a object for storage access"
+          schema:
+            $ref: "#/definitions/StorageAccessesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/storage/usage/: {}
+  /v1/storage/usage/by/{period}/:
+    get:
+      summary: "Returns storage_usage for all storages"
+      description: "\nRequired roles:\n - can_read_stats"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "period"
+        in: "path"
+        description: "Period of stats (month or day)"
+        required: true
+        type: "string"
+        x-exportParamName: "Period"
+      - name: "from_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "FromDate"
+        x-optionalDataType: "String"
+      - name: "to_date"
+        in: "query"
+        description: "Filter by to_date"
+        required: false
+        type: "string"
+        x-exportParamName: "ToDate"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns storage usage"
+          schema:
+            $ref: "#/definitions/StorageUsagesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/transcoder/usage/: {}
+  /v1/transcoder/usage/by/{period}/:
+    get:
+      summary: "Returns transcoder_usage for all transcoders"
+      description: "\nRequired roles:\n - can_read_stats"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "period"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Period"
+      - name: "from_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "FromDate"
+        x-optionalDataType: "String"
+      - name: "to_date"
+        in: "query"
+        description: "Filter by to_date"
+        required: false
+        type: "string"
+        x-exportParamName: "ToDate"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a transcoder usage objects"
+          schema:
+            $ref: "#/definitions/TranscoderUsagesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+  /v1/user/audit/: {}
+  /v1/user/audit/by/{period}/:
+    get:
+      summary: "Returns all audit"
+      description: "\nRequired roles:\n - can_read_stats"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "period"
+        in: "path"
+        description: "Period of stats (month, day or day_detailed)"
+        required: true
+        type: "string"
+        x-exportParamName: "Period"
+      - name: "from_date"
+        in: "query"
+        description: "Filter by from_date"
+        required: false
+        type: "string"
+        x-exportParamName: "FromDate"
+        x-optionalDataType: "String"
+      - name: "to_date"
+        in: "query"
+        description: "Filter by to_date"
+        required: false
+        type: "string"
+        x-exportParamName: "ToDate"
+        x-optionalDataType: "String"
+      - name: "system_domain_id"
+        in: "query"
+        description: "Filter by system_domain_id (Only for super admins)"
+        required: false
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns user usage"
+          schema:
+            $ref: "#/definitions/UserUsagesSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Requested page does not exist"
+definitions:
+  AssetUsageSchema:
+    type: "object"
+    required:
+    - "asset_id"
+    - "operation_type"
+    - "system_name"
+    - "user_id"
+    properties:
+      asset_id:
+        type: "string"
+      asset_type:
+        type: "string"
+        enum:
+        - "ASSET"
+        - "SEQUENCE"
+        - "NLE_PROJECT"
+        - "PLACEHOLDER"
+      date:
+        type: "string"
+        format: "date"
+      id:
+        type: "string"
+        readOnly: true
+      metadata:
+        type: "string"
+      operation_source:
+        type: "string"
+        enum:
+        - "COLLECTION"
+        - "SEARCH"
+        - "NOTIFICATION"
+        - "DISCOVERY"
+        - "SHARE"
+        - "EXTERNAL_SHARE"
+        - ""
+      operation_type:
+        type: "string"
+        enum:
+        - "VIEW"
+        - "PLAY"
+        - "PAUSE"
+        - "DELETE"
+        - "CREATE"
+        - "APPROVE"
+        - "REJECT"
+        - "COMMENT"
+        - "RENAME"
+        - "EXIT"
+        - "UNFOCUS"
+        - "REFOCUS"
+        - "SEEK"
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      system_name:
+        type: "string"
+      time:
+        type: "string"
+        format: "date-time"
+      user_id:
+        type: "string"
+    example:
+      date: "2000-01-23"
+      metadata: "metadata"
+      operation_type: "VIEW"
+      user_id: "user_id"
+      operation_source: "COLLECTION"
+      system_name: "system_name"
+      asset_type: "ASSET"
+      asset_id: "asset_id"
+      id: "id"
+      time: "2000-01-23T04:56:07.000+00:00"
+      system_domain_id: "system_domain_id"
+  AssetUsagesElasticSchema:
+    type: "object"
+    properties:
+      count:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+  AssetUsagesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/AssetUsagesElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  BillingCreditsSchema:
+    type: "object"
+    required:
+    - "credits"
+    properties:
+      auto_pay:
+        type: "boolean"
+      country:
+        type: "string"
+        readOnly: true
+      credits:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+      currency:
+        type: "string"
+        readOnly: true
+      custom_message:
+        type: "string"
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      total:
+        type: "string"
+        readOnly: true
+      vat:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+    example:
+      country: "country"
+      custom_message: "custom_message"
+      total: "total"
+      credits: 1
+      vat: 441289069
+      currency: "currency"
+      auto_pay: true
+      system_domain_id: "system_domain_id"
+  BillingCreditsVerifySchema:
+    type: "object"
+    required:
+    - "invoice_id"
+    properties:
+      charge:
+        type: "string"
+        readOnly: true
+      invoice_id:
+        type: "string"
+      system_domain_id:
+        type: "string"
+        readOnly: true
+    example:
+      charge: "charge"
+      invoice_id: "invoice_id"
+      system_domain_id: "system_domain_id"
+  BillingCustomerCardSchema:
+    type: "object"
+    required:
+    - "source"
+    properties:
+      source:
+        type: "string"
+    example:
+      source: "source"
+  BillingCustomerSchema:
+    type: "object"
+    required:
+    - "shipping"
+    properties:
+      business_vat_id:
+        type: "string"
+      email:
+        type: "string"
+        format: "email"
+      enable_subscription:
+        type: "boolean"
+      shipping:
+        $ref: "#/definitions/BillingCustomerShippingSchema"
+    example:
+      business_vat_id: "business_vat_id"
+      shipping:
+        address:
+          country: "country"
+          city: "city"
+          state: "state"
+          postal_code: "postal_code"
+          line2: "line2"
+          line1: "line1"
+        phone: "phone"
+        name: "name"
+      enable_subscription: true
+      email: "email"
+  BillingCustomerShippingAddressSchema:
+    type: "object"
+    required:
+    - "city"
+    - "country"
+    - "line1"
+    - "postal_code"
+    properties:
+      city:
+        type: "string"
+      country:
+        type: "string"
+      line1:
+        type: "string"
+      line2:
+        type: "string"
+        x-nullable: true
+      postal_code:
+        type: "string"
+      state:
+        type: "string"
+        x-nullable: true
+    example:
+      country: "country"
+      city: "city"
+      state: "state"
+      postal_code: "postal_code"
+      line2: "line2"
+      line1: "line1"
+  BillingCustomerShippingSchema:
+    type: "object"
+    required:
+    - "address"
+    - "name"
+    properties:
+      address:
+        $ref: "#/definitions/BillingCustomerShippingAddressSchema"
+      name:
+        type: "string"
+      phone:
+        type: "string"
+        x-nullable: true
+    example:
+      address:
+        country: "country"
+        city: "city"
+        state: "state"
+        postal_code: "postal_code"
+        line2: "line2"
+        line1: "line1"
+      phone: "phone"
+      name: "name"
+  BillingReceiptSchema:
+    type: "object"
+    properties:
+      receipt_url:
+        type: "string"
+    example:
+      receipt_url: "receipt_url"
+  BillingRecipientsSchema:
+    type: "object"
+    properties:
+      emails:
+        type: "array"
+        items:
+          type: "string"
+    example:
+      emails:
+      - "emails"
+      - "emails"
+  BillingSchema:
+    type: "object"
+    required:
+    - "label"
+    - "system_domain_id"
+    - "value"
+    properties:
+      balance:
+        type: "number"
+        format: "float"
+      consumption_subtype:
+        type: "string"
+      consumption_type:
+        type: "string"
+      currency:
+        type: "string"
+        enum:
+        - "USD"
+        - "EUR"
+        x-nullable: true
+      date:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "string"
+        readOnly: true
+      label:
+        type: "string"
+      system_domain_id:
+        type: "string"
+      value:
+        type: "number"
+        format: "float"
+    example:
+      consumption_type: "consumption_type"
+      date: "2000-01-23T04:56:07.000+00:00"
+      balance: 0.8008282
+      consumption_subtype: "consumption_subtype"
+      currency: "USD"
+      id: "id"
+      label: "label"
+      value: 6.0274563
+      system_domain_id: "system_domain_id"
+  BillingSettingsSchema:
+    type: "object"
+    properties:
+      auto_refill_amount:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      enable_auto_top_up:
+        type: "boolean"
+      low_balance_trigger:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+    example:
+      enable_auto_top_up: true
+      auto_refill_amount: -1803530559
+      low_balance_trigger: 441289069
+  BillingStatsSchema:
+    type: "object"
+    required:
+    - "system_domain_type"
+    - "system_domain_warning_message"
+    properties:
+      current_balance:
+        type: "number"
+        format: "float"
+      invoice_end_of_month:
+        type: "boolean"
+      new_billing_enabled:
+        type: "boolean"
+      stripe_id:
+        type: "boolean"
+      system_domain_status:
+        type: "string"
+        enum:
+        - "USD"
+        - "EUR"
+        x-nullable: true
+      system_domain_type:
+        type: "string"
+      system_domain_warning_message:
+        type: "string"
+    example:
+      new_billing_enabled: true
+      system_domain_status: "USD"
+      system_domain_type: "system_domain_type"
+      invoice_end_of_month: true
+      current_balance: 0.8008282
+      system_domain_warning_message: "system_domain_warning_message"
+      stripe_id: true
+  BillingsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/BillingSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 273751188
+      first_url: "first_url"
+      total: -4976680883935979520
+      pages: 413233370
+      objects:
+      - consumption_type: "consumption_type"
+        date: "2000-01-23T04:56:07.000+00:00"
+        balance: 0.8008282
+        consumption_subtype: "consumption_subtype"
+        currency: "USD"
+        id: "id"
+        label: "label"
+        value: 6.0274563
+        system_domain_id: "system_domain_id"
+      - consumption_type: "consumption_type"
+        date: "2000-01-23T04:56:07.000+00:00"
+        balance: 0.8008282
+        consumption_subtype: "consumption_subtype"
+        currency: "USD"
+        id: "id"
+        label: "label"
+        value: 6.0274563
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: -1517921766
+      prev_url: "prev_url"
+      last_url: "last_url"
+  CollectionUsageSchema:
+    type: "object"
+    required:
+    - "collection_id"
+    - "operation_type"
+    - "system_name"
+    - "user_id"
+    properties:
+      collection_id:
+        type: "string"
+      date:
+        type: "string"
+        format: "date"
+      id:
+        type: "string"
+        readOnly: true
+      metadata:
+        type: "string"
+      operation_source:
+        type: "string"
+        enum:
+        - "COLLECTION"
+        - "SEARCH"
+        - "NOTIFICATION"
+      operation_type:
+        type: "string"
+        enum:
+        - "VIEW"
+        - "DELETE"
+        - "CREATE"
+        - "RENAME"
+      system_domain_id:
+        type: "string"
+      system_name:
+        type: "string"
+      time:
+        type: "string"
+        format: "date-time"
+      user_id:
+        type: "string"
+    example:
+      collection_id: "collection_id"
+      date: "2000-01-23"
+      metadata: "metadata"
+      operation_type: "VIEW"
+      user_id: "user_id"
+      operation_source: "COLLECTION"
+      system_name: "system_name"
+      id: "id"
+      time: "2000-01-23T04:56:07.000+00:00"
+      system_domain_id: "system_domain_id"
+  CollectionUsagesElasticSchema:
+    type: "object"
+    properties:
+      count:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+  CollectionUsagesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/CollectionUsagesElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  CreditsSchema:
+    type: "object"
+    required:
+    - "credits"
+    properties:
+      country:
+        type: "string"
+        readOnly: true
+      credits:
+        type: "integer"
+        format: "int32"
+        minimum: 1
+      currency:
+        type: "string"
+        readOnly: true
+      total:
+        type: "number"
+        readOnly: true
+      vat:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+    example:
+      country: "country"
+      total: 6.02745618307040320615897144307382404804229736328125
+      credits: 1
+      vat: -1517921766
+      currency: "currency"
+  DateFilterSchema:
+    type: "object"
+    properties:
+      from_date:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+      to_date:
+        type: "string"
+        format: "date-time"
+        x-nullable: true
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  StorageAccessElasticSchema:
+    type: "object"
+    properties:
+      bucket_name:
+        type: "string"
+      bytes_received:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      bytes_sent:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      operations:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      system_domain_id:
+        type: "string"
+    example:
+      date: "date"
+      operations: -1517921766
+      bucket_name: "bucket_name"
+      bytes_received: -7746104769210155008
+      id: "id"
+      bytes_sent: 1895322125605019648
+      system_domain_id: "system_domain_id"
+  StorageAccessSchema:
+    type: "object"
+    required:
+    - "bucket_name"
+    - "operation_type"
+    - "storage_type"
+    - "system_name"
+    properties:
+      bucket_name:
+        type: "string"
+      bytes_received:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      bytes_sent:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "string"
+        readOnly: true
+      operation_type:
+        type: "string"
+      operations:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      storage_type:
+        type: "string"
+        enum:
+        - "FILE"
+        - "HTTP"
+        - "FTP"
+        - "SFTP"
+        - "S3"
+        - "OMMS"
+        - "GCS"
+      system_domain_id:
+        type: "string"
+      system_name:
+        type: "string"
+  StorageAccessesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/StorageAccessElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1158723813
+      first_url: "first_url"
+      total: 3802614113523499008
+      pages: 273751188
+      objects:
+      - date: "date"
+        operations: -1517921766
+        bucket_name: "bucket_name"
+        bytes_received: -7746104769210155008
+        id: "id"
+        bytes_sent: 1895322125605019648
+        system_domain_id: "system_domain_id"
+      - date: "date"
+        operations: -1517921766
+        bucket_name: "bucket_name"
+        bytes_received: -7746104769210155008
+        id: "id"
+        bytes_sent: 1895322125605019648
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: 413233370
+      prev_url: "prev_url"
+      last_url: "last_url"
+  StorageUsageSchema:
+    type: "object"
+    required:
+    - "bucket_name"
+    - "storage_type"
+    - "system_name"
+    properties:
+      bucket_name:
+        type: "string"
+      bytes_stored:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+        format: "date-time"
+      id:
+        type: "string"
+        readOnly: true
+      storage_type:
+        type: "string"
+        enum:
+        - "FILE"
+        - "HTTP"
+        - "FTP"
+        - "SFTP"
+        - "S3"
+        - "OMMS"
+        - "GCS"
+      system_domain_id:
+        type: "string"
+      system_name:
+        type: "string"
+  StorageUsagesElasticSchema:
+    type: "object"
+    properties:
+      bucket_name:
+        type: "string"
+      bytes_stored:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+    example:
+      date: "date"
+      bucket_name: "bucket_name"
+      bytes_stored: -7746104769210155008
+      id: "id"
+      system_domain_id: "system_domain_id"
+  StorageUsagesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/StorageUsagesElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 413233370
+      first_url: "first_url"
+      total: 1175752406347165696
+      pages: -1517921766
+      objects:
+      - date: "date"
+        bucket_name: "bucket_name"
+        bytes_stored: -7746104769210155008
+        id: "id"
+        system_domain_id: "system_domain_id"
+      - date: "date"
+        bucket_name: "bucket_name"
+        bytes_stored: -7746104769210155008
+        id: "id"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: 441289069
+      prev_url: "prev_url"
+      last_url: "last_url"
+  TranscoderUsageSchema:
+    type: "object"
+    required:
+    - "status"
+    - "system_name"
+    - "transcoder_type"
+    properties:
+      adjusted_duration_seconds:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      date:
+        type: "string"
+        format: "date"
+      destination_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      duration_seconds:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      is_user_transcoder:
+        type: "boolean"
+        default: false
+      job_id:
+        type: "string"
+        x-nullable: true
+      object_id:
+        type: "string"
+        x-nullable: true
+      object_type:
+        type: "string"
+        x-nullable: true
+      operation_type:
+        type: "string"
+        enum:
+        - "TRANSCODE"
+        - "TRANSCODE_AUDIO"
+        - "TRANSCODE_VIDEO"
+        - "TRANSCODE_IMAGE"
+        - "TRANSCODE_KEYFRAMES"
+        - "MEDIAINFO"
+        - "CONFORM"
+        - "EXTRACT_AUDIO"
+        - "EXTRACT_IMAGE"
+        - "ANALYZE"
+        - "TRANSCRIBE"
+        x-nullable: true
+      percent_done:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      source_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      status:
+        type: "string"
+        enum:
+        - "FAILED"
+        - "FINISHED"
+        - "ABORTED"
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      system_name:
+        type: "string"
+      time:
+        type: "string"
+        format: "date-time"
+      transcoder_type:
+        type: "string"
+        enum:
+        - "VANTAGE"
+        - "FFMPEG"
+        - "FFMPEG_FIRST_FRAME"
+        - "IMAGEMAGICK"
+        - "SUBTITLES"
+        - "ENCODING_COM"
+        - "ZENCODER"
+        - "TELESTREAM_CLOUD"
+        - "GOOGLE_VIDEO_INTELLIGENCE"
+        - "GOOGLE_VISION"
+        - "COLLECTION_KEYFRAMES"
+        - "AMAZON_REKOGNITION_IMAGE"
+        - "AMAZON_REKOGNITION_VIDEO"
+        - "ELEMENTAL_MEDIACONVERT"
+        - "ELEMENTAL_SERVER"
+        - "MEDIAINFO"
+        - "ICONIK_EDGE_TRANSCODER"
+        - "NONE"
+        - "REV_AI_TRANSCRIPTION"
+        - "GCVI_TRANSCRIPTION"
+        - "AMAZON_TRANSCRIBE"
+  TranscoderUsagesElasticSchema:
+    type: "object"
+    required:
+    - "transcoder_type"
+    properties:
+      count:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+      destination_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      duration_seconds:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      id:
+        type: "string"
+        readOnly: true
+      is_user_transcoder:
+        type: "boolean"
+      operation_type:
+        type: "string"
+        enum:
+        - "TRANSCODE"
+        - "TRANSCODE_AUDIO"
+        - "TRANSCODE_VIDEO"
+        - "TRANSCODE_IMAGE"
+        - "TRANSCODE_KEYFRAMES"
+        - "MEDIAINFO"
+        - "CONFORM"
+        - "EXTRACT_AUDIO"
+        - "EXTRACT_IMAGE"
+        - "ANALYZE"
+        - "TRANSCRIBE"
+      source_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      system_domain_id:
+        type: "string"
+      transcoder_type:
+        type: "string"
+        enum:
+        - "VANTAGE"
+        - "FFMPEG"
+        - "FFMPEG_FIRST_FRAME"
+        - "IMAGEMAGICK"
+        - "SUBTITLES"
+        - "ENCODING_COM"
+        - "ZENCODER"
+        - "TELESTREAM_CLOUD"
+        - "GOOGLE_VIDEO_INTELLIGENCE"
+        - "GOOGLE_VISION"
+        - "COLLECTION_KEYFRAMES"
+        - "AMAZON_REKOGNITION_IMAGE"
+        - "AMAZON_REKOGNITION_VIDEO"
+        - "ELEMENTAL_MEDIACONVERT"
+        - "ELEMENTAL_SERVER"
+        - "MEDIAINFO"
+        - "ICONIK_EDGE_TRANSCODER"
+        - "NONE"
+        - "REV_AI_TRANSCRIPTION"
+        - "GCVI_TRANSCRIPTION"
+        - "AMAZON_TRANSCRIBE"
+    example:
+      date: "date"
+      duration_seconds: -6519424345728851968
+      transcoder_type: "VANTAGE"
+      is_user_transcoder: true
+      source_bytes: 1774823812569044992
+      operation_type: "TRANSCODE"
+      count: -7746104769210155008
+      id: "id"
+      destination_bytes: 1895322125605019648
+      system_domain_id: "system_domain_id"
+  TranscoderUsagesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/TranscoderUsagesElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 885365090
+      first_url: "first_url"
+      total: 7934764111515531264
+      pages: -1158723813
+      objects:
+      - date: "date"
+        duration_seconds: -6519424345728851968
+        transcoder_type: "VANTAGE"
+        is_user_transcoder: true
+        source_bytes: 1774823812569044992
+        operation_type: "TRANSCODE"
+        count: -7746104769210155008
+        id: "id"
+        destination_bytes: 1895322125605019648
+        system_domain_id: "system_domain_id"
+      - date: "date"
+        duration_seconds: -6519424345728851968
+        transcoder_type: "VANTAGE"
+        is_user_transcoder: true
+        source_bytes: 1774823812569044992
+        operation_type: "TRANSCODE"
+        count: -7746104769210155008
+        id: "id"
+        destination_bytes: 1895322125605019648
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: 273751188
+      prev_url: "prev_url"
+      last_url: "last_url"
+  UserAuditSchema:
+    type: "object"
+    required:
+    - "operation_type"
+    - "system_name"
+    properties:
+      app_id:
+        type: "string"
+      client_ip:
+        type: "string"
+      date:
+        type: "string"
+        format: "date"
+      id:
+        type: "string"
+        readOnly: true
+      is_acting_as_user:
+        type: "boolean"
+        default: false
+      metadata:
+        type: "string"
+      operation_result:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      operation_type:
+        type: "string"
+        enum:
+        - "GET"
+        - "POST"
+        - "PUT"
+        - "PATCH"
+        - "DELETE"
+        - "OPTIONS"
+      original_user_id:
+        type: "string"
+      request_id:
+        type: "string"
+      resource:
+        type: "string"
+      share_id:
+        type: "string"
+      share_user_id:
+        type: "string"
+      sudo:
+        type: "boolean"
+        default: false
+      system_domain_id:
+        type: "string"
+      system_name:
+        type: "string"
+      time:
+        type: "string"
+        format: "date-time"
+      user_id:
+        type: "string"
+  UserUsagesDetailedSchema:
+    type: "object"
+    properties:
+      date:
+        type: "string"
+      system_domain_id:
+        type: "string"
+      type:
+        type: "string"
+      user_id:
+        type: "string"
+  UserUsagesElasticSchema:
+    type: "object"
+    properties:
+      count:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+      date:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+      type:
+        type: "string"
+      user_email:
+        type: "string"
+      user_id:
+        type: "string"
+      user_name:
+        type: "string"
+    example:
+      date: "date"
+      user_email: "user_email"
+      user_id: "user_id"
+      user_name: "user_name"
+      count: -7746104769210155008
+      id: "id"
+      type: "type"
+      system_domain_id: "system_domain_id"
+  UserUsagesSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/UserUsagesElasticSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: 413233370
+      first_url: "first_url"
+      total: 1175752406347165696
+      pages: -1517921766
+      objects:
+      - date: "date"
+        user_email: "user_email"
+        user_id: "user_id"
+        user_name: "user_name"
+        count: -7746104769210155008
+        id: "id"
+        type: "type"
+        system_domain_id: "system_domain_id"
+      - date: "date"
+        user_email: "user_email"
+        user_id: "user_id"
+        user_name: "user_name"
+        count: -7746104769210155008
+        id: "id"
+        type: "type"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: 441289069
+      prev_url: "prev_url"
+      last_url: "last_url"

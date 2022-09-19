@@ -1,0 +1,1499 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_settings"
+basePath: "/API/settings"
+paths:
+  /v1/cors_hosts/:
+    get:
+      summary: "List of CORS hosts"
+      description: "\nRequired roles:\n - can_read_cors_hosts"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      responses:
+        "200":
+          description: "Returns a system settings"
+          schema:
+            $ref: "#/definitions/CORSHostsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Realm does not exist"
+    post:
+      summary: "Create a new CORS host"
+      description: "\nRequired roles:\n - can_write_cors_hosts"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/CORSHostSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created CORS host"
+          schema:
+            $ref: "#/definitions/CORSHostSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/cors_hosts/all/: {}
+  /v1/cors_hosts/{cors_host_id}/:
+    get:
+      summary: "Returns a particular CORS host by id"
+      description: "\nRequired roles:\n - can_read_cors_hosts"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "cors_host_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "CorsHostId"
+      responses:
+        "200":
+          description: "Returns a CORS host"
+          schema:
+            $ref: "#/definitions/CORSHostSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "CORS host does not exist"
+    delete:
+      summary: "Delete a particular CORS host by id"
+      description: "\nRequired roles:\n - can_delete_cors_hosts"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "cors_host_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "CorsHostId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/group/{group_id}/:
+    get:
+      summary: "Group settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "200":
+          description: "Returns a group settings"
+          schema:
+            $ref: "#/definitions/GroupSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Realm does not exist"
+    put:
+      summary: "Change group settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupSettingPublicSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed group settings"
+          schema:
+            $ref: "#/definitions/GroupSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete group settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    patch:
+      summary: "Change group settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "group_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "GroupId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/GroupSettingPublicSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed group settings"
+          schema:
+            $ref: "#/definitions/GroupSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/group/{group_id}/internal/: {}
+  /v1/merged/current/:
+    get:
+      summary: "Get merged settings for current user"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a merged settings"
+          schema:
+            $ref: "#/definitions/MergedSettingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Realm does not exist"
+  /v1/merged/{user_id}/:
+    get:
+      summary: "Get merged settings for a specific user"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "200":
+          description: "Returns a merged settings"
+          schema:
+            $ref: "#/definitions/MergedSettingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Realm does not exist"
+  /v1/metadata_view/{view_id}/internal/: {}
+  /v1/system/current/:
+    get:
+      summary: "System settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a system settings"
+          schema:
+            $ref: "#/definitions/SystemSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Realm does not exist"
+    put:
+      summary: "Change system settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemSettingPublicSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed system settings"
+          schema:
+            $ref: "#/definitions/SystemSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    patch:
+      summary: "Change system settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemSettingPublicSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed system settings"
+          schema:
+            $ref: "#/definitions/SystemSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/system/{system_domain_id}/:
+    get:
+      summary: "System settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      responses:
+        "200":
+          description: "Returns a system settings"
+          schema:
+            $ref: "#/definitions/SystemSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Realm does not exist"
+    put:
+      summary: "Change system settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemSettingPublicSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed system settings"
+          schema:
+            $ref: "#/definitions/SystemSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    patch:
+      summary: "Change system settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "system_domain_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SystemDomainId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemSettingPublicSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed system settings"
+          schema:
+            $ref: "#/definitions/SystemSettingPublicSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/system/{system_domain_id}/internal/: {}
+  /v1/user/{user_id}/:
+    get:
+      summary: "User settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "200":
+          description: "Returns a user settings"
+          schema:
+            $ref: "#/definitions/UserSettingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Realm does not exist"
+    put:
+      summary: "Change user settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSettingSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed user settings"
+          schema:
+            $ref: "#/definitions/UserSettingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    delete:
+      summary: "Delete user settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+    patch:
+      summary: "Change user settings"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "user_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "UserId"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/UserSettingSchema"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Returns changed user settings"
+          schema:
+            $ref: "#/definitions/UserSettingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+definitions:
+  CORSHostSchema:
+    type: "object"
+    required:
+    - "host"
+    properties:
+      host:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+    example:
+      host: "host"
+      id: "id"
+  CORSHostsSchema:
+    type: "object"
+    properties:
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/CORSHostSchema"
+    example:
+      objects:
+      - host: "host"
+        id: "id"
+      - host: "host"
+        id: "id"
+  FacetFieldSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+    example:
+      name: "name"
+  GlobalSettingsSchema:
+    type: "object"
+    properties:
+      debug:
+        type: "boolean"
+      log_level:
+        type: "string"
+        enum:
+        - "NOTSET"
+        - "DEBUG"
+        - "INFO"
+        - "WARNING"
+        - "ERROR"
+        - "CRITICAL"
+        default: "INFO"
+  GroupSettingPublicSchema:
+    type: "object"
+    properties:
+      acl_template_id:
+        type: "string"
+        x-nullable: true
+      asset_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      date_format:
+        type: "string"
+        x-nullable: true
+      datetime_format:
+        type: "string"
+        x-nullable: true
+      default_upload_storage_id:
+        type: "string"
+        x-nullable: true
+      delete_grace_period:
+        type: "integer"
+        format: "int32"
+        description: "Grace period that indicate how long objects will live in recycle\
+          \ bin. Unit: hours"
+        minimum: 0
+        maximum: 87600
+        x-nullable: true
+      facet_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/FacetFieldSchema"
+      filters_default_metadata_view_id:
+        type: "string"
+        x-nullable: true
+      group_id:
+        type: "string"
+        readOnly: true
+      home_page:
+        type: "string"
+        x-nullable: true
+      jobs_dashboard:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      logo_storage_id:
+        type: "string"
+        x-nullable: true
+      logo_url:
+        type: "string"
+        readOnly: true
+      required_metadata_views:
+        type: "array"
+        items:
+          type: "string"
+      search_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      search_display_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchDisplayFieldSchema"
+      search_in_transcriptions:
+        type: "boolean"
+        x-nullable: true
+      share_expiration_time:
+        type: "integer"
+        format: "int32"
+        description: "Default share expiration time that indicate how long share will\
+          \ be valid. Unit: days"
+        minimum: 0
+        maximum: 3650
+        x-nullable: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+    example:
+      asset_default_sections:
+      - "asset_default_sections"
+      - "asset_default_sections"
+      datetime_format: "datetime_format"
+      jobs_dashboard: {}
+      logo_url: "logo_url"
+      share_expiration_time: 2200
+      search_in_transcriptions: true
+      search_default_sections:
+      - "search_default_sections"
+      - "search_default_sections"
+      default_upload_storage_id: "default_upload_storage_id"
+      home_page: "home_page"
+      required_metadata_views:
+      - "required_metadata_views"
+      - "required_metadata_views"
+      facet_fields:
+      - name: "name"
+      - name: "name"
+      logo_storage_id: "logo_storage_id"
+      search_display_fields:
+      - name: "name"
+      - name: "name"
+      group_id: "group_id"
+      delete_grace_period: 7015
+      date_format: "date_format"
+      filters_default_metadata_view_id: "filters_default_metadata_view_id"
+      acl_template_id: "acl_template_id"
+      system_domain_id: "system_domain_id"
+  GroupSettingSchema:
+    type: "object"
+    properties:
+      group_id:
+        type: "string"
+        readOnly: true
+      logo_storage_id:
+        type: "string"
+        x-nullable: true
+      logo_url:
+        type: "string"
+        x-nullable: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+  JobsDashboardSchema:
+    type: "object"
+    properties:
+      widgets:
+        type: "array"
+        items:
+          $ref: "#/definitions/JobsDashboardWidgetSchema"
+  JobsDashboardWidgetSchema:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      options:
+        $ref: "#/definitions/JobsWidgetOptionSchema"
+      title:
+        type: "string"
+        x-nullable: true
+      type:
+        type: "string"
+        enum:
+        - "JOBS_LIST"
+        - "JOBS_STATS_LIST"
+        default: "JOBS_LIST"
+  JobsWidgetOptionFilterSchema:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        x-nullable: true
+      value:
+        type: "array"
+        items:
+          type: "string"
+  JobsWidgetOptionSchema:
+    type: "object"
+    properties:
+      columns:
+        type: "array"
+        items:
+          type: "string"
+      filters:
+        type: "object"
+        properties: {}
+      limit:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+      sort:
+        type: "array"
+        items:
+          $ref: "#/definitions/SortSchema"
+  MergedSettingsSchema:
+    type: "object"
+    properties:
+      acl_template_id:
+        type: "string"
+        x-nullable: true
+      asset_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      cors_hosts:
+        type: "array"
+        items:
+          type: "string"
+      custom_terms:
+        type: "boolean"
+        readOnly: true
+        default: false
+      date_format:
+        type: "string"
+        x-nullable: true
+      datetime_format:
+        type: "string"
+        x-nullable: true
+      default_upload_storage_id:
+        type: "string"
+        x-nullable: true
+      delete_grace_period:
+        type: "integer"
+        format: "int32"
+        description: "Grace period that indicate how long objects will live in recycle\
+          \ bin. Unit: hours"
+        minimum: 0
+        maximum: 87600
+        x-nullable: true
+      external_share:
+        type: "boolean"
+        x-nullable: true
+      facet_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/FacetFieldSchema"
+      filters_default_metadata_view_id:
+        type: "string"
+        x-nullable: true
+      group_id:
+        type: "string"
+        readOnly: true
+      home_page:
+        type: "string"
+        x-nullable: true
+      image_properties_metadata_field:
+        type: "string"
+        x-nullable: true
+      jobs_dashboard:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      locations_metadata_field:
+        type: "string"
+        x-nullable: true
+      logo_storage_id:
+        type: "string"
+        x-nullable: true
+      logo_url:
+        type: "string"
+        readOnly: true
+      logos_metadata_field:
+        type: "string"
+        x-nullable: true
+      max_browse_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_power_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_standard_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_storage_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      max_traffic_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      password_checks:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      required_metadata_views:
+        type: "array"
+        items:
+          type: "string"
+      safe_searches_metadata_field:
+        type: "string"
+        x-nullable: true
+      saml_require_groups:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      search_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      search_display_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchDisplayFieldSchema"
+      search_in_transcriptions:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      share_expiration_time:
+        type: "integer"
+        format: "int32"
+        description: "Default share expiration time that indicate how long share will\
+          \ be valid. Unit: days"
+        minimum: 0
+        maximum: 3650
+        x-nullable: true
+      support_access:
+        type: "boolean"
+        x-nullable: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      tags_metadata_field:
+        type: "string"
+        default: "_gcvi_tags"
+        x-nullable: true
+      texts_metadata_field:
+        type: "string"
+        x-nullable: true
+    example:
+      asset_default_sections:
+      - "asset_default_sections"
+      - "asset_default_sections"
+      max_storage_bytes: 1175752406347165696
+      datetime_format: "datetime_format"
+      image_properties_metadata_field: "image_properties_metadata_field"
+      jobs_dashboard: {}
+      logo_url: "logo_url"
+      max_traffic_bytes: -4976680883935979520
+      search_default_sections:
+      - "search_default_sections"
+      - "search_default_sections"
+      tags_metadata_field: "_gcvi_tags"
+      default_upload_storage_id: "default_upload_storage_id"
+      home_page: "home_page"
+      max_power_users: -1517921766
+      facet_fields:
+      - name: "name"
+      - name: "name"
+      logo_storage_id: "logo_storage_id"
+      texts_metadata_field: "texts_metadata_field"
+      delete_grace_period: 7015
+      max_browse_users: 441289069
+      saml_require_groups: false
+      filters_default_metadata_view_id: "filters_default_metadata_view_id"
+      safe_searches_metadata_field: "safe_searches_metadata_field"
+      acl_template_id: "acl_template_id"
+      share_expiration_time: 2577
+      custom_terms: false
+      search_in_transcriptions: false
+      logos_metadata_field: "logos_metadata_field"
+      support_access: true
+      required_metadata_views:
+      - "required_metadata_views"
+      - "required_metadata_views"
+      max_standard_users: 413233370
+      search_display_fields:
+      - name: "name"
+      - name: "name"
+      group_id: "group_id"
+      cors_hosts:
+      - "cors_hosts"
+      - "cors_hosts"
+      locations_metadata_field: "locations_metadata_field"
+      date_format: "date_format"
+      external_share: true
+      system_domain_id: "system_domain_id"
+  PasswordChecksTypeSchema:
+    type: "object"
+    properties:
+      digits:
+        type: "integer"
+        format: "int32"
+        minimum: 0
+        default: 0
+      lowercase:
+        type: "integer"
+        format: "int32"
+        minimum: 0
+        default: 0
+      max_length:
+        type: "integer"
+        format: "int32"
+        minimum: 8
+        maximum: 64
+        default: 64
+      min_length:
+        type: "integer"
+        format: "int32"
+        minimum: 8
+        maximum: 56
+        default: 8
+      special_symbols:
+        type: "integer"
+        format: "int32"
+        minimum: 0
+        default: 0
+      uppercase:
+        type: "integer"
+        format: "int32"
+        minimum: 0
+        default: 0
+  SearchDisplayFieldSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+    example:
+      name: "name"
+  SortSchema:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+      order:
+        type: "string"
+        enum:
+        - "asc"
+        - "desc"
+        default: "asc"
+  SystemSettingPublicSchema:
+    type: "object"
+    properties:
+      acl_template_id:
+        type: "string"
+        x-nullable: true
+      asset_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      cors_hosts:
+        type: "array"
+        items:
+          type: "string"
+      custom_terms:
+        type: "boolean"
+        readOnly: true
+        default: false
+      date_format:
+        type: "string"
+        x-nullable: true
+      datetime_format:
+        type: "string"
+        x-nullable: true
+      default_upload_storage_id:
+        type: "string"
+        x-nullable: true
+      delete_grace_period:
+        type: "integer"
+        format: "int32"
+        description: "Grace period that indicate how long objects will live in recycle\
+          \ bin. Unit: hours"
+        minimum: 0
+        maximum: 87600
+        x-nullable: true
+      external_share:
+        type: "boolean"
+        x-nullable: true
+      facet_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/FacetFieldSchema"
+      filters_default_metadata_view_id:
+        type: "string"
+        x-nullable: true
+      home_page:
+        type: "string"
+        x-nullable: true
+      image_properties_metadata_field:
+        type: "string"
+        x-nullable: true
+      jobs_dashboard:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      locations_metadata_field:
+        type: "string"
+        x-nullable: true
+      logo_storage_id:
+        type: "string"
+        x-nullable: true
+      logo_url:
+        type: "string"
+        readOnly: true
+      logos_metadata_field:
+        type: "string"
+        x-nullable: true
+      max_browse_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_power_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_standard_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_storage_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      max_traffic_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      password_checks:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      required_metadata_views:
+        type: "array"
+        items:
+          type: "string"
+      safe_searches_metadata_field:
+        type: "string"
+        x-nullable: true
+      saml_require_groups:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      search_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      search_display_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchDisplayFieldSchema"
+      search_in_transcriptions:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      share_expiration_time:
+        type: "integer"
+        format: "int32"
+        description: "Default share expiration time that indicate how long share will\
+          \ be valid. Unit: days"
+        minimum: 0
+        maximum: 3650
+        x-nullable: true
+      support_access:
+        type: "boolean"
+        x-nullable: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      tags_metadata_field:
+        type: "string"
+        default: "_gcvi_tags"
+        x-nullable: true
+      texts_metadata_field:
+        type: "string"
+        x-nullable: true
+    example:
+      asset_default_sections:
+      - "asset_default_sections"
+      - "asset_default_sections"
+      max_storage_bytes: 1175752406347165696
+      datetime_format: "datetime_format"
+      image_properties_metadata_field: "image_properties_metadata_field"
+      jobs_dashboard: {}
+      logo_url: "logo_url"
+      max_traffic_bytes: -4976680883935979520
+      search_default_sections:
+      - "search_default_sections"
+      - "search_default_sections"
+      tags_metadata_field: "_gcvi_tags"
+      default_upload_storage_id: "default_upload_storage_id"
+      home_page: "home_page"
+      max_power_users: -1517921766
+      facet_fields:
+      - name: "name"
+      - name: "name"
+      logo_storage_id: "logo_storage_id"
+      texts_metadata_field: "texts_metadata_field"
+      delete_grace_period: 7015
+      max_browse_users: 441289069
+      saml_require_groups: false
+      filters_default_metadata_view_id: "filters_default_metadata_view_id"
+      safe_searches_metadata_field: "safe_searches_metadata_field"
+      acl_template_id: "acl_template_id"
+      share_expiration_time: 2577
+      custom_terms: false
+      search_in_transcriptions: false
+      logos_metadata_field: "logos_metadata_field"
+      support_access: true
+      required_metadata_views:
+      - "required_metadata_views"
+      - "required_metadata_views"
+      max_standard_users: 413233370
+      search_display_fields:
+      - name: "name"
+      - name: "name"
+      cors_hosts:
+      - "cors_hosts"
+      - "cors_hosts"
+      locations_metadata_field: "locations_metadata_field"
+      date_format: "date_format"
+      external_share: true
+      system_domain_id: "system_domain_id"
+  SystemSettingSchema:
+    type: "object"
+    properties:
+      acl_template_id:
+        type: "string"
+        x-nullable: true
+      asset_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      cors_hosts:
+        type: "array"
+        items:
+          type: "string"
+      date_format:
+        type: "string"
+        x-nullable: true
+      datetime_format:
+        type: "string"
+        x-nullable: true
+      default_upload_storage_id:
+        type: "string"
+        x-nullable: true
+      delete_grace_period:
+        type: "integer"
+        format: "int32"
+        description: "Grace period that indicate how long objects will live in recycle\
+          \ bin. Unit: hours"
+        minimum: 0
+        maximum: 87600
+        x-nullable: true
+      external_share:
+        type: "boolean"
+        x-nullable: true
+      facet_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/FacetFieldSchema"
+      filters_default_metadata_view_id:
+        type: "string"
+        x-nullable: true
+      home_page:
+        type: "string"
+        x-nullable: true
+      image_properties_metadata_field:
+        type: "string"
+        x-nullable: true
+      jobs_dashboard:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      locations_metadata_field:
+        type: "string"
+        x-nullable: true
+      logo_storage_id:
+        type: "string"
+        x-nullable: true
+      logo_url:
+        type: "string"
+        x-nullable: true
+      logos_metadata_field:
+        type: "string"
+        x-nullable: true
+      max_browse_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_power_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_standard_users:
+        type: "integer"
+        format: "int32"
+        minimum: -2147483648
+        maximum: 2147483647
+        x-nullable: true
+      max_storage_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      max_traffic_bytes:
+        type: "integer"
+        format: "int64"
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+        x-nullable: true
+      password_checks:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      required_metadata_views:
+        type: "array"
+        items:
+          type: "string"
+      safe_searches_metadata_field:
+        type: "string"
+        x-nullable: true
+      saml_require_groups:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      search_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      search_display_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchDisplayFieldSchema"
+      search_in_transcriptions:
+        type: "boolean"
+        default: false
+        x-nullable: true
+      share_expiration_time:
+        type: "integer"
+        format: "int32"
+        description: "Default share expiration time that indicate how long share will\
+          \ be valid. Unit: days"
+        minimum: 0
+        maximum: 3650
+        x-nullable: true
+      support_access:
+        type: "boolean"
+        x-nullable: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      tags_metadata_field:
+        type: "string"
+        default: "_gcvi_tags"
+        x-nullable: true
+      texts_metadata_field:
+        type: "string"
+        x-nullable: true
+  UserSettingSchema:
+    type: "object"
+    properties:
+      acl_template_id:
+        type: "string"
+        x-nullable: true
+      asset_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      date_format:
+        type: "string"
+        x-nullable: true
+      datetime_format:
+        type: "string"
+        x-nullable: true
+      default_upload_storage_id:
+        type: "string"
+        x-nullable: true
+      delete_grace_period:
+        type: "integer"
+        format: "int32"
+        description: "Grace period that indicate how long objects will live in recycle\
+          \ bin. Unit: hours"
+        minimum: 0
+        maximum: 87600
+        x-nullable: true
+      facet_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/FacetFieldSchema"
+      filters_default_metadata_view_id:
+        type: "string"
+        x-nullable: true
+      home_page:
+        type: "string"
+        x-nullable: true
+      jobs_dashboard:
+        $ref: "#/definitions/GroupSettingPublicSchema_jobs_dashboard"
+      search_default_sections:
+        type: "array"
+        items:
+          type: "string"
+      search_display_fields:
+        type: "array"
+        items:
+          $ref: "#/definitions/SearchDisplayFieldSchema"
+      search_in_transcriptions:
+        type: "boolean"
+        x-nullable: true
+      share_expiration_time:
+        type: "integer"
+        format: "int32"
+        description: "Default share expiration time that indicate how long share will\
+          \ be valid. Unit: days"
+        minimum: 0
+        maximum: 3650
+        x-nullable: true
+    example:
+      asset_default_sections:
+      - "asset_default_sections"
+      - "asset_default_sections"
+      datetime_format: "datetime_format"
+      jobs_dashboard: {}
+      share_expiration_time: 2200
+      search_in_transcriptions: true
+      search_default_sections:
+      - "search_default_sections"
+      - "search_default_sections"
+      default_upload_storage_id: "default_upload_storage_id"
+      home_page: "home_page"
+      facet_fields:
+      - name: "name"
+      - name: "name"
+      search_display_fields:
+      - name: "name"
+      - name: "name"
+      delete_grace_period: 7015
+      date_format: "date_format"
+      filters_default_metadata_view_id: "filters_default_metadata_view_id"
+      acl_template_id: "acl_template_id"
+  GroupSettingPublicSchema_jobs_dashboard:
+    type: "object"
+    x-nullable: true

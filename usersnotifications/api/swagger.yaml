@@ -1,0 +1,1022 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: "iconik_users_notifications"
+basePath: "/API/users-notifications"
+paths:
+  /v1/notification_settings/:
+    get:
+      summary: "Returns a particular notification_setting by id"
+      description: "\nRequired roles:\n - can_read_notification_settings"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_id"
+        in: "query"
+        description: "ID of a last file set on previous page"
+        required: false
+        type: "string"
+        x-exportParamName: "LastId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a notification_setting"
+          schema:
+            $ref: "#/definitions/NotificationSettingsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Subscription does not exist"
+  /v1/notification_settings/{object_type}/{sub_object_type}/{event_type}/{protocol}/:
+    get:
+      summary: "Returns a particular notification_setting by id"
+      description: "\nRequired roles:\n - can_read_notification_settings"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "sub_object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SubObjectType"
+      - name: "event_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "EventType"
+      - name: "protocol"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Protocol"
+      responses:
+        "200":
+          description: "Returns a notification_setting"
+          schema:
+            $ref: "#/definitions/NotificationSettingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "NotificationSetting does not exist"
+    put:
+      summary: "Create a new notification_setting"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "sub_object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SubObjectType"
+      - name: "event_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "EventType"
+      - name: "protocol"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "Protocol"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/NotificationSettingSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created notification_setting"
+          schema:
+            $ref: "#/definitions/NotificationSettingSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/notifications/:
+    get:
+      summary: "Returns a list of notifications"
+      description: "\nRequired roles:\n - can_read_notifications"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "per_page"
+        in: "query"
+        description: "The number of items for each page"
+        required: false
+        type: "integer"
+        default: 10
+        x-exportParamName: "PerPage"
+        x-optionalDataType: "Int32"
+      - name: "last_id"
+        in: "query"
+        description: "ID of a last file set on previous page"
+        required: false
+        type: "string"
+        x-exportParamName: "LastId"
+        x-optionalDataType: "String"
+      responses:
+        "200":
+          description: "Returns a notification"
+          schema:
+            $ref: "#/definitions/NotificationsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Notification does not exist"
+    post:
+      summary: "Create a new notification"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/NotificationSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created notification"
+          schema:
+            $ref: "#/definitions/NotificationSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/notifications/all/read/:
+    put:
+      summary: "Update notification"
+      description: "\nRequired roles:\n - can_read_notifications"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/notifications/system/:
+    post:
+      summary: "Create a new system notification"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SystemNotificationSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created notification"
+          schema:
+            $ref: "#/definitions/NotificationSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/notifications/{notification_id}/:
+    get:
+      summary: "Returns a particular notification by id"
+      description: "\nRequired roles:\n - can_read_notifications"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "notification_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "NotificationId"
+      responses:
+        "200":
+          description: "Returns a notification"
+          schema:
+            $ref: "#/definitions/NotificationSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Notification does not exist"
+    delete:
+      summary: "Delete a particular notification by id"
+      description: "\nRequired roles:\n - can_delete_notifications"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "notification_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "NotificationId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Notification does not exist"
+  /v1/subscriptions/:
+    get:
+      summary: "Returns all user subscriptions"
+      description: "\nRequired roles:\n - can_read_subscriptions"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      responses:
+        "200":
+          description: "Returns a subscription"
+          schema:
+            $ref: "#/definitions/SubscriptionSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Subscription does not exist"
+    post:
+      summary: "Create a new subscription"
+      description: ""
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - in: "body"
+        name: "body"
+        required: true
+        schema:
+          $ref: "#/definitions/SubscriptionSchema"
+        x-exportParamName: "Body"
+      responses:
+        "201":
+          description: "Returns a created subscription"
+          schema:
+            $ref: "#/definitions/SubscriptionSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+  /v1/subscriptions/{subscription_id}/:
+    get:
+      summary: "Returns a particular subscription by id"
+      description: "\nRequired roles:\n - can_read_subscriptions"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "subscription_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SubscriptionId"
+      responses:
+        "200":
+          description: "Returns a subscription"
+          schema:
+            $ref: "#/definitions/SubscriptionSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Subscription does not exist"
+    delete:
+      summary: "Delete a particular subscription by id"
+      description: "\nRequired roles:\n - can_write_subscriptions"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "subscription_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "SubscriptionId"
+      responses:
+        "204":
+          description: "Without body"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Subscription does not exist"
+  /v1/{object_type}/{object_id}/subscriptions/:
+    get:
+      summary: "Returns user subscriptions for a specific object_type and object_id"
+      description: "\nRequired roles:\n - can_read_subscriptions"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      responses:
+        "200":
+          description: "Returns a list of subscriptions"
+          schema:
+            $ref: "#/definitions/SubscriptionsSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Subscription does not exist"
+  /v1/{object_type}/{object_id}/subscriptions/all/:
+    delete:
+      summary: "Delete all user subscriptions for a specific object_type and object_id"
+      description: "\nRequired roles:\n - can_read_subscriptions"
+      parameters:
+      - name: "App-ID"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AppID"
+      - name: "Auth-Token"
+        in: "header"
+        required: true
+        type: "string"
+        x-exportParamName: "AuthToken"
+      - name: "object_type"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectType"
+      - name: "object_id"
+        in: "path"
+        required: true
+        type: "string"
+        x-exportParamName: "ObjectId"
+      responses:
+        "200":
+          description: "Returns a subscription"
+          schema:
+            $ref: "#/definitions/SubscriptionSchema"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Token is invalid"
+        "404":
+          description: "Subscription does not exist"
+definitions:
+  ListObjectsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+  NotificationSchema:
+    type: "object"
+    required:
+    - "event_type"
+    - "message_long"
+    - "message_short"
+    - "object_id"
+    - "object_type"
+    - "recipient_id"
+    - "sender_id"
+    properties:
+      context:
+        type: "object"
+        properties: {}
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      event_type:
+        type: "string"
+      exclude_users:
+        type: "array"
+        items:
+          type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      message_long:
+        type: "string"
+      message_short:
+        type: "string"
+      object_id:
+        type: "string"
+      object_type:
+        type: "string"
+      recipient_id:
+        type: "string"
+      sender_id:
+        type: "string"
+      share_id:
+        type: "string"
+      share_user_id:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "QUEUED"
+        - "SENT"
+        - "READ"
+      sub_object_id:
+        type: "string"
+      sub_object_type:
+        type: "string"
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      user_id:
+        type: "string"
+    example:
+      message_long: "message_long"
+      share_user_id: "share_user_id"
+      object_type: "object_type"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      sub_object_id: "sub_object_id"
+      object_id: "object_id"
+      sender_id: "sender_id"
+      share_id: "share_id"
+      event_type: "event_type"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      user_id: "user_id"
+      context: "{}"
+      sub_object_type: "sub_object_type"
+      exclude_users:
+      - "exclude_users"
+      - "exclude_users"
+      id: "id"
+      message_short: "message_short"
+      recipient_id: "recipient_id"
+      status: "QUEUED"
+      system_domain_id: "system_domain_id"
+  NotificationSettingSchema:
+    type: "object"
+    required:
+    - "enabled"
+    - "event_type"
+    - "object_type"
+    - "recipient_id"
+    properties:
+      enabled:
+        type: "boolean"
+      event_type:
+        type: "string"
+        readOnly: true
+      object_type:
+        type: "string"
+        readOnly: true
+      protocol:
+        type: "string"
+        readOnly: true
+      recipient_id:
+        type: "string"
+        readOnly: true
+      settings:
+        type: "object"
+        properties: {}
+      sub_object_type:
+        type: "string"
+        readOnly: true
+      system_domain_id:
+        type: "string"
+        readOnly: true
+    example:
+      settings: "{}"
+      protocol: "protocol"
+      event_type: "event_type"
+      object_type: "object_type"
+      sub_object_type: "sub_object_type"
+      enabled: true
+      recipient_id: "recipient_id"
+      system_domain_id: "system_domain_id"
+  NotificationSettingsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/NotificationSettingSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - settings: "{}"
+        protocol: "protocol"
+        event_type: "event_type"
+        object_type: "object_type"
+        sub_object_type: "sub_object_type"
+        enabled: true
+        recipient_id: "recipient_id"
+        system_domain_id: "system_domain_id"
+      - settings: "{}"
+        protocol: "protocol"
+        event_type: "event_type"
+        object_type: "object_type"
+        sub_object_type: "sub_object_type"
+        enabled: true
+        recipient_id: "recipient_id"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  NotificationsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/NotificationSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - message_long: "message_long"
+        share_user_id: "share_user_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        sub_object_id: "sub_object_id"
+        object_id: "object_id"
+        sender_id: "sender_id"
+        share_id: "share_id"
+        event_type: "event_type"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        user_id: "user_id"
+        context: "{}"
+        sub_object_type: "sub_object_type"
+        exclude_users:
+        - "exclude_users"
+        - "exclude_users"
+        id: "id"
+        message_short: "message_short"
+        recipient_id: "recipient_id"
+        status: "QUEUED"
+        system_domain_id: "system_domain_id"
+      - message_long: "message_long"
+        share_user_id: "share_user_id"
+        object_type: "object_type"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        sub_object_id: "sub_object_id"
+        object_id: "object_id"
+        sender_id: "sender_id"
+        share_id: "share_id"
+        event_type: "event_type"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        user_id: "user_id"
+        context: "{}"
+        sub_object_type: "sub_object_type"
+        exclude_users:
+        - "exclude_users"
+        - "exclude_users"
+        id: "id"
+        message_short: "message_short"
+        recipient_id: "recipient_id"
+        status: "QUEUED"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  SubscriptionSchema:
+    type: "object"
+    required:
+    - "object_type"
+    properties:
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      event_type:
+        type: "string"
+      id:
+        type: "string"
+        readOnly: true
+      object_id:
+        type: "string"
+      object_type:
+        type: "string"
+      sub_object_id:
+        type: "string"
+      sub_object_type:
+        type: "string"
+      system_domain_id:
+        type: "string"
+        readOnly: true
+      user_id:
+        type: "string"
+        readOnly: true
+    example:
+      event_type: "event_type"
+      date_modified: "2000-01-23T04:56:07.000+00:00"
+      object_type: "object_type"
+      user_id: "user_id"
+      date_created: "2000-01-23T04:56:07.000+00:00"
+      sub_object_type: "sub_object_type"
+      id: "id"
+      sub_object_id: "sub_object_id"
+      object_id: "object_id"
+      system_domain_id: "system_domain_id"
+  SubscriptionsSchema:
+    type: "object"
+    properties:
+      first_url:
+        type: "string"
+        readOnly: true
+      last_url:
+        type: "string"
+        readOnly: true
+      next_url:
+        type: "string"
+        readOnly: true
+      objects:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/SubscriptionSchema"
+      page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      pages:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      per_page:
+        type: "integer"
+        format: "int32"
+        readOnly: true
+        minimum: -2147483648
+        maximum: 2147483647
+      prev_url:
+        type: "string"
+        readOnly: true
+      total:
+        type: "integer"
+        format: "int64"
+        readOnly: true
+        minimum: -9223372036854775808
+        maximum: 9223372036854775807
+    example:
+      per_page: -1517921766
+      first_url: "first_url"
+      total: 1774823812569044992
+      pages: 441289069
+      objects:
+      - event_type: "event_type"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        sub_object_type: "sub_object_type"
+        id: "id"
+        sub_object_id: "sub_object_id"
+        object_id: "object_id"
+        system_domain_id: "system_domain_id"
+      - event_type: "event_type"
+        date_modified: "2000-01-23T04:56:07.000+00:00"
+        object_type: "object_type"
+        user_id: "user_id"
+        date_created: "2000-01-23T04:56:07.000+00:00"
+        sub_object_type: "sub_object_type"
+        id: "id"
+        sub_object_id: "sub_object_id"
+        object_id: "object_id"
+        system_domain_id: "system_domain_id"
+      next_url: "next_url"
+      page: -1803530559
+      prev_url: "prev_url"
+      last_url: "last_url"
+  SystemNotificationSchema:
+    type: "object"
+    required:
+    - "event_type"
+    - "message_long"
+    - "message_short"
+    - "object_type"
+    - "recipient_id"
+    - "sender_id"
+    - "system_domain_id"
+    properties:
+      context:
+        type: "object"
+        properties: {}
+      date_created:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      date_modified:
+        type: "string"
+        format: "date-time"
+        readOnly: true
+      event_type:
+        type: "string"
+      exclude_users:
+        type: "array"
+        items:
+          type: "string"
+        x-nullable: true
+      id:
+        type: "string"
+        readOnly: true
+      message_long:
+        type: "string"
+      message_short:
+        type: "string"
+      object_id:
+        type: "string"
+        x-nullable: true
+      object_type:
+        type: "string"
+      recipient_id:
+        type: "string"
+      sender_id:
+        type: "string"
+      share_id:
+        type: "string"
+      share_user_id:
+        type: "string"
+      status:
+        type: "string"
+        enum:
+        - "QUEUED"
+        - "SENT"
+        - "READ"
+        x-nullable: true
+      sub_object_id:
+        type: "string"
+      sub_object_type:
+        type: "string"
+      system_domain_id:
+        type: "string"
+      user_id:
+        type: "string"

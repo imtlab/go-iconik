@@ -1,0 +1,18 @@
+# AssetHistoryBaseSchema
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Id** | **string** |  | [optional] [default to null]
+**JobId** | **string** |  | [optional] [default to null]
+**OperationDescription** | **string** |  | [optional] [default to null]
+**OperationType** | **string** |  | [default to null]
+**ShareId** | **string** |  | [optional] [default to null]
+**ShareUserId** | **string** |  | [optional] [default to null]
+**SystemDomainId** | **string** |  | [optional] [default to null]
+**UserId** | **string** |  | [optional] [default to null]
+**VersionId** | **string** |  | [optional] [default to null]
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
