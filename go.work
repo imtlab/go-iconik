@@ -18,5 +18,5 @@ use (
 )
 
 //replace (
-//	github.com/imtlab/iconik/shared => ./shared
+//	github.com/imtlab/go-iconik/shared => ./shared
 //)

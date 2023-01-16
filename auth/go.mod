@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/auth
+module github.com/imtlab/go-iconik/auth
 
 go 1.18
 

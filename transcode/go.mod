@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/transcode
+module github.com/imtlab/go-iconik/transcode
 
 go 1.18
 

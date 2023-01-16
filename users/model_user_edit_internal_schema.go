@@ -10,7 +10,7 @@
 package users
 
 import (
-	"github.com/imtlab/iconik/shared"
+	"github.com/imtlab/go-iconik/shared"
 )
 
 type UserEditInternalSchema struct {

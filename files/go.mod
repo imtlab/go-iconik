@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/files
+module github.com/imtlab/go-iconik/files
 
 go 1.18
 

@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/assets
+module github.com/imtlab/go-iconik/assets
 
 go 1.18
 

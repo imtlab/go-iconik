@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/usersnotifications
+module github.com/imtlab/go-iconik/usersnotifications
 
 go 1.18
 

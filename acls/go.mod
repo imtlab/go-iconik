@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/acls
+module github.com/imtlab/go-iconik/acls
 
 go 1.18
 

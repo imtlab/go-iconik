@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/search
+module github.com/imtlab/go-iconik/search
 
 go 1.18
 

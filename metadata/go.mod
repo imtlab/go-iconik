@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/metadata
+module github.com/imtlab/go-iconik/metadata
 
 go 1.18
 

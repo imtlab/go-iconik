@@ -17,7 +17,7 @@ import (
 	"fmt"
 
 	"github.com/antihax/optional"
-	"github.com/imtlab/iconik/shared"
+	"github.com/imtlab/go-iconik/shared"
 )
 
 const kSpec = "stats/v1/"

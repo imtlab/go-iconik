@@ -16,7 +16,7 @@ import (
 	"net/url"
 	"fmt"
 
-	"github.com/imtlab/iconik/shared"
+	"github.com/imtlab/go-iconik/shared"
 )
 
 const kSpec = "acls/v1/"

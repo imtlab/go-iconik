@@ -10,7 +10,7 @@
 package usersnotifications
 
 import (
-	"github.com/imtlab/iconik/shared"
+	"github.com/imtlab/go-iconik/shared"
 )
 
 type NotificationSchema struct {

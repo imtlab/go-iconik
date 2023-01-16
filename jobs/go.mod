@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/jobs
+module github.com/imtlab/go-iconik/jobs
 
 go 1.18
 

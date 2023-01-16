@@ -10,7 +10,7 @@
 package files
 
 import (
-	"github.com/imtlab/iconik/shared"
+	"github.com/imtlab/go-iconik/shared"
 )
 
 type FormatUpdateSchema struct {

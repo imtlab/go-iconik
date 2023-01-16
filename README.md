@@ -9,7 +9,7 @@ all of which I have corrected in this code.
 
 ## Redundancies
 Each package repeats the exact code in files `client.go`, `configuration.go`, `response.go`.&#160;
-A new package `github.com/imtlab/iconik/shared` has been created to encapsulate just one incarnation of these files.
+A new package `github.com/imtlab/go-iconik/shared` has been created to encapsulate just one incarnation of these files.
 
 Also, each method of each package’s `api_default.go` contains the same chunk of boilerplate code that effectively does nothing.&#160;
 This has been removed from this **imtlab** code.&#160;
@@ -27,6 +27,6 @@ Any `json.Unmarshal()` to a struct containing a `time.Time` member fails because
 `time.RFC3339` ("2006-01-02T15:04:05Z07:00").&#160;
 So it was necessary to:
 
-1. Create, in package `github.com/imtlab/iconik/shared`, a custom type `Time` with underlying type `time.Time`,
+1. Create, in package `github.com/imtlab/go-iconik/shared`, a custom type `Time` with underlying type `time.Time`,
 and implement the json.Unmarshaler interface for that custom type using iconik’s format.
 1. Change every `time.Time` member of every struct in every package to `shared.Time`.

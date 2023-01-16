@@ -10,7 +10,7 @@
 package assets
 
 import (
-	"github.com/imtlab/iconik/shared"
+	"github.com/imtlab/go-iconik/shared"
 )
 
 type AssetHistorySchema struct {

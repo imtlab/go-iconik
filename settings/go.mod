@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/settings
+module github.com/imtlab/go-iconik/settings
 
 go 1.18
 

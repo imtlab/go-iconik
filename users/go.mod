@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/users
+module github.com/imtlab/go-iconik/users
 
 go 1.18
 

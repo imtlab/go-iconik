@@ -10,7 +10,7 @@
 package auth
 
 import (
-	"github.com/imtlab/iconik/shared"
+	"github.com/imtlab/go-iconik/shared"
 )
 
 type ExternalAuthSchema struct {

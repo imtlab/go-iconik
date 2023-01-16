@@ -1,4 +1,4 @@
-module github.com/imtlab/iconik/stats
+module github.com/imtlab/go-iconik/stats
 
 go 1.18
 
