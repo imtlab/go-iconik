@@ -80,38 +80,40 @@ func (pService *DefaultApiService) V1GroupsBasicGet(ctx context.Context, localVa
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Alias.IsSet() {
-		localVarQueryParams.Add("alias", shared.ParameterToString(localVarOptionals.Alias.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Description.IsSet() {
-		localVarQueryParams.Add("description", shared.ParameterToString(localVarOptionals.Description.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Name.IsSet() {
-		localVarQueryParams.Add("name", shared.ParameterToString(localVarOptionals.Name.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Roles.IsSet() {
-		localVarQueryParams.Add("roles", shared.ParameterToString(localVarOptionals.Roles.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateCreated.IsSet() {
-		localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateModified.IsSet() {
-		localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Alias.IsSet() {
+			localVarQueryParams.Add("alias", shared.ParameterToString(localVarOptionals.Alias.Value(), ""))
+		}
+		if localVarOptionals.Description.IsSet() {
+			localVarQueryParams.Add("description", shared.ParameterToString(localVarOptionals.Description.Value(), ""))
+		}
+		if localVarOptionals.Name.IsSet() {
+			localVarQueryParams.Add("name", shared.ParameterToString(localVarOptionals.Name.Value(), ""))
+		}
+		if localVarOptionals.Roles.IsSet() {
+			localVarQueryParams.Add("roles", shared.ParameterToString(localVarOptionals.Roles.Value(), ""))
+		}
+		if localVarOptionals.DateCreated.IsSet() {
+			localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
+		}
+		if localVarOptionals.DateModified.IsSet() {
+			localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -212,38 +214,40 @@ func (pService *DefaultApiService) V1GroupsGet(ctx context.Context, localVarOpti
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Alias.IsSet() {
-		localVarQueryParams.Add("alias", shared.ParameterToString(localVarOptionals.Alias.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Description.IsSet() {
-		localVarQueryParams.Add("description", shared.ParameterToString(localVarOptionals.Description.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Name.IsSet() {
-		localVarQueryParams.Add("name", shared.ParameterToString(localVarOptionals.Name.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Roles.IsSet() {
-		localVarQueryParams.Add("roles", shared.ParameterToString(localVarOptionals.Roles.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateCreated.IsSet() {
-		localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateModified.IsSet() {
-		localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Alias.IsSet() {
+			localVarQueryParams.Add("alias", shared.ParameterToString(localVarOptionals.Alias.Value(), ""))
+		}
+		if localVarOptionals.Description.IsSet() {
+			localVarQueryParams.Add("description", shared.ParameterToString(localVarOptionals.Description.Value(), ""))
+		}
+		if localVarOptionals.Name.IsSet() {
+			localVarQueryParams.Add("name", shared.ParameterToString(localVarOptionals.Name.Value(), ""))
+		}
+		if localVarOptionals.Roles.IsSet() {
+			localVarQueryParams.Add("roles", shared.ParameterToString(localVarOptionals.Roles.Value(), ""))
+		}
+		if localVarOptionals.DateCreated.IsSet() {
+			localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
+		}
+		if localVarOptionals.DateModified.IsSet() {
+			localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -944,11 +948,13 @@ func (pService *DefaultApiService) V1GroupsMappingsGet(ctx context.Context, loca
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastId.IsSet() {
-		localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastId.IsSet() {
+			localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1335,59 +1341,61 @@ func (pService *DefaultApiService) V1UsersBasicGet(ctx context.Context, localVar
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateCreated.IsSet() {
-		localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateModified.IsSet() {
-		localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Email.IsSet() {
-		localVarQueryParams.Add("email", shared.ParameterToString(localVarOptionals.Email.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.FirstName.IsSet() {
-		localVarQueryParams.Add("first_name", shared.ParameterToString(localVarOptionals.FirstName.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastName.IsSet() {
-		localVarQueryParams.Add("last_name", shared.ParameterToString(localVarOptionals.LastName.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Groups.IsSet() {
-		localVarQueryParams.Add("groups", shared.ParameterToString(localVarOptionals.Groups.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.HideEmail.IsSet() {
-		localVarQueryParams.Add("hide_email", shared.ParameterToString(localVarOptionals.HideEmail.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.HidePhone.IsSet() {
-		localVarQueryParams.Add("hide_phone", shared.ParameterToString(localVarOptionals.HidePhone.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.IsAdmin.IsSet() {
-		localVarQueryParams.Add("is_admin", shared.ParameterToString(localVarOptionals.IsAdmin.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PasswordChanged.IsSet() {
-		localVarQueryParams.Add("password_changed", shared.ParameterToString(localVarOptionals.PasswordChanged.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Phone.IsSet() {
-		localVarQueryParams.Add("phone", shared.ParameterToString(localVarOptionals.Phone.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Photo.IsSet() {
-		localVarQueryParams.Add("photo", shared.ParameterToString(localVarOptionals.Photo.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Status.IsSet() {
-		localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.DateCreated.IsSet() {
+			localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
+		}
+		if localVarOptionals.DateModified.IsSet() {
+			localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
+		}
+		if localVarOptionals.Email.IsSet() {
+			localVarQueryParams.Add("email", shared.ParameterToString(localVarOptionals.Email.Value(), ""))
+		}
+		if localVarOptionals.FirstName.IsSet() {
+			localVarQueryParams.Add("first_name", shared.ParameterToString(localVarOptionals.FirstName.Value(), ""))
+		}
+		if localVarOptionals.LastName.IsSet() {
+			localVarQueryParams.Add("last_name", shared.ParameterToString(localVarOptionals.LastName.Value(), ""))
+		}
+		if localVarOptionals.Groups.IsSet() {
+			localVarQueryParams.Add("groups", shared.ParameterToString(localVarOptionals.Groups.Value(), ""))
+		}
+		if localVarOptionals.HideEmail.IsSet() {
+			localVarQueryParams.Add("hide_email", shared.ParameterToString(localVarOptionals.HideEmail.Value(), ""))
+		}
+		if localVarOptionals.HidePhone.IsSet() {
+			localVarQueryParams.Add("hide_phone", shared.ParameterToString(localVarOptionals.HidePhone.Value(), ""))
+		}
+		if localVarOptionals.IsAdmin.IsSet() {
+			localVarQueryParams.Add("is_admin", shared.ParameterToString(localVarOptionals.IsAdmin.Value(), ""))
+		}
+		if localVarOptionals.PasswordChanged.IsSet() {
+			localVarQueryParams.Add("password_changed", shared.ParameterToString(localVarOptionals.PasswordChanged.Value(), ""))
+		}
+		if localVarOptionals.Phone.IsSet() {
+			localVarQueryParams.Add("phone", shared.ParameterToString(localVarOptionals.Phone.Value(), ""))
+		}
+		if localVarOptionals.Photo.IsSet() {
+			localVarQueryParams.Add("photo", shared.ParameterToString(localVarOptionals.Photo.Value(), ""))
+		}
+		if localVarOptionals.Status.IsSet() {
+			localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1916,59 +1924,61 @@ func (pService *DefaultApiService) V1UsersGet(ctx context.Context, localVarOptio
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateCreated.IsSet() {
-		localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateModified.IsSet() {
-		localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Email.IsSet() {
-		localVarQueryParams.Add("email", shared.ParameterToString(localVarOptionals.Email.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.FirstName.IsSet() {
-		localVarQueryParams.Add("first_name", shared.ParameterToString(localVarOptionals.FirstName.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastName.IsSet() {
-		localVarQueryParams.Add("last_name", shared.ParameterToString(localVarOptionals.LastName.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Groups.IsSet() {
-		localVarQueryParams.Add("groups", shared.ParameterToString(localVarOptionals.Groups.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.HideEmail.IsSet() {
-		localVarQueryParams.Add("hide_email", shared.ParameterToString(localVarOptionals.HideEmail.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.HidePhone.IsSet() {
-		localVarQueryParams.Add("hide_phone", shared.ParameterToString(localVarOptionals.HidePhone.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.IsAdmin.IsSet() {
-		localVarQueryParams.Add("is_admin", shared.ParameterToString(localVarOptionals.IsAdmin.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PasswordChanged.IsSet() {
-		localVarQueryParams.Add("password_changed", shared.ParameterToString(localVarOptionals.PasswordChanged.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Phone.IsSet() {
-		localVarQueryParams.Add("phone", shared.ParameterToString(localVarOptionals.Phone.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Photo.IsSet() {
-		localVarQueryParams.Add("photo", shared.ParameterToString(localVarOptionals.Photo.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Status.IsSet() {
-		localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.DateCreated.IsSet() {
+			localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
+		}
+		if localVarOptionals.DateModified.IsSet() {
+			localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
+		}
+		if localVarOptionals.Email.IsSet() {
+			localVarQueryParams.Add("email", shared.ParameterToString(localVarOptionals.Email.Value(), ""))
+		}
+		if localVarOptionals.FirstName.IsSet() {
+			localVarQueryParams.Add("first_name", shared.ParameterToString(localVarOptionals.FirstName.Value(), ""))
+		}
+		if localVarOptionals.LastName.IsSet() {
+			localVarQueryParams.Add("last_name", shared.ParameterToString(localVarOptionals.LastName.Value(), ""))
+		}
+		if localVarOptionals.Groups.IsSet() {
+			localVarQueryParams.Add("groups", shared.ParameterToString(localVarOptionals.Groups.Value(), ""))
+		}
+		if localVarOptionals.HideEmail.IsSet() {
+			localVarQueryParams.Add("hide_email", shared.ParameterToString(localVarOptionals.HideEmail.Value(), ""))
+		}
+		if localVarOptionals.HidePhone.IsSet() {
+			localVarQueryParams.Add("hide_phone", shared.ParameterToString(localVarOptionals.HidePhone.Value(), ""))
+		}
+		if localVarOptionals.IsAdmin.IsSet() {
+			localVarQueryParams.Add("is_admin", shared.ParameterToString(localVarOptionals.IsAdmin.Value(), ""))
+		}
+		if localVarOptionals.PasswordChanged.IsSet() {
+			localVarQueryParams.Add("password_changed", shared.ParameterToString(localVarOptionals.PasswordChanged.Value(), ""))
+		}
+		if localVarOptionals.Phone.IsSet() {
+			localVarQueryParams.Add("phone", shared.ParameterToString(localVarOptionals.Phone.Value(), ""))
+		}
+		if localVarOptionals.Photo.IsSet() {
+			localVarQueryParams.Add("photo", shared.ParameterToString(localVarOptionals.Photo.Value(), ""))
+		}
+		if localVarOptionals.Status.IsSet() {
+			localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing

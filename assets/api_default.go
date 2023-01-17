@@ -115,11 +115,13 @@ func (pService *DefaultApiService) V1AssetsAssetIdGet(ctx context.Context, asset
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.IncludeCollections.IsSet() {
-		localVarQueryParams.Add("include_collections", shared.ParameterToString(localVarOptionals.IncludeCollections.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.IncludeUsers.IsSet() {
-		localVarQueryParams.Add("include_users", shared.ParameterToString(localVarOptionals.IncludeUsers.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.IncludeCollections.IsSet() {
+			localVarQueryParams.Add("include_collections", shared.ParameterToString(localVarOptionals.IncludeCollections.Value(), ""))
+		}
+		if localVarOptionals.IncludeUsers.IsSet() {
+			localVarQueryParams.Add("include_users", shared.ParameterToString(localVarOptionals.IncludeUsers.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -207,17 +209,19 @@ func (pService *DefaultApiService) V1AssetsAssetIdHistoryGet(ctx context.Context
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Filter.IsSet() {
-		localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Filter.IsSet() {
+			localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -836,17 +840,19 @@ func (pService *DefaultApiService) V1AssetsAssetIdRelationsGet(ctx context.Conte
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.IncludeDeleted.IsSet() {
-		localVarQueryParams.Add("include_deleted", shared.ParameterToString(localVarOptionals.IncludeDeleted.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.IncludeDeleted.IsSet() {
+			localVarQueryParams.Add("include_deleted", shared.ParameterToString(localVarOptionals.IncludeDeleted.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1428,48 +1434,51 @@ func (pService *DefaultApiService) V1AssetsAssetIdSegmentsGet(ctx context.Contex
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Includes.IsSet() {
+			localVarQueryParams.Add("includes", shared.ParameterToString(localVarOptionals.Includes.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Scroll.IsSet() {
+			localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
+		}
+		if localVarOptionals.ScrollId.IsSet() {
+			localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
+		}
+		if localVarOptionals.TranscriptionId.IsSet() {
+			localVarQueryParams.Add("transcription_id", shared.ParameterToString(localVarOptionals.TranscriptionId.Value(), ""))
+		}
+		if localVarOptionals.VersionId.IsSet() {
+			localVarQueryParams.Add("version_id", shared.ParameterToString(localVarOptionals.VersionId.Value(), ""))
+		}
+		if localVarOptionals.SegmentType.IsSet() {
+			localVarQueryParams.Add("segment_type", shared.ParameterToString(localVarOptionals.SegmentType.Value(), ""))
+		}
+		if localVarOptionals.SegmentColor.IsSet() {
+			localVarQueryParams.Add("segment_color", shared.ParameterToString(localVarOptionals.SegmentColor.Value(), ""))
+		}
+		if localVarOptionals.Status.IsSet() {
+			localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
+		}
+		if localVarOptionals.IncludeUsers.IsSet() {
+			localVarQueryParams.Add("include_users", shared.ParameterToString(localVarOptionals.IncludeUsers.Value(), ""))
+		}
 	}
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Includes.IsSet() {
-		localVarQueryParams.Add("includes", shared.ParameterToString(localVarOptionals.Includes.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Scroll.IsSet() {
-		localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ScrollId.IsSet() {
-		localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TranscriptionId.IsSet() {
-		localVarQueryParams.Add("transcription_id", shared.ParameterToString(localVarOptionals.TranscriptionId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.VersionId.IsSet() {
-		localVarQueryParams.Add("version_id", shared.ParameterToString(localVarOptionals.VersionId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SegmentType.IsSet() {
-		localVarQueryParams.Add("segment_type", shared.ParameterToString(localVarOptionals.SegmentType.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SegmentColor.IsSet() {
-		localVarQueryParams.Add("segment_color", shared.ParameterToString(localVarOptionals.SegmentColor.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Status.IsSet() {
-		localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.IncludeUsers.IsSet() {
-		localVarQueryParams.Add("include_users", shared.ParameterToString(localVarOptionals.IncludeUsers.Value(), ""))
-	}
+
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
 
 	r, err := pService.Client.PrepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -1756,11 +1765,13 @@ func (pService *DefaultApiService) V1AssetsAssetIdSegmentsSegmentIdGet(ctx conte
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Scroll.IsSet() {
-		localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ScrollId.IsSet() {
-		localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Scroll.IsSet() {
+			localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
+		}
+		if localVarOptionals.ScrollId.IsSet() {
+			localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1990,29 +2001,31 @@ func (pService *DefaultApiService) V1AssetsAssetIdSegmentsSegmentTypeGet(ctx con
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Includes.IsSet() {
-		localVarQueryParams.Add("includes", shared.ParameterToString(localVarOptionals.Includes.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Scroll.IsSet() {
-		localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ScrollId.IsSet() {
-		localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Includes.IsSet() {
+			localVarQueryParams.Add("includes", shared.ParameterToString(localVarOptionals.Includes.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Scroll.IsSet() {
+			localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
+		}
+		if localVarOptionals.ScrollId.IsSet() {
+			localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -2105,29 +2118,31 @@ func (pService *DefaultApiService) V1AssetsAssetIdSegmentsSrtGet(ctx context.Con
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Scroll.IsSet() {
-		localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ScrollId.IsSet() {
-		localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TranscriptionId.IsSet() {
-		localVarQueryParams.Add("transcription_id", shared.ParameterToString(localVarOptionals.TranscriptionId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.VersionId.IsSet() {
-		localVarQueryParams.Add("version_id", shared.ParameterToString(localVarOptionals.VersionId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SegmentType.IsSet() {
-		localVarQueryParams.Add("segment_type", shared.ParameterToString(localVarOptionals.SegmentType.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SegmentColor.IsSet() {
-		localVarQueryParams.Add("segment_color", shared.ParameterToString(localVarOptionals.SegmentColor.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Scroll.IsSet() {
+			localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
+		}
+		if localVarOptionals.ScrollId.IsSet() {
+			localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
+		}
+		if localVarOptionals.TranscriptionId.IsSet() {
+			localVarQueryParams.Add("transcription_id", shared.ParameterToString(localVarOptionals.TranscriptionId.Value(), ""))
+		}
+		if localVarOptionals.VersionId.IsSet() {
+			localVarQueryParams.Add("version_id", shared.ParameterToString(localVarOptionals.VersionId.Value(), ""))
+		}
+		if localVarOptionals.SegmentType.IsSet() {
+			localVarQueryParams.Add("segment_type", shared.ParameterToString(localVarOptionals.SegmentType.Value(), ""))
+		}
+		if localVarOptionals.SegmentColor.IsSet() {
+			localVarQueryParams.Add("segment_color", shared.ParameterToString(localVarOptionals.SegmentColor.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -2204,29 +2219,31 @@ func (pService *DefaultApiService) V1AssetsAssetIdSegmentsVttGet(ctx context.Con
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Scroll.IsSet() {
-		localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ScrollId.IsSet() {
-		localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.TranscriptionId.IsSet() {
-		localVarQueryParams.Add("transcription_id", shared.ParameterToString(localVarOptionals.TranscriptionId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.VersionId.IsSet() {
-		localVarQueryParams.Add("version_id", shared.ParameterToString(localVarOptionals.VersionId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SegmentType.IsSet() {
-		localVarQueryParams.Add("segment_type", shared.ParameterToString(localVarOptionals.SegmentType.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SegmentColor.IsSet() {
-		localVarQueryParams.Add("segment_color", shared.ParameterToString(localVarOptionals.SegmentColor.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Scroll.IsSet() {
+			localVarQueryParams.Add("scroll", shared.ParameterToString(localVarOptionals.Scroll.Value(), ""))
+		}
+		if localVarOptionals.ScrollId.IsSet() {
+			localVarQueryParams.Add("scroll_id", shared.ParameterToString(localVarOptionals.ScrollId.Value(), ""))
+		}
+		if localVarOptionals.TranscriptionId.IsSet() {
+			localVarQueryParams.Add("transcription_id", shared.ParameterToString(localVarOptionals.TranscriptionId.Value(), ""))
+		}
+		if localVarOptionals.VersionId.IsSet() {
+			localVarQueryParams.Add("version_id", shared.ParameterToString(localVarOptionals.VersionId.Value(), ""))
+		}
+		if localVarOptionals.SegmentType.IsSet() {
+			localVarQueryParams.Add("segment_type", shared.ParameterToString(localVarOptionals.SegmentType.Value(), ""))
+		}
+		if localVarOptionals.SegmentColor.IsSet() {
+			localVarQueryParams.Add("segment_color", shared.ParameterToString(localVarOptionals.SegmentColor.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -3296,17 +3313,19 @@ func (pService *DefaultApiService) V1AssetsGet(ctx context.Context, localVarOpti
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.FieldName.IsSet() {
-		localVarQueryParams.Add("field_name", shared.ParameterToString(localVarOptionals.FieldName.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.FieldName.IsSet() {
+			localVarQueryParams.Add("field_name", shared.ParameterToString(localVarOptionals.FieldName.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -3446,14 +3465,16 @@ func (pService *DefaultApiService) V1AssetsPost(ctx context.Context, body AssetC
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.ApplyDefaultAcls.IsSet() {
-		localVarQueryParams.Add("apply_default_acls", shared.ParameterToString(localVarOptionals.ApplyDefaultAcls.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ApplyCollectionAcls.IsSet() {
-		localVarQueryParams.Add("apply_collection_acls", shared.ParameterToString(localVarOptionals.ApplyCollectionAcls.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.AssignToCollection.IsSet() {
-		localVarQueryParams.Add("assign_to_collection", shared.ParameterToString(localVarOptionals.AssignToCollection.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.ApplyDefaultAcls.IsSet() {
+			localVarQueryParams.Add("apply_default_acls", shared.ParameterToString(localVarOptionals.ApplyDefaultAcls.Value(), ""))
+		}
+		if localVarOptionals.ApplyCollectionAcls.IsSet() {
+			localVarQueryParams.Add("apply_collection_acls", shared.ParameterToString(localVarOptionals.ApplyCollectionAcls.Value(), ""))
+		}
+		if localVarOptionals.AssignToCollection.IsSet() {
+			localVarQueryParams.Add("assign_to_collection", shared.ParameterToString(localVarOptionals.AssignToCollection.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -3591,10 +3612,9 @@ func (pService *DefaultApiService) V1AssetsReindexPost(ctx context.Context, loca
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(ReindexAllAssetsSchema)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be ReindexAllAssetsSchema")
+			return nil, fmt.Errorf("body should be ReindexAllAssetsSchema")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -4287,26 +4307,28 @@ func (pService *DefaultApiService) V1CollectionsCollectionIdContentsGet(ctx cont
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.ObjectTypes.IsSet() {
-		localVarQueryParams.Add("object_types", shared.ParameterToString(localVarOptionals.ObjectTypes.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ObjectIds.IsSet() {
-		localVarQueryParams.Add("object_ids", shared.ParameterToString(localVarOptionals.ObjectIds.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ExternalId.IsSet() {
-		localVarQueryParams.Add("external_id", shared.ParameterToString(localVarOptionals.ExternalId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Filter.IsSet() {
-		localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.ObjectTypes.IsSet() {
+			localVarQueryParams.Add("object_types", shared.ParameterToString(localVarOptionals.ObjectTypes.Value(), ""))
+		}
+		if localVarOptionals.ObjectIds.IsSet() {
+			localVarQueryParams.Add("object_ids", shared.ParameterToString(localVarOptionals.ObjectIds.Value(), ""))
+		}
+		if localVarOptionals.ExternalId.IsSet() {
+			localVarQueryParams.Add("external_id", shared.ParameterToString(localVarOptionals.ExternalId.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Filter.IsSet() {
+			localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -5397,20 +5419,22 @@ func (pService *DefaultApiService) V1CollectionsGet(ctx context.Context, localVa
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.IsRoot.IsSet() {
-		localVarQueryParams.Add("is_root", shared.ParameterToString(localVarOptionals.IsRoot.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Status.IsSet() {
-		localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.IsRoot.IsSet() {
+			localVarQueryParams.Add("is_root", shared.ParameterToString(localVarOptionals.IsRoot.Value(), ""))
+		}
+		if localVarOptionals.Status.IsSet() {
+			localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -5494,11 +5518,13 @@ func (pService *DefaultApiService) V1CollectionsPost(ctx context.Context, body C
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.ApplyDefaultAcls.IsSet() {
-		localVarQueryParams.Add("apply_default_acls", shared.ParameterToString(localVarOptionals.ApplyDefaultAcls.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ApplyCollectionAcls.IsSet() {
-		localVarQueryParams.Add("apply_collection_acls", shared.ParameterToString(localVarOptionals.ApplyCollectionAcls.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.ApplyDefaultAcls.IsSet() {
+			localVarQueryParams.Add("apply_default_acls", shared.ParameterToString(localVarOptionals.ApplyDefaultAcls.Value(), ""))
+		}
+		if localVarOptionals.ApplyCollectionAcls.IsSet() {
+			localVarQueryParams.Add("apply_collection_acls", shared.ParameterToString(localVarOptionals.ApplyCollectionAcls.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -5582,10 +5608,9 @@ func (pService *DefaultApiService) V1CollectionsReindexPost(ctx context.Context,
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(ReindexAllCollectionsSchema)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be ReindexAllCollectionsSchema")
+			return nil, fmt.Errorf("body should be ReindexAllCollectionsSchema")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -6376,17 +6401,19 @@ func (pService *DefaultApiService) V1DeleteQueueAssetsGet(ctx context.Context, l
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Filter.IsSet() {
-		localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Filter.IsSet() {
+			localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -6740,17 +6767,19 @@ func (pService *DefaultApiService) V1DeleteQueueCollectionsGet(ctx context.Conte
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Filter.IsSet() {
-		localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Filter.IsSet() {
+			localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -7729,11 +7758,13 @@ func (pService *DefaultApiService) V1ObjectTypeObjectIdSharesGet(ctx context.Con
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastId.IsSet() {
-		localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastId.IsSet() {
+			localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -8100,11 +8131,13 @@ func (pService *DefaultApiService) V1ObjectTypeObjectIdSharesShareIdUsersGet(ctx
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastId.IsSet() {
-		localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastId.IsSet() {
+			localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing

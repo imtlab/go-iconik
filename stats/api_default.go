@@ -63,11 +63,13 @@ func (pService *DefaultApiService) V1AssetsByPeriodGet(ctx context.Context, peri
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.FromDate.IsSet() {
-		localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToDate.IsSet() {
-		localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.FromDate.IsSet() {
+			localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
+		}
+		if localVarOptionals.ToDate.IsSet() {
+			localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -795,17 +797,19 @@ func (pService *DefaultApiService) V1BillingGet(ctx context.Context, localVarOpt
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.FromDate.IsSet() {
-		localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToDate.IsSet() {
-		localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastId.IsSet() {
-		localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.FromDate.IsSet() {
+			localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
+		}
+		if localVarOptionals.ToDate.IsSet() {
+			localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastId.IsSet() {
+			localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -885,11 +889,13 @@ func (pService *DefaultApiService) V1BillingInvoicesGet(ctx context.Context, loc
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.StartingAfter.IsSet() {
-		localVarQueryParams.Add("starting_after", shared.ParameterToString(localVarOptionals.StartingAfter.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Limit.IsSet() {
-		localVarQueryParams.Add("limit", shared.ParameterToString(localVarOptionals.Limit.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.StartingAfter.IsSet() {
+			localVarQueryParams.Add("starting_after", shared.ParameterToString(localVarOptionals.StartingAfter.Value(), ""))
+		}
+		if localVarOptionals.Limit.IsSet() {
+			localVarQueryParams.Add("limit", shared.ParameterToString(localVarOptionals.Limit.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1444,11 +1450,13 @@ func (pService *DefaultApiService) V1CollectionsByPeriodGet(ctx context.Context,
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.FromDate.IsSet() {
-		localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToDate.IsSet() {
-		localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.FromDate.IsSet() {
+			localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
+		}
+		if localVarOptionals.ToDate.IsSet() {
+			localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1584,11 +1592,13 @@ func (pService *DefaultApiService) V1StorageAccessByPeriodGet(ctx context.Contex
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.FromDate.IsSet() {
-		localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToDate.IsSet() {
-		localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.FromDate.IsSet() {
+			localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
+		}
+		if localVarOptionals.ToDate.IsSet() {
+			localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1672,11 +1682,13 @@ func (pService *DefaultApiService) V1StorageUsageByPeriodGet(ctx context.Context
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.FromDate.IsSet() {
-		localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToDate.IsSet() {
-		localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.FromDate.IsSet() {
+			localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
+		}
+		if localVarOptionals.ToDate.IsSet() {
+			localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1760,11 +1772,13 @@ func (pService *DefaultApiService) V1TranscoderUsageByPeriodGet(ctx context.Cont
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.FromDate.IsSet() {
-		localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToDate.IsSet() {
-		localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.FromDate.IsSet() {
+			localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
+		}
+		if localVarOptionals.ToDate.IsSet() {
+			localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1850,14 +1864,16 @@ func (pService *DefaultApiService) V1UserAuditByPeriodGet(ctx context.Context, p
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.FromDate.IsSet() {
-		localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ToDate.IsSet() {
-		localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.SystemDomainId.IsSet() {
-		localVarQueryParams.Add("system_domain_id", shared.ParameterToString(localVarOptionals.SystemDomainId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.FromDate.IsSet() {
+			localVarQueryParams.Add("from_date", shared.ParameterToString(localVarOptionals.FromDate.Value(), ""))
+		}
+		if localVarOptionals.ToDate.IsSet() {
+			localVarQueryParams.Add("to_date", shared.ParameterToString(localVarOptionals.ToDate.Value(), ""))
+		}
+		if localVarOptionals.SystemDomainId.IsSet() {
+			localVarQueryParams.Add("system_domain_id", shared.ParameterToString(localVarOptionals.SystemDomainId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing

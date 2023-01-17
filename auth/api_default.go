@@ -558,11 +558,13 @@ func (pService *DefaultApiService) V1AppsGet(ctx context.Context, localVarOption
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastId.IsSet() {
-		localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastId.IsSet() {
+			localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1370,11 +1372,13 @@ func (pService *DefaultApiService) V1AuthSamlIdpGet(ctx context.Context, localVa
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastId.IsSet() {
-		localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastId.IsSet() {
+			localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -3180,11 +3184,13 @@ func (pService *DefaultApiService) V1SystemDomainsGet(ctx context.Context, local
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Statuses.IsSet() {
-		localVarQueryParams.Add("statuses", shared.ParameterToString(localVarOptionals.Statuses.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Statuses.IsSet() {
+			localVarQueryParams.Add("statuses", shared.ParameterToString(localVarOptionals.Statuses.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing

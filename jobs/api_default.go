@@ -140,47 +140,49 @@ func (pService *DefaultApiService) V1JobsGet(ctx context.Context, localVarOption
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Facets.IsSet() {
-		localVarQueryParams.Add("facets", shared.ParameterToString(localVarOptionals.Facets.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Type_.IsSet() {
-		localVarQueryParams.Add("type", shared.ParameterToString(localVarOptionals.Type_.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ObjectType.IsSet() {
-		localVarQueryParams.Add("object_type", shared.ParameterToString(localVarOptionals.ObjectType.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ParentId.IsSet() {
-		localVarQueryParams.Add("parent_id", shared.ParameterToString(localVarOptionals.ParentId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.ObjectId.IsSet() {
-		localVarQueryParams.Add("object_id", shared.ParameterToString(localVarOptionals.ObjectId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Status.IsSet() {
-		localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.CreatedBy.IsSet() {
-		localVarQueryParams.Add("created_by", shared.ParameterToString(localVarOptionals.CreatedBy.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateCreated.IsSet() {
-		localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.DateModified.IsSet() {
-		localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Query.IsSet() {
-		localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Ids.IsSet() {
-		localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.Facets.IsSet() {
+			localVarQueryParams.Add("facets", shared.ParameterToString(localVarOptionals.Facets.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Type_.IsSet() {
+			localVarQueryParams.Add("type", shared.ParameterToString(localVarOptionals.Type_.Value(), ""))
+		}
+		if localVarOptionals.ObjectType.IsSet() {
+			localVarQueryParams.Add("object_type", shared.ParameterToString(localVarOptionals.ObjectType.Value(), ""))
+		}
+		if localVarOptionals.ParentId.IsSet() {
+			localVarQueryParams.Add("parent_id", shared.ParameterToString(localVarOptionals.ParentId.Value(), ""))
+		}
+		if localVarOptionals.ObjectId.IsSet() {
+			localVarQueryParams.Add("object_id", shared.ParameterToString(localVarOptionals.ObjectId.Value(), ""))
+		}
+		if localVarOptionals.Status.IsSet() {
+			localVarQueryParams.Add("status", shared.ParameterToString(localVarOptionals.Status.Value(), ""))
+		}
+		if localVarOptionals.CreatedBy.IsSet() {
+			localVarQueryParams.Add("created_by", shared.ParameterToString(localVarOptionals.CreatedBy.Value(), ""))
+		}
+		if localVarOptionals.DateCreated.IsSet() {
+			localVarQueryParams.Add("date_created", shared.ParameterToString(localVarOptionals.DateCreated.Value(), ""))
+		}
+		if localVarOptionals.DateModified.IsSet() {
+			localVarQueryParams.Add("date_modified", shared.ParameterToString(localVarOptionals.DateModified.Value(), ""))
+		}
+		if localVarOptionals.Query.IsSet() {
+			localVarQueryParams.Add("query", shared.ParameterToString(localVarOptionals.Query.Value(), ""))
+		}
+		if localVarOptionals.Ids.IsSet() {
+			localVarQueryParams.Add("ids", shared.ParameterToString(localVarOptionals.Ids.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing

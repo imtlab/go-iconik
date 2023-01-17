@@ -641,14 +641,16 @@ func (pService *DefaultApiService) V1FieldsGet(ctx context.Context, localVarOpti
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastFieldName.IsSet() {
-		localVarQueryParams.Add("last_field_name", shared.ParameterToString(localVarOptionals.LastFieldName.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Filter.IsSet() {
-		localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastFieldName.IsSet() {
+			localVarQueryParams.Add("last_field_name", shared.ParameterToString(localVarOptionals.LastFieldName.Value(), ""))
+		}
+		if localVarOptionals.Filter.IsSet() {
+			localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1298,11 +1300,13 @@ func (pService *DefaultApiService) V1ObjectTypeCategoriesNameViewsGet(ctx contex
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.ExtOptions.IsSet() {
-		localVarQueryParams.Add("ext_options", shared.ParameterToString(localVarOptionals.ExtOptions.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.WritableOnly.IsSet() {
-		localVarQueryParams.Add("writable_only", shared.ParameterToString(localVarOptionals.WritableOnly.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.ExtOptions.IsSet() {
+			localVarQueryParams.Add("ext_options", shared.ParameterToString(localVarOptionals.ExtOptions.Value(), ""))
+		}
+		if localVarOptionals.WritableOnly.IsSet() {
+			localVarQueryParams.Add("writable_only", shared.ParameterToString(localVarOptionals.WritableOnly.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1947,17 +1951,19 @@ func (pService *DefaultApiService) V1ViewsGet(ctx context.Context, localVarOptio
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Filter.IsSet() {
-		localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
+		if localVarOptionals.Filter.IsSet() {
+			localVarQueryParams.Add("filter", shared.ParameterToString(localVarOptionals.Filter.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing

@@ -62,10 +62,9 @@ func (pService *DefaultApiService) V1AnalyzeAssetsAssetIdPost(ctx context.Contex
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(AnalyzeSchema)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be AnalyzeSchema")
+			return nil, fmt.Errorf("body should be AnalyzeSchema")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -131,10 +130,9 @@ func (pService *DefaultApiService) V1AnalyzeAssetsAssetIdProfilesDefaultMediaTyp
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(Body1)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be Body1")
+			return nil, fmt.Errorf("body should be Body1")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -199,10 +197,9 @@ func (pService *DefaultApiService) V1AnalyzeAssetsAssetIdProfilesDefaultPost(ctx
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(Body)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be Body")
+			return nil, fmt.Errorf("body should be Body")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -268,10 +265,9 @@ func (pService *DefaultApiService) V1AnalyzeAssetsAssetIdProfilesProfileIdPost(c
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(Body2)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be Body2")
+			return nil, fmt.Errorf("body should be Body2")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -335,10 +331,9 @@ func (pService *DefaultApiService) V1AnalyzeBulkPost(ctx context.Context, localV
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(BulkAnalyzeSchema)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be BulkAnalyzeSchema")
+			return nil, fmt.Errorf("body should be BulkAnalyzeSchema")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -874,10 +869,9 @@ func (pService *DefaultApiService) V1KeyframesCollectionsCollectionIdPost(ctx co
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(GenerateCollectionKeyframeSchema)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be GenerateCollectionKeyframeSchema")
+			return nil, fmt.Errorf("body should be GenerateCollectionKeyframeSchema")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -942,10 +936,9 @@ func (pService *DefaultApiService) V1StoragesStorageIdDelete(ctx context.Context
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(AbortStorageTranscodeJobsSchema)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be AbortStorageTranscodeJobsSchema")
+			return nil, fmt.Errorf("body should be AbortStorageTranscodeJobsSchema")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
@@ -1147,11 +1140,13 @@ func (pService *DefaultApiService) V1StoragesStorageIdTranscodeGet(ctx context.C
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.LastId.IsSet() {
-		localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.LastId.IsSet() {
+			localVarQueryParams.Add("last_id", shared.ParameterToString(localVarOptionals.LastId.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1437,14 +1432,16 @@ func (pService *DefaultApiService) V1TranscodeQueueGet(ctx context.Context, loca
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1531,17 +1528,19 @@ func (pService *DefaultApiService) V1TranscodeQueueSystemGet(ctx context.Context
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.PerDomainId.IsSet() {
-		localVarQueryParams.Add("per_domain_id", shared.ParameterToString(localVarOptionals.PerDomainId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.PerPage.IsSet() {
-		localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Page.IsSet() {
-		localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Sort.IsSet() {
-		localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+	if localVarOptionals != nil {
+		if localVarOptionals.PerDomainId.IsSet() {
+			localVarQueryParams.Add("per_domain_id", shared.ParameterToString(localVarOptionals.PerDomainId.Value(), ""))
+		}
+		if localVarOptionals.PerPage.IsSet() {
+			localVarQueryParams.Add("per_page", shared.ParameterToString(localVarOptionals.PerPage.Value(), ""))
+		}
+		if localVarOptionals.Page.IsSet() {
+			localVarQueryParams.Add("page", shared.ParameterToString(localVarOptionals.Page.Value(), ""))
+		}
+		if localVarOptionals.Sort.IsSet() {
+			localVarQueryParams.Add("sort", shared.ParameterToString(localVarOptionals.Sort.Value(), ""))
+		}
 	}
 
 //	shared.GetHttpContentTypeAndHeaderAccept([]string{}, []string{}, localVarHeaderParams)	//	does nothing
@@ -1854,10 +1853,9 @@ func (pService *DefaultApiService) V1TranscribeAssetsAssetIdProfilesDefaultPost(
 
 	// body params
 	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
-
 		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(TranscribeSchema)
 		if !localVarOptionalBodyok {
-				return nil, fmt.Errorf("body should be TranscribeSchema")
+			return nil, fmt.Errorf("body should be TranscribeSchema")
 		}
 		localVarPostBody = &localVarOptionalBody
 	}
