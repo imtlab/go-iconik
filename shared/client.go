@@ -332,6 +332,7 @@ func (p *APIClient) PrepareRequest(
 
 func (p *APIClient) Decode(v interface{}, b []byte, contentType string) (err error) {
 	if strings.Contains(contentType, "application/json") {
+//		fmt.Printf(`@@@ The raw JSON: %s`, string(b))			//\\//	DEBUG
 		if err = json.Unmarshal(b, v); err != nil {
 			return err
 		}

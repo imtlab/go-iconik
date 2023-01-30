@@ -1996,6 +1996,7 @@ func (pService *DefaultApiService) V1ViewsGet(ctx context.Context, localVarOptio
 			ErrorMsg: localVarHttpResponse.Status,
 		}
 
+		//	this can't happen: StatusCode >= 300
 		if localVarHttpResponse.StatusCode == 200 {
 			var v MetadataViewsSchema
 			err = pService.Client.Decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
