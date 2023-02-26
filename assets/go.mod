@@ -1,6 +1,6 @@
 module github.com/imtlab/go-iconik/assets
 
-go 1.18
+go 1.20
 
 require (
 	github.com/antihax/optional v1.0.0
