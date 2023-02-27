@@ -338,7 +338,7 @@ DefaultApiService Delete a particular field by name
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param fieldName
 */
-func (pService *DefaultApiService) V1FieldsFieldNameDelete(ctx context.Context, fieldName int32) (*http.Response, error) {
+func (pService *DefaultApiService) V1FieldsFieldNameDelete(ctx context.Context, fieldName string) (*http.Response, error) {
 	const localVarHttpMethod = "DELETE"
 
 	var (
